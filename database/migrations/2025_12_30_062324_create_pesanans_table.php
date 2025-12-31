@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('pesanans', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('produk_id')->constrained('produks')->onDelete('cascade');
+            $table->integer('jumlah');
+            $table->decimal('harga_satuan', 12, 2);
+            $table->decimal('total', 12, 2);
+            $table->string('status')->default('pending'); // pending, diproses, dikirim, selesai, dibatalkan
+            $table->text('catatan')->nullable();
+            
+            // Informasi pengiriman
+            $table->string('nama_penerima');
+            $table->string('no_hp', 20);
+            $table->text('alamat');
+            
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('pesanans');
+    }
+};
