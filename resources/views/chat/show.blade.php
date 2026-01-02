@@ -175,20 +175,51 @@
         setTimeout(scrollToBottom, 100);
     });
 
-    // Auto refresh every 10 seconds to get new messages
-    let lastMessageCount = {{ $messages->count() }};
-    setInterval(function() {
-        fetch(window.location.href)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newMessages = doc.querySelectorAll('.chat-bubble-enter');
-                
-                if (newMessages.length !== lastMessageCount) {
-                    location.reload();
-                }
-            });
-    }, 5000);
+    // 🔥 REAL-TIME CHAT DENGAN LARAVEL ECHO
+    const chatId = {{ $chat->id }};
+    const currentUserId = {{ Auth::id() }};
+    
+    // Subscribe ke private channel chat
+    window.Echo.private(`chat.${chatId}`)
+        .listen('.message.sent', (e) => {
+            console.log('🔥 New message received:', e);
+            
+            // Jangan tampilkan pesan dari diri sendiri (sudah ada di UI)
+            if (e.pengirim_id === currentUserId) return;
+            
+            // Buat elemen message bubble
+            const isSent = e.pengirim_id === currentUserId;
+            const messageHTML = `
+                <div class="flex ${isSent ? 'justify-end' : 'justify-start'} chat-bubble-enter">
+                    <div class="max-w-md md:max-w-xl">
+                        ${!isSent ? `<div class="text-xs font-medium text-gray-600 mb-1 ml-3">${e.pengirim_name}</div>` : ''}
+                        
+                        <div class="${isSent ? 'message-sent' : 'message-received'} px-5 py-3 shadow-md">
+                            <p class="break-words text-sm leading-relaxed">${e.pesan}</p>
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-1 ${isSent ? 'justify-end' : 'justify-start'} text-xs text-gray-500 px-3">
+                            <span>${e.created_at}</span>
+                            ${isSent ? (e.dibaca ? '<span class="text-blue-500">✓✓</span>' : '<span class="text-gray-400">✓</span>') : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Append ke container
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.insertAdjacentHTML('beforeend', messageHTML);
+            
+            // Auto scroll ke bawah
+            scrollToBottom();
+            
+            // Play notification sound (optional)
+            if (typeof Audio !== 'undefined') {
+                const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZijYIGmi78OScTgwOUKfj8LdjHAU6kdTzz38uBSh4yO/ekkAKFGC06eyrVBULSKDf8sB2IwUqftDy2I42CRlqvu/mnEsMEVO06+ypWRQLTKLh8sF4JAUngM/y14s3BxlqvO3mnksLEVG26+uoWhMMTaPi88N5JAYnf87y14w3CBlpvO3mnUsMEVCz7OuoWxQLS6Xh88N5JAYmfs/y14w2BxpovO7mnUoLEU+06uyoWhQLSqLh88N5JAUnfsvy14w2BxlovO3mnksLEVG06uyoWhQLSaLh88N5JAUmfczy14s2BxtovO3mnEoLEk+z6+ymWhQMSqLh88N5JAYmfsvy14w1CBtovO3lnUoLE0+z6+2mWBULSaLi88N4JAYlfsvy14s1CBxovO3lnUoLE0606uyoWhQLSaLi88N4JAYlfsvy14s1CBxou+zmnUoLEk606uynWhQLSKPj88N4JAYlfsvy14s1CBxouuzmnkoLEk606uynWhQLSKPi9MN4JAUlf8zy14s1CBxnuuzmnkoLEk606uynWhQKSKPi9MN4JAUlf8zy14o1CBxnu+zmnUoLE0606uymWhQKSKPi88N4JAYlf8zy14s1CBxnu+zmnUoLE0606uymWhQKSKPi88R4JAUlf8zy14s1CBxnu+zmm0oLE0606+ymWhQKSKPi88R4JAUkgMzy14s1CBxnu+zmm0oLE0606+ymWhQKSKPi88R4JAUkgMzy14s1CBxnu+zmm0oLE0606+ymWhQKSKPi88R4JAUkgMzy14s1BxxpvOvlm0sLE0246+2lWBUKSKPi88R4JAUkgMzy14s1Bxtouu7km0sLE0255eymWhUKSKPi88N4JAYkgMzy14o1BxtpvOvlm0sLE0246+2lWhUKSKPi88N4JAYkgMzy14o1BxtpvOvlm0sLE0246+2lWhUKSKPi88N4JAYkf8zy14s1Bxppve3lm0sLE0245+2mWhUKR6Pj88N4JAUkf8zy14s1Bxpovezlm0sLE024'
+                );
+                audio.volume = 0.3;
+                audio.play().catch(() => {}); // Ignore autoplay errors
+            }
+        });
 </script>
 @endsection

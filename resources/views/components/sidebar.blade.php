@@ -47,8 +47,9 @@
             </div>
 
             <a href="{{ route('notifikasi.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                🔔 Notifikasi
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 relative">
+                <span>🔔 Notifikasi</span>
+                <span id="notif-badge-admin" class="hidden absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"></span>
             </a>
 
             <a href="{{ route('chat.index') }}"
@@ -70,6 +71,11 @@
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
                 ✅ Approval Penjual
             </a>
+
+            <a href="{{ route('produk.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                📦 Produk
+            </a>
         @endif
 
         {{-- ================= PENJUAL ================= --}}
@@ -79,8 +85,9 @@
             </div>
 
             <a href="{{ route('notifikasi.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                🔔 Notifikasi
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 relative">
+                <span>🔔 Notifikasi</span>
+                <span id="notif-badge-penjual" class="hidden absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"></span>
             </a>
 
             <a href="{{ route('chat.index') }}"

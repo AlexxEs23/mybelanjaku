@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Chat;
 use App\Models\PesanChat;
 use App\Models\Notifikasi;
+use App\Events\MessageSent;
+use App\Events\NotificationSent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -110,6 +112,9 @@ class ChatController extends Controller
                 'dibaca' => false
             ]);
             
+            // 🔥 BROADCAST EVENT REAL-TIME
+            broadcast(new MessageSent($pesanChat))->toOthers();
+            
             // Update timestamp chat
             $chat->touch();
             
@@ -129,7 +134,7 @@ class ChatController extends Controller
             
             // ✅ KIRIM NOTIFIKASI KE PENERIMA
             if ($penerima) {
-                Notifikasi::create([
+                $notification = Notifikasi::create([
                     'user_id' => $penerima->id,
                     'judul' => 'Pesan Baru dari ' . $senderRole,
                     'pesan' => $user->name . ': ' . \Illuminate\Support\Str::limit($request->pesan, 50),
@@ -138,6 +143,9 @@ class ChatController extends Controller
                     'link' => route('chat.show', $chat->id),
                     'dibaca' => false
                 ]);
+                
+                // 🔥 BROADCAST NOTIFICATION REAL-TIME
+                broadcast(new NotificationSent($notification))->toOthers();
             }
             
             return redirect()->back()->with('success', 'Pesan berhasil dikirim');

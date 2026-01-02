@@ -138,7 +138,98 @@
                 });
             });
         });
+
+        // 🔥 REAL-TIME NOTIFICATION LISTENER
+        document.addEventListener('DOMContentLoaded', function() {
+            const userId = {{ Auth::id() }};
+            const userRole = '{{ Auth::user()->role }}';
+
+            if (window.Echo) {
+                console.log('🔥 Listening to notifications for user:', userId);
+
+                // Subscribe to user's private notification channel
+                window.Echo.private(`user.${userId}`)
+                    .listen('.notification.sent', (e) => {
+                        console.log('🔔 New notification received:', e);
+
+                        // Update badge
+                        const badgeId = userRole === 'admin' ? 'notif-badge-admin' : 'notif-badge-penjual';
+                        const badge = document.getElementById(badgeId);
+                        
+                        if (badge) {
+                            // Fetch current count
+                            fetch('{{ route("notifikasi.index") }}')
+                                .then(response => response.text())
+                                .then(html => {
+                                    const parser = new DOMParser();
+                                    const doc = parser.parseFromString(html, 'text/html');
+                                    const unreadCount = doc.querySelectorAll('.bg-blue-50').length;
+                                    
+                                    if (unreadCount > 0) {
+                                        badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                                        badge.classList.remove('hidden');
+                                    }
+                                });
+                        }
+
+                        // Show browser notification
+                        if ('Notification' in window && Notification.permission === 'granted') {
+                            new Notification(e.judul, {
+                                body: e.pesan,
+                                icon: '/favicon.ico',
+                                tag: 'notification-' + e.id
+                            });
+                        }
+
+                        // Optional: Show toast notification in UI
+                        showToast(e.judul, e.pesan);
+                    });
+            }
+
+            // Simple toast notification function
+            function showToast(title, message) {
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-24 right-4 bg-purple-600 text-white px-6 py-4 rounded-xl shadow-2xl z-50 max-w-sm animate-slide-in';
+                toast.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <span class="text-2xl">🔔</span>
+                        <div class="flex-1">
+                            <p class="font-bold mb-1">${title}</p>
+                            <p class="text-sm text-purple-100">${message}</p>
+                        </div>
+                        <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-purple-200">
+                            ✕
+                        </button>
+                    </div>
+                `;
+                
+                document.body.appendChild(toast);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transform = 'translateX(100%)';
+                    setTimeout(() => toast.remove(), 300);
+                }, 5000);
+            }
+        });
     </script>
+
+    <style>
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .animate-slide-in {
+            animation: slide-in 0.3s ease-out;
+        }
+    </style>
 
 </body>
 </html>
