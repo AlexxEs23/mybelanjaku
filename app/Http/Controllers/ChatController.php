@@ -24,14 +24,14 @@ class ChatController extends Controller
             $chats = Chat::with(['penjual', 'pesanan.produk', 'lastMessage'])
                 ->where('admin_id', $user->id)
                 ->orderBy('updated_at', 'desc')
-                ->get();
+                ->paginate(20);
                 
         } elseif ($user->role === 'penjual') {
             // Penjual melihat chat yang dia ikuti
             $chats = Chat::with(['admin', 'pesanan.produk', 'lastMessage'])
                 ->where('penjual_id', $user->id)
                 ->orderBy('updated_at', 'desc')
-                ->get();
+                ->paginate(20);
                 
         } else {
             return redirect()->back()->with('error', 'Akses ditolak. Fitur chat hanya untuk admin dan penjual');

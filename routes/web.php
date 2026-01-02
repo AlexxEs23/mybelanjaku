@@ -12,9 +12,6 @@ use App\Http\Controllers\Admin\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Public Produk Detail - accessible by everyone (SEO-friendly slug)
-Route::get('/produk/{slug}', [HomeController::class, 'showProduk'])->name('produk.detail');
-
 // WhatsApp Checkout - can be accessed by guest or auth users
 Route::get('/whatsapp-checkout/{id}', [App\Http\Controllers\WhatsAppCheckoutController::class, 'show'])->name('whatsapp.checkout.show');
 Route::post('/whatsapp-checkout', [App\Http\Controllers\WhatsAppCheckoutController::class, 'checkout'])->name('whatsapp.checkout');
@@ -108,6 +105,7 @@ Route::middleware('auth')->group(function () {
         
         // Pesanan Management for Penjual
         Route::get('/penjual/pesanan', [App\Http\Controllers\PesananController::class, 'penjualIndex'])->name('penjual.pesanan.index');
+        Route::get('/penjual/pesanan/{id}/resi', [App\Http\Controllers\PesananController::class, 'showResiForm'])->name('penjual.pesanan.resi-form');
         Route::put('/penjual/pesanan/{id}/kirim', [App\Http\Controllers\PesananController::class, 'updateStatusByPenjual'])->name('penjual.pesanan.kirim');
     });
     
@@ -115,3 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pembeli/dashboard', [App\Http\Controllers\PembeliController::class, 'dashboard'])->name('pembeli.dashboard');
     Route::get('/pembeli/pesanan', [App\Http\Controllers\PembeliController::class, 'pesanan'])->name('pembeli.pesanan.index');
 });
+
+// Public Produk Detail - accessible by everyone (SEO-friendly slug)
+// PENTING: Route ini harus di paling bawah agar tidak menangkap route lain seperti /produk/create
+Route::get('/produk/{slug}', [HomeController::class, 'showProduk'])->name('produk.detail');

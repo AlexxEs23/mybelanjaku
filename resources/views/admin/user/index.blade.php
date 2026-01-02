@@ -1,71 +1,94 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen User - Admin Panel</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100">
-    
-    <!-- Navbar -->
-    <nav class="bg-gradient-to-r from-purple-600 to-purple-800 text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center gap-3">
-                    <span class="text-2xl">👤</span>
-                    <h1 class="text-xl font-bold">Admin Panel - Manajemen User</h1>
-                </div>
-                <div class="flex items-center gap-4">
-                    <a href="{{ route('dashboard') }}" class="px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">
-                        🏠 Dashboard
-                    </a>
-                    <span>{{ Auth::user()->name }}</span>
-                    <form method="POST" action="{{ route('logout') }}" class="inline">
-                        @csrf
-                        <button type="submit" class="px-4 py-2 bg-red-500 rounded-lg hover:bg-red-600 transition">
-                            Keluar
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
+@extends('layouts.dashboard')
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- Alert Messages -->
-        @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex justify-between items-center">
-            <span>✅ {{ session('success') }}</span>
-            <button onclick="this.parentElement.remove()" class="text-green-700 font-bold">×</button>
+@section('content')
+<div class="max-w-7xl mx-auto">
+    <!-- Alert Messages -->
+    @if(session('success'))
+    <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-xl mb-6 shadow-sm">
+        <div class="flex items-center gap-2">
+            <span class="text-xl">✅</span>
+            <p class="font-medium text-green-700">{{ session('success') }}</p>
         </div>
-        @endif
+    </div>
+    @endif
 
-        @if(session('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex justify-between items-center">
-            <span>❌ {{ session('error') }}</span>
-            <button onclick="this.parentElement.remove()" class="text-red-700 font-bold">×</button>
+    @if(session('error'))
+    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-xl mb-6 shadow-sm">
+        <div class="flex items-center gap-2">
+            <span class="text-xl">❌</span>
+            <p class="font-medium text-red-700">{{ session('error') }}</p>
         </div>
-        @endif
+    </div>
+    @endif
 
-        <!-- Header -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <div class="flex justify-between items-center">
+    <!-- Header Card -->
+    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-xl p-8 mb-6 text-white relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10">
+            <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+            </svg>
+        </div>
+        <div class="relative z-10">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
-                    <h2 class="text-2xl font-bold text-gray-800">Daftar User</h2>
-                    <p class="text-gray-600 mt-1">Kelola semua pengguna sistem</p>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="text-4xl">👥</span>
+                        <h2 class="text-3xl font-bold">Manajemen User</h2>
+                    </div>
+                    <p class="text-blue-100">Kelola semua pengguna sistem dengan mudah</p>
                 </div>
-                <a href="{{ route('admin.users.create') }}" class="px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-lg hover:shadow-lg transition font-medium">
-                    ➕ Tambah User Baru
+                <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 rounded-xl hover:bg-blue-50 transition font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                    <span>➕</span>
+                    <span>Tambah User Baru</span>
                 </a>
             </div>
         </div>
+    </div>
 
-        <!-- User Table -->
-        <div class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="min-w-full divide-y divide-gray-200">
+    <!-- Statistics Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-purple-100 text-sm mb-1">Total User</p>
+                    <p class="text-3xl font-bold">{{ $users->total() }}</p>
+                </div>
+                <div class="text-5xl opacity-80">👥</div>
+            </div>
+        </div>
+        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-red-100 text-sm mb-1">Admin</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'admin')->count() }}</p>
+                </div>
+                <div class="text-5xl opacity-80">👑</div>
+            </div>
+        </div>
+        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-blue-100 text-sm mb-1">Penjual</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'penjual')->count() }}</p>
+                </div>
+                <div class="text-5xl opacity-80">🏪</div>
+            </div>
+        </div>
+        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-green-100 text-sm mb-1">Pembeli</p>
+                    <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'pembeli')->count() }}</p>
+                </div>
+                <div class="text-5xl opacity-80">🛒</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Table -->
+    <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
@@ -153,58 +176,15 @@
                         </tr>
                         @endforelse
                     </tbody>
-                </table>
-            </div>
-
-            <!-- Pagination -->
-            @if($users->hasPages())
-            <div class="bg-white px-4 py-3 border-t border-gray-200 sm:px-6">
-                {{ $users->links() }}
-            </div>
-            @endif
+            </table>
         </div>
 
-        <!-- Statistics -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm">Total User</p>
-                        <p class="text-3xl font-bold text-gray-800">{{ $users->total() }}</p>
-                    </div>
-                    <div class="text-4xl">👥</div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm">Admin</p>
-                        <p class="text-3xl font-bold text-red-600">{{ \App\Models\User::where('role', 'admin')->count() }}</p>
-                    </div>
-                    <div class="text-4xl">👑</div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm">Penjual</p>
-                        <p class="text-3xl font-bold text-blue-600">{{ \App\Models\User::where('role', 'penjual')->count() }}</p>
-                    </div>
-                    <div class="text-4xl">🏪</div>
-                </div>
-            </div>
-            <div class="bg-white rounded-lg shadow-md p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm">Pembeli</p>
-                        <p class="text-3xl font-bold text-green-600">{{ \App\Models\User::where('role', 'pembeli')->count() }}</p>
-                    </div>
-                    <div class="text-4xl">🛒</div>
-                </div>
-            </div>
+        <!-- Pagination -->
+        @if($users->hasPages())
+        <div class="bg-gray-50 px-6 py-4 border-t border-gray-200">
+            {{ $users->links() }}
         </div>
-
+        @endif
     </div>
-
-</body>
-</html>
+</div>
+@endsection

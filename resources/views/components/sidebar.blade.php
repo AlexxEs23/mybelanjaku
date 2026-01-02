@@ -1,5 +1,8 @@
+<!-- Overlay -->
+<div id="sidebar-overlay" class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30 hidden transition-opacity duration-300"></div>
+
 <!-- Sidebar -->
-<div class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white h-screen fixed left-0 top-0 overflow-y-auto pb-6">
+<div id="sidebar" class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white h-screen fixed left-0 top-0 overflow-y-auto pb-6 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl">
 
     <!-- Logo & Brand -->
     <div class="p-6 border-b border-purple-700">
@@ -53,9 +56,19 @@
                 💬 Chat
             </a>
 
+            <a href="{{ route('admin.pesanan.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                🛍️ Pesanan
+            </a>
+
             <a href="{{ route('admin.users.index') }}"
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
                 👥 Pengguna
+            </a>
+
+            <a href="{{ route('admin.seller.approval') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                ✅ Approval Penjual
             </a>
         @endif
 
@@ -64,6 +77,16 @@
             <div class="pt-4 text-xs uppercase text-purple-300">
                 Penjual Menu
             </div>
+
+            <a href="{{ route('notifikasi.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                🔔 Notifikasi
+            </a>
+
+            <a href="{{ route('chat.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                💬 Chat
+            </a>
 
             <a href="{{ route('produk.index') }}"
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">

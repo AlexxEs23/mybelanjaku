@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - UMKM Marketplace</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
+@extends('layouts.dashboard')
+
+@section('content')
   <script type="module">
         // 1. Import Firebase SDK (versi 10.7.1)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -135,17 +130,39 @@
             }
         });
     </script>
-<body class="bg-gray-100 min-h-screen">
-    @include('components.sidebar')
+<!-- Hero Header -->
+<div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl p-8 mb-8 text-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 opacity-10">
+        <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+        </svg>
+    </div>
+    <div class="relative z-10">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="text-5xl">👑</span>
+            <div>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2">Dashboard Administrator</h1>
+                <p class="text-purple-100">Selamat datang kembali, {{ Auth::user()->name }}!</p>
+            </div>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-4">
+            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <p class="text-sm text-purple-100">Waktu Akses</p>
+                <p class="font-semibold">{{ now()->format('d M Y, H:i') }}</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg">
+                <p class="text-sm text-purple-100">Status Sistem</p>
+                <p class="font-semibold flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                    Online
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="ml-64 p-8">
-        <header class="bg-white rounded-xl shadow-lg p-8 mb-8">
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Dashboard Administrator</h1>
-            <p class="text-gray-600">Kelola seluruh sistem UMKM Market dari sini</p>
-        </header>
-
-        {{-- Stats Cards --}}
-        <section class="mb-8" aria-label="Statistik Ringkasan">
+{{-- Stats Cards --}}
+<section class="mb-8" aria-label="Statistik Ringkasan">
     <div class="grid md:grid-cols-4 gap-6">
         <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white">
             <div class="flex justify-between items-start mb-4">
@@ -250,13 +267,16 @@
             </div>
         </section>
 
-        {{-- Recent Activity --}}
-        <section class="bg-white rounded-xl shadow-lg p-8" aria-label="Aktivitas Terbaru">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Aktivitas Terbaru</h2>
-            <div class="text-center py-12">
-                <p class="text-gray-500">Belum ada aktivitas terbaru</p>
-            </div>
-        </section>
+{{-- Recent Activity --}}
+<section class="bg-white rounded-xl shadow-lg p-8" aria-label="Aktivitas Terbaru">
+    <div class="flex items-center gap-3 mb-6">
+        <span class="text-3xl">📊</span>
+        <h2 class="text-2xl font-bold text-gray-800">Aktivitas Terbaru</h2>
     </div>
-</body>
-</html>
+    <div class="text-center py-12">
+        <div class="text-6xl mb-4">📈</div>
+        <p class="text-gray-500 text-lg">Belum ada aktivitas terbaru</p>
+        <p class="text-gray-400 text-sm mt-2">Log aktivitas akan muncul di sini</p>
+    </div>
+</section>
+@endsection

@@ -9,11 +9,22 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100">
+<body class="bg-gray-100 overflow-x-hidden">
+
+    <!-- Mobile Header dengan Menu Button -->
+    <header class="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-20 px-4 py-3 flex items-center justify-between">
+        <button id="mobile-menu-btn" class="text-purple-800 p-2 hover:bg-purple-50 rounded-lg transition">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+        <h1 class="text-lg font-bold text-purple-800">UMKM Market</h1>
+        <div class="w-10"></div> <!-- Spacer for center alignment -->
+    </header>
 
     @include('components.sidebar')
 
-    <main class="ml-64 p-6">
+    <main class="lg:ml-64 p-4 md:p-6 pt-20 lg:pt-6 min-h-screen overflow-x-hidden">
         @yield('content')
     </main>
 
@@ -94,6 +105,38 @@
             } else {
                 console.error('❌ Button tidak ditemukan!');
             }
+        });
+    </script>
+
+    <script>
+        // Sidebar Toggle untuk Mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            function toggleSidebar() {
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            }
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleSidebar);
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', toggleSidebar);
+            }
+            
+            // Close sidebar when clicking a link on mobile
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        toggleSidebar();
+                    }
+                });
+            });
         });
     </script>
 
