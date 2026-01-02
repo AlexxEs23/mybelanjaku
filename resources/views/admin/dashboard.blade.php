@@ -29,7 +29,7 @@
         const messaging = getMessaging(app);
 
         // 4. Fungsi untuk Request Permission dan Get Token (dipanggil saat tombol diklik)
-        window.enableNotifications = async function() {
+        window = async function() {
             const button = document.getElementById('enable-notif-btn');
             const statusText = document.getElementById('notif-status');
             
@@ -58,7 +58,6 @@
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
                             },
                             body: JSON.stringify({ fcm_token: token })
                         });

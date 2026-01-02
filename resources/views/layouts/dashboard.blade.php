@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- WAJIB -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dashboard</title>
@@ -19,118 +17,52 @@
         @yield('content')
     </main>
 
-    <!-- 🔥 FIREBASE FCM (SATU-SATUNYA SCRIPT) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js";
 
-        // =============================
-        // CONFIG
-        // =============================
         const firebaseConfig = {
             apiKey: "AIzaSyCMKwa144N9ve0JnxmNv4wGKSrIB8zkA2A",
             authDomain: "ecommerceumkm-4dbc3.firebaseapp.com",
             projectId: "ecommerceumkm-4dbc3",
             messagingSenderId: "638039749336",
-            appId: "1:638039749336:web:53276b6703f8dfc842ddad",
+            appId: "1:638039749336:web:53276b6703f8dfc842ddad"
         };
 
         const VAPID_KEY = "BOwt2zTQ2vDTYlfG7dL9RxNPNKFIgeTWMfPRxwelU0b-6LN6S1F8xAiw0dde-8YKG696R7P24cQIxfsjjmYxnms";
 
-        // =============================
-        // INIT
-        // =============================
         const app = initializeApp(firebaseConfig);
         const messaging = getMessaging(app);
 
-       window.enableNotifications = async () => {
-    try {
-        const permission = await Notification.requestPermission();
-        if (permission !== 'granted') {
-            alert('❌ Notifikasi ditolak');
-            return;
-        }
-
-        // Register Service Worker
-        const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-
-        // ⛔ PENTING: jika SW belum active, TUNGGU controllerchange
-        if (!navigator.serviceWorker.controller) {
-            console.log('⏳ SW belum active, reload 1x...');
-            alert('🔄 Sistem akan reload 1x untuk aktivasi notifikasi');
-            window.location.reload();
-            return;
-        }
-
-        // Tunggu benar-benar ready
-        const readyRegistration = await navigator.serviceWorker.ready;
-
-        const token = await getToken(messaging, {
-            vapidKey: VAPID_KEY,
-            serviceWorkerRegistration: readyRegistration
-        });
-
-        if (!token) {
-            alert('❌ Token tidak didapat');
-            return;
-        }
-
-        console.log('🔥 FCM TOKEN:', token);
-
-        await fetch('/save-fcm-token', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]')
-                    .getAttribute('content')
-            },
-            body: JSON.stringify({ fcm_token: token })
-        });
-
-        alert('✅ Notifikasi berhasil diaktifkan');
-
-    } catch (error) {
-        console.error(error);
-        alert('❌ Gagal mengaktifkan notifikasi');
-    }
-};
-
+        // FUNGSI INTERNAL DI MODULE
+        async function enableNotifications() {
             try {
-                // 1️⃣ Request permission
+                console.log('🔔 Meminta izin notifikasi...');
+                
                 const permission = await Notification.requestPermission();
                 if (permission !== 'granted') {
                     alert('❌ Notifikasi ditolak');
                     return;
                 }
 
-                // 2️⃣ Register SW
+                console.log('✅ Izin diberikan, registrasi service worker...');
                 const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
+                
+                console.log('⏳ Menunggu service worker siap...');
+                await navigator.serviceWorker.ready;
 
-                // 3️⃣ TUNGGU SAMPAI BENAR-BENAR ACTIVE
-                const readyRegistration = await navigator.serviceWorker.ready;
-
-                if (!readyRegistration.active) {
-                    alert('❌ Service Worker belum aktif');
-                    return;
-                }
-
-                console.log('✅ SW ACTIVE:', readyRegistration.active);
-
-                // 4️⃣ Ambil token
+                console.log('🔑 Mendapatkan FCM token...');
                 const token = await getToken(messaging, {
                     vapidKey: VAPID_KEY,
-                    serviceWorkerRegistration: readyRegistration
+                    serviceWorkerRegistration: registration
                 });
 
                 if (!token) {
-                    alert('❌ Token FCM tidak didapat');
-                    return;
+                    throw new Error('Token FCM kosong');
                 }
 
-                console.log('🔥 FCM TOKEN:', token);
+                console.log('🔥 FCM Token:', token);
 
-                // 5️⃣ Kirim ke backend
                 await fetch('/save-fcm-token', {
                     method: 'POST',
                     headers: {
@@ -140,13 +72,29 @@
                     body: JSON.stringify({ fcm_token: token })
                 });
 
-                alert('✅ Notifikasi berhasil diaktifkan');
+                const statusEl = document.getElementById('notif-status');
+                if (statusEl) {
+                    statusEl.innerText = '✅ Notifikasi aktif';
+                }
 
-            } catch (error) {
-                console.error(error);
-                alert('❌ Gagal mengaktifkan notifikasi');
+                alert('✅ Notifikasi berhasil diaktifkan!');
+
+            } catch (e) {
+                console.error('❌ Error:', e);
+                alert('❌ Gagal mengaktifkan notifikasi: ' + e.message);
             }
-        };
+        }
+
+        // ATTACH EVENT LISTENER KE BUTTON
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('enable-notif-btn');
+            if (btn) {
+                btn.addEventListener('click', enableNotifications);
+                console.log('✅ Event listener terpasang ke button');
+            } else {
+                console.error('❌ Button tidak ditemukan!');
+            }
+        });
     </script>
 
 </body>

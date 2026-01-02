@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Masuk - Penjual</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-100 min-h-screen">
-    @include('components.sidebar')
+@extends('layouts.dashboard')
 
-    <div class="ml-64 p-8">
-        <div class="bg-white rounded-xl shadow-lg p-8">
+@section('content')
+    <div class="bg-white rounded-xl shadow-lg p-8">
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h2 class="text-3xl font-bold text-gray-800">🛍️ Pesanan Masuk</h2>
@@ -301,6 +292,6 @@
             @endforelse
 >>>>>>> 5853d8b8a2aaca5bd65654069268449123eb8540
         </div>
+        </div>
     </div>
-</body>
-</html>
+@endsection
