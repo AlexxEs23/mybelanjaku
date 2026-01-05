@@ -35,9 +35,9 @@
                                 </div>
                                 <span class="px-3 py-1 rounded-full text-xs font-semibold
                                     @if($item->status == 'pending') bg-yellow-100 text-yellow-800
-                                    @elseif($item->status == 'di proses') bg-blue-100 text-blue-800
-                                    @elseif($item->status == 'di kirim') bg-purple-100 text-purple-800
-                                    @elseif($item->status == 'di terima') bg-green-100 text-green-800
+                                    @elseif(in_array($item->status, ['diproses', 'di proses'])) bg-blue-100 text-blue-800
+                                    @elseif(in_array($item->status, ['dikirim', 'di kirim'])) bg-purple-100 text-purple-800
+                                    @elseif(in_array($item->status, ['selesai', 'di terima', 'diterima'])) bg-green-100 text-green-800
                                     @else bg-red-100 text-red-800
                                     @endif">
                                     {{ ucfirst($item->status) }}
@@ -71,13 +71,20 @@
                                 </div>
 
                                 <!-- Action Button -->
-                                @if($item->status == 'di kirim')
+                                @if(in_array($item->status, ['dikirim', 'di kirim']))
                                     <div class="mt-4 pt-4 border-t border-gray-100">
+                                        @if($item->resi)
+                                            <div class="mb-3 bg-purple-50 border border-purple-200 rounded-lg p-3">
+                                                <p class="text-sm text-purple-800">
+                                                    <span class="font-semibold">📦 Nomor Resi:</span> {{ $item->resi }}
+                                                </p>
+                                            </div>
+                                        @endif
                                         <form action="{{ route('pembeli.pesanan.terima', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin sudah menerima pesanan ini?')">
                                             @csrf
                                             @method('PUT')
                                             <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition duration-200">
-                                                Pesanan Diterima
+                                                ✅ Konfirmasi Pesanan Diterima
                                             </button>
                                         </form>
                                     </div>

@@ -112,6 +112,7 @@ Route::middleware('auth')->group(function () {
     // Pembeli Dashboard Routes
     Route::get('/pembeli/dashboard', [App\Http\Controllers\PembeliController::class, 'dashboard'])->name('pembeli.dashboard');
     Route::get('/pembeli/pesanan', [App\Http\Controllers\PembeliController::class, 'pesanan'])->name('pembeli.pesanan.index');
+    Route::put('/pembeli/pesanan/{id}/terima', [App\Http\Controllers\PesananController::class, 'updateStatusByPembeli'])->name('pembeli.pesanan.terima');
     
     // Rating Routes - hanya untuk user yang sudah login
     Route::prefix('ratings')->name('ratings.')->group(function () {

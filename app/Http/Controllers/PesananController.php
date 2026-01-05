@@ -106,7 +106,7 @@ class PesananController extends Controller
     }
 
     /**
-     * Update status by Pembeli (to 'di terima')
+     * Update status by Pembeli (to 'selesai')
      */
     public function updateStatusByPembeli($id)
     {
@@ -117,9 +117,9 @@ class PesananController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pesanan ini');
         }
 
-        $pesanan->status = 'di terima';
+        $pesanan->status = 'selesai';
         $pesanan->save();
 
-        return redirect()->back()->with('success', 'Status pesanan berhasil diubah menjadi Di Terima');
+        return redirect()->back()->with('success', 'Terima kasih! Pesanan berhasil dikonfirmasi sebagai diterima.');
     }
 }

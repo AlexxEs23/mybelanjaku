@@ -18,7 +18,8 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->decimal('harga_satuan', 12, 2);
             $table->decimal('total', 12, 2);
-            $table->string('status')->default('pending'); // pending, diproses, dikirim, selesai, dibatalkan
+            $table->enum('status', ['pending', 'diproses', 'dikirim', 'selesai', 'dibatalkan'])->default('pending');
+            $table->string('resi', 100)->nullable(); // Nomor resi pengiriman
             $table->text('catatan')->nullable();
             
             // Informasi pengiriman
