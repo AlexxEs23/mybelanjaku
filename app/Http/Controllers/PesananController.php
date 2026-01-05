@@ -61,10 +61,35 @@ class PesananController extends Controller
     }
 
     /**
-     * Update status by Penjual (to 'di kirim')
+     * Show form for seller to input resi number
      */
-    public function updateStatusByPenjual($id)
+    public function showResiForm($id)
     {
+        $pesanan = Pesanan::with(['produk', 'user'])->findOrFail($id);
+        
+        // Check if this order belongs to seller's product
+        if ($pesanan->produk->user_id !== Auth::id()) {
+            abort(403, 'Anda tidak memiliki akses ke pesanan ini');
+        }
+
+        // Check if order status is 'diproses' or 'di proses'
+        if (!in_array($pesanan->status, ['diproses', 'di proses'])) {
+            return redirect()->route('penjual.pesanan.index')
+                ->with('error', 'Pesanan ini tidak dapat diproses. Status: ' . $pesanan->status);
+        }
+
+        return view('penjual.pesanan.resi-form', compact('pesanan'));
+    }
+
+    /**
+     * Update status by Penjual (to 'dikirim') with resi number
+     */
+    public function updateStatusByPenjual(Request $request, $id)
+    {
+        $request->validate([
+            'resi' => 'required|string|max:100',
+        ]);
+
         $pesanan = Pesanan::findOrFail($id);
         
         // Check if this order belongs to seller's product
@@ -72,10 +97,12 @@ class PesananController extends Controller
             return redirect()->back()->with('error', 'Anda tidak memiliki akses ke pesanan ini');
         }
 
-        $pesanan->status = 'di kirim';
+        $pesanan->status = 'dikirim';
+        $pesanan->resi = $request->resi;
         $pesanan->save();
 
-        return redirect()->back()->with('success', 'Status pesanan berhasil diubah menjadi Di Kirim');
+        return redirect()->route('penjual.pesanan.index')
+            ->with('success', 'Pesanan berhasil dikirim dengan nomor resi: ' . $request->resi);
     }
 
     /**

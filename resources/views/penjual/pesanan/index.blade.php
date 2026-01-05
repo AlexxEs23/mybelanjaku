@@ -42,7 +42,7 @@
                                 <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white shadow-md">
                                     ⏳ Pending
                                 </span>
-                            @elseif($item->status === 'di proses')
+                            @elseif($item->status === 'diproses' || $item->status === 'di proses')
                                 <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-md">
                                     🔄 Di Proses
                                 </span>
@@ -96,7 +96,7 @@
                                 </div>
                             @endif
 
-                            @if($item->status === 'di proses')
+                            @if($item->status === 'diproses' || $item->status === 'di proses')
                                 <div class="mt-4 pt-4 border-t border-gray-200 flex gap-3">
                                     <a href="{{ route('penjual.pesanan.resi-form', $item->id) }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                                         <span>📦</span>
@@ -109,7 +109,7 @@
                                         <span>⏳</span> Menunggu admin memproses pesanan
                                     </p>
                                 </div>
-                            @elseif($item->status === 'di kirim')
+                            @elseif($item->status === 'dikirim' || $item->status === 'di kirim')
                                 <div class="mt-4 pt-4 border-t border-gray-200">
                                     <p class="text-sm text-purple-600 font-medium flex items-center gap-2">
                                         <span>🚚</span> Menunggu pembeli mengkonfirmasi penerimaan
@@ -120,7 +120,7 @@
                                         </div>
                                     @endif
                                 </div>
-                            @elseif($item->status === 'di terima')
+                            @elseif($item->status === 'diterima' || $item->status === 'di terima' || $item->status === 'selesai')
                                 <div class="mt-4 pt-4 border-t border-gray-200">
                                     <p class="text-sm text-green-600 font-bold flex items-center gap-2">
                                         <span>✅</span> Pesanan telah diterima pembeli

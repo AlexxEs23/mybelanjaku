@@ -7,6 +7,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class RatingController extends Controller
 {
@@ -15,18 +16,21 @@ class RatingController extends Controller
      */
     public function store(Request $request, Produk $produk)
     {
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        
         // 1. VALIDASI: User harus login sebagai USER (bukan admin/penjual)
-        if (Auth::user()->role !== 'user') {
+        if ($user->role !== 'user') {
             return back()->with('error', 'Hanya pembeli yang dapat memberikan rating.');
         }
 
         // 2. VALIDASI: User harus sudah membeli produk ini
-        if (!Auth::user()->hasPurchasedProduct($produk->id)) {
+        if (!$user->hasPurchasedProduct($produk->id)) {
             return back()->with('error', 'Anda harus membeli produk ini terlebih dahulu untuk memberikan rating.');
         }
 
         // 3. VALIDASI: User belum pernah memberi rating untuk produk ini
-        if (Auth::user()->hasRatedProduct($produk->id)) {
+        if ($user->hasRatedProduct($produk->id)) {
             return back()->with('error', 'Anda sudah memberikan rating untuk produk ini. Anda dapat mengedit rating Anda.');
         }
 
@@ -39,7 +43,7 @@ class RatingController extends Controller
         // 5. SIMPAN RATING
         try {
             Rating::create([
-                'user_id' => Auth::id(),
+                'user_id' => $user->id,
                 'produk_id' => $produk->id,
                 'rating' => $validated['rating'],
                 'review' => $validated['review'] ?? null,
@@ -105,6 +109,7 @@ class RatingController extends Controller
      */
     public function showRatingForm(Produk $produk)
     {
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         // Cek eligibility

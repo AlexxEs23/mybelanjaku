@@ -8,6 +8,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @method bool hasPurchasedProduct(int $produkId)
+ * @method bool hasRatedProduct(int $produkId)
+ * @method Rating|null getRatingForProduct(int $produkId)
+ * @method float sellerAverageRating()
+ * @method int sellerTotalRatings()
+ */
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
