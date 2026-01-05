@@ -14,7 +14,7 @@
             <div class="flex items-center gap-4">
                 <span>📱 Download Aplikasi</span>
                 <span>|</span>
-                <span>Ikuti Kami: 📘 📷 🐦</span>
+                <span>Ikuti Kami: 📘 Instagram | 📷 Facebook</span>
             </div>
             <div class="flex items-center gap-4">
                 <span>🔔 Notifikasi</span>
@@ -29,8 +29,22 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
+                    <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="32" fill="url(#gradient-pesanan)"/>
+                        <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="26" cy="46" r="3" fill="white"/>
+                        <circle cx="38" cy="46" r="3" fill="white"/>
+                        <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient-pesanan" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#9333EA"/>
+                                <stop offset="1" stop-color="#6B21A8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1 class="text-2xl font-bold">
+                        <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
+                    </h1>
                 </a>
                 
                 <!-- Search Bar -->
@@ -100,6 +114,7 @@
                 </a>
             </div>
         </div>
+         
 
         <!-- Filter Tabs -->
         <div class="mb-6 bg-white rounded-xl shadow-md p-4">

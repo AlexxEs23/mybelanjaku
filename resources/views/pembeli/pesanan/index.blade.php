@@ -21,7 +21,10 @@
                 {{ session('error') }}
             </div>
         @endif
-
+             <a href="{{ route('home') }}" class="px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition flex items-center gap-2">
+                    <span>🏠</span>
+                    <span>Kembali ke Beranda</span>
+                </a>
         <!-- Orders List -->
         @if($pesanan->count() > 0)
             <div class="space-y-4">

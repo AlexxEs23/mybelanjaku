@@ -135,3 +135,6 @@ if (app()->environment('local')) {
 // Public Produk Detail - accessible by everyone (SEO-friendly slug)
 // Gunakan prefix /p/ untuk menghindari konflik dengan CRUD /produk/{id}
 Route::get('/p/{slug}', [HomeController::class, 'showProduk'])->name('produk.detail');
+
+// SEO: Sitemap.xml
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');

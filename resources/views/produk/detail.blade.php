@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('title', $produk->nama_produk . ' - MyBelanjaMu')
+@section('meta_description', Str::limit(strip_tags($produk->deskripsi), 155) . ' | Harga: Rp ' . number_format($produk->harga, 0, ',', '.') . ' | Belanja di MyBelanjaMu')
+@section('meta_keywords', $produk->nama_produk . ', ' . $produk->kategori->nama_kategori . ', produk UMKM, belanja online, MyBelanjaMu')
+@section('og_image', $produk->gambar ? asset('storage/' . $produk->gambar) : asset('images/og-default.png'))
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">

@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyBelanjaMu - Belanja Online Produk Lokal Indonesia</title>
+    
+    {{-- SEO Meta Tags --}}
+    <title>MyBelanjaMu - Belanja Online Produk UMKM Lokal Indonesia Terpercaya</title>
+    <meta name="description" content="Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik. Dukung pengusaha lokal Indonesia dengan berbelanja di MyBelanjaMu.">
+    <meta name="keywords" content="belanja online Indonesia, UMKM, produk lokal, marketplace UMKM, belanja produk Indonesia, MyBelanjaMu, toko online terpercaya">
+    <meta name="author" content="MyBelanjaMu">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ route('home') }}">
+    
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ route('home') }}">
+    <meta property="og:title" content="MyBelanjaMu - Belanja Produk UMKM Lokal Indonesia">
+    <meta property="og:description" content="Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik.">
+    <meta property="og:image" content="{{ asset('images/og-home.png') }}">
+    <meta property="og:site_name" content="MyBelanjaMu">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes slideIn {
@@ -31,7 +47,7 @@
             <div class="flex items-center gap-2 sm:gap-4">
                 <span class="hidden sm:inline">📱 Download Aplikasi</span>
                 <span class="hidden sm:inline">|</span>
-                <span class="text-xs sm:text-sm">Ikuti Kami: 📸 🐦</span>
+                <span class="text-xs sm:text-sm">Ikuti Kami: � Instagram | 📷 Facebook</span>
             </div>
             <div class="flex items-center gap-4">
                 <span>🔔 Notifikasi</span>
@@ -46,8 +62,22 @@
             <div class="flex justify-between items-center py-3 sm:py-4">
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <span class="text-2xl sm:text-3xl">🛒</span>
-                    <h1 class="text-lg sm:text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
+                    <svg class="w-8 h-8 sm:w-10 sm:h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="32" fill="url(#gradient)"/>
+                        <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                        <circle cx="26" cy="46" r="3" fill="white"/>
+                        <circle cx="38" cy="46" r="3" fill="white"/>
+                        <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#9333EA"/>
+                                <stop offset="1" stop-color="#6B21A8"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <h1 class="text-lg sm:text-2xl font-bold">
+                        <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
+                    </h1>
                 </div>
                 
                 <!-- Search Bar -->
@@ -227,7 +257,9 @@
                             <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center overflow-hidden">
                                 @if($product->gambar)
                                     <img src="{{ asset('storage/' . $product->gambar) }}" 
-                                         alt="{{ $product->nama_produk }}"
+                                         alt="{{ $product->nama_produk }} - {{ $product->kategori->nama_kategori ?? 'Produk' }} | Belanja di MyBelanjaMu"
+                                         title="{{ $product->nama_produk }}"
+                                         loading="lazy"
                                          class="w-full h-full object-cover group-hover:scale-105 transition">
                                 @else
                                     <div class="text-7xl group-hover:scale-105 transition">📦</div>
@@ -238,7 +270,11 @@
                             <h3 class="text-sm font-medium text-gray-800 mb-1 line-clamp-2 h-10">{{ $product->nama_produk }}</h3>
                             <div class="flex items-center gap-1 mb-2">
                                 <span class="text-yellow-400 text-sm">⭐</span>
-                                <span class="text-xs text-gray-600">{{ $product->kategori->nama_kategori ?? 'Umum' }}</span>
+                                <span class="text-xs font-semibold text-gray-700">{{ $product->averageRating() }}</span>
+                                <span class="text-xs text-gray-500">({{ $product->totalRatings() }})</span>
+                            </div>
+                            <div class="text-xs text-gray-500 mb-2">
+                                <span class="px-2 py-1 bg-purple-50 text-purple-600 rounded">{{ $product->kategori->nama_kategori ?? 'Umum' }}</span>
                             </div>
                             <div class="flex items-baseline gap-2 mb-2">
                                 <span class="text-lg font-bold text-purple-600">Rp {{ number_format($product->harga, 0, ',', '.') }}</span>
@@ -302,24 +338,36 @@
                 <!-- Brand -->
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
-                        <span class="text-3xl">🛒</span>
-                        <h3 class="text-2xl font-bold">MyBelanjaMu</h3>
+                        <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="32" cy="32" r="32" fill="url(#gradient-footer)"/>
+                            <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                            <circle cx="26" cy="46" r="3" fill="white"/>
+                            <circle cx="38" cy="46" r="3" fill="white"/>
+                            <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient-footer" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#9333EA"/>
+                                    <stop offset="1" stop-color="#6B21A8"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <h3 class="text-2xl font-bold">
+                            <span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">My</span><span class="text-white">Belanja</span><span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Mu</span>
+                        </h3>
                     </div>
                     <p class="text-gray-400 mb-4">
                         Platform marketplace terpercaya untuk UMKM Indonesia. Belanja produk lokal berkualitas dengan harga terbaik.
                     </p>
                     <div class="flex gap-3">
-                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition">
-                            <span>📘</span>
+                        <a href="https://www.facebook.com/profile.php?id=100087532447096" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition hover:scale-110" title="Facebook">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
                         </a>
-                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition">
-                            <span>📷</span>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition">
-                            <span>🐦</span>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:bg-purple-700 transition">
-                            <span>📱</span>
+                        <a href="https://www.instagram.com/mybelanjamu/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition" title="Instagram">
+                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
                         </a>
                     </div>
                 </div>
