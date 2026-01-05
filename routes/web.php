@@ -112,8 +112,25 @@ Route::middleware('auth')->group(function () {
     // Pembeli Dashboard Routes
     Route::get('/pembeli/dashboard', [App\Http\Controllers\PembeliController::class, 'dashboard'])->name('pembeli.dashboard');
     Route::get('/pembeli/pesanan', [App\Http\Controllers\PembeliController::class, 'pesanan'])->name('pembeli.pesanan.index');
+    
+    // Rating Routes - hanya untuk user yang sudah login
+    Route::prefix('ratings')->name('ratings.')->group(function () {
+        // Store: hanya untuk user role, sudah beli produk, belum pernah rating
+        Route::post('/products/{produk}', [App\Http\Controllers\RatingController::class, 'store'])->name('store');
+        
+        // Update: hanya untuk owner rating tersebut
+        Route::put('/{rating}', [App\Http\Controllers\RatingController::class, 'update'])->name('update');
+        
+        // Delete: hanya untuk owner rating tersebut
+        Route::delete('/{rating}', [App\Http\Controllers\RatingController::class, 'destroy'])->name('destroy');
+    });
 });
 
+// 🔥 Real-Time Testing Routes (Development Only)
+if (app()->environment('local')) {
+    require __DIR__ . '/test-realtime.php';
+}
+
 // Public Produk Detail - accessible by everyone (SEO-friendly slug)
-// PENTING: Route ini harus di paling bawah agar tidak menangkap route lain seperti /produk/create
-Route::get('/produk/{slug}', [HomeController::class, 'showProduk'])->name('produk.detail');
+// Gunakan prefix /p/ untuk menghindari konflik dengan CRUD /produk/{id}
+Route::get('/p/{slug}', [HomeController::class, 'showProduk'])->name('produk.detail');

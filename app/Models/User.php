@@ -99,4 +99,75 @@ class User extends Authenticatable
     {
         return $this->hasMany(PesanChat::class, 'sender_id');
     }
+
+    /**
+     * Relasi ke Ratings (sebagai pembeli yang memberi rating)
+     */
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    /**
+     * Hitung rata-rata rating PENJUAL (dari semua produknya)
+     * Hanya untuk user dengan role PENJUAL
+     */
+    public function sellerAverageRating(): float
+    {
+        if ($this->role !== 'penjual') {
+            return 0;
+        }
+
+        // Ambil semua rating dari semua produk milik penjual ini
+        $allRatings = Rating::whereIn('produk_id', 
+            $this->produks()->pluck('id')
+        )->avg('rating');
+
+        return round($allRatings ?? 0, 1);
+    }
+
+    /**
+     * Total rating yang diterima penjual (dari semua produknya)
+     */
+    public function sellerTotalRatings(): int
+    {
+        if ($this->role !== 'penjual') {
+            return 0;
+        }
+
+        return Rating::whereIn('produk_id', 
+            $this->produks()->pluck('id')
+        )->count();
+    }
+
+    /**
+     * Cek apakah user sudah pernah membeli produk tertentu dengan status selesai
+     */
+    public function hasPurchasedProduct(int $produkId): bool
+    {
+        return $this->pesanans()
+            ->where('produk_id', $produkId)
+            ->where('status', 'selesai')
+            ->exists();
+    }
+
+    /**
+     * Cek apakah user sudah memberi rating untuk produk tertentu
+     */
+    public function hasRatedProduct(int $produkId): bool
+    {
+        return $this->ratings()
+            ->where('produk_id', $produkId)
+            ->exists();
+    }
+
+    /**
+     * Get rating user untuk produk tertentu
+     */
+    public function getRatingForProduct(int $produkId): ?Rating
+    {
+        return $this->ratings()
+            ->where('produk_id', $produkId)
+            ->first();
+    }
 }

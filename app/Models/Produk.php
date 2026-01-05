@@ -82,6 +82,68 @@ class Produk extends Model
     }
 
     /**
+     * Relasi ke Ratings
+     */
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
+    /**
+     * Relasi ke Pesanan
+     */
+    public function pesanans()
+    {
+        return $this->hasMany(Pesanan::class);
+    }
+
+    /**
+     * Hitung rata-rata rating produk
+     */
+    public function averageRating(): float
+    {
+        return round($this->ratings()->avg('rating') ?? 0, 1);
+    }
+
+    /**
+     * Hitung total rating/review
+     */
+    public function totalRatings(): int
+    {
+        return $this->ratings()->count();
+    }
+
+    /**
+     * Get rating distribution (berapa user beri rating 1, 2, 3, 4, 5)
+     */
+    public function ratingDistribution(): array
+    {
+        $total = $this->totalRatings();
+        
+        if ($total === 0) {
+            return [
+                1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0
+            ];
+        }
+
+        $distribution = $this->ratings()
+            ->selectRaw('rating, COUNT(*) as count')
+            ->groupBy('rating')
+            ->pluck('count', 'rating')
+            ->toArray();
+
+        // Fill missing ratings with 0
+        for ($i = 1; $i <= 5; $i++) {
+            if (!isset($distribution[$i])) {
+                $distribution[$i] = 0;
+            }
+        }
+
+        ksort($distribution);
+        return $distribution;
+    }
+
+    /**
      * Generate slug dari nama produk untuk URL SEO-friendly
      */
     public function getSlugAttribute(): string

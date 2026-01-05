@@ -113,6 +113,11 @@
         </div>
     </div>
 
+    <!-- Rating & Review Section -->
+    <div class="mt-8 sm:mt-12">
+        <x-product-rating-section :produk="$produk" />
+    </div>
+
     <!-- Related Products -->
     @if($relatedProducts->count() > 0)
         <div class="mt-12 sm:mt-16">
