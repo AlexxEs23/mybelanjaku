@@ -9,7 +9,7 @@
         <div class="flex items-center gap-3">
             <span class="text-4xl">🛒</span>
             <div>
-                <h1 class="text-xl font-bold">UMKM Market</h1>
+                <h1 class="text-xl font-bold">MyBelanjaMu</h1>
                 <p class="text-xs text-purple-300">
                     {{ ucfirst(Auth::user()->role) }} Panel
                 </p>

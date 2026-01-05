@@ -29,7 +29,7 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">UMKM Market</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
                 </div>
                 
                 <div class="flex items-center gap-4">

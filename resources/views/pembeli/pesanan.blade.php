@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Saya - UMKM Market</title>
+    <title>Pesanan Saya - MyBelanjaMu</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -30,7 +30,7 @@
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">UMKM Market</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
                 </a>
                 
                 <!-- Search Bar -->
@@ -284,7 +284,7 @@
     <footer class="bg-gray-800 text-white py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
-                <p class="text-gray-400">© 2025 UMKM Market. Platform e-commerce untuk UMKM Indonesia.</p>
+                <p class="text-gray-400">© 2025 MyBelanjaMu. Platform e-commerce untuk UMKM Indonesia.</p>
             </div>
         </div>
     </footer>

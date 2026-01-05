@@ -211,7 +211,7 @@
                     <div class="flex-1">
                         <h3 class="text-xl font-bold text-yellow-800 mb-2">Akun Menunggu Persetujuan Admin</h3>
                         <p class="text-yellow-700 mb-3">
-                            Terima kasih telah mendaftar sebagai penjual di UMKM Market! Akun Anda saat ini sedang dalam proses verifikasi oleh tim admin kami.
+                            Terima kasih telah mendaftar sebagai penjual di MyBelanjaMu! Akun Anda saat ini sedang dalam proses verifikasi oleh tim admin kami.
                         </p>
                         <div class="bg-yellow-100 border border-yellow-300 rounded-xl p-4">
                             <p class="text-sm text-yellow-800 font-semibold mb-2">⚠️ Fitur yang Terbatas:</p>

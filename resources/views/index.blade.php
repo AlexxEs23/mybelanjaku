@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UMKM Marketplace - Belanja Online Produk Lokal Indonesia</title>
+    <title>MyBelanjaMu - Belanja Online Produk Lokal Indonesia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes slideIn {
@@ -47,7 +47,7 @@
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
                     <span class="text-2xl sm:text-3xl">🛒</span>
-                    <h1 class="text-lg sm:text-2xl font-bold text-purple-700">UMKM Market</h1>
+                    <h1 class="text-lg sm:text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
                 </div>
                 
                 <!-- Search Bar -->
@@ -303,7 +303,7 @@
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
                         <span class="text-3xl">🛒</span>
-                        <h3 class="text-2xl font-bold">UMKM Market</h3>
+                        <h3 class="text-2xl font-bold">MyBelanjaMu</h3>
                     </div>
                     <p class="text-gray-400 mb-4">
                         Platform marketplace terpercaya untuk UMKM Indonesia. Belanja produk lokal berkualitas dengan harga terbaik.
@@ -328,7 +328,7 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Tentang Kami</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Tentang UMKM Market</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tentang MyBelanjaMu</a></li>
                         <li><a href="#" class="hover:text-white transition">Blog</a></li>
                         <li><a href="#" class="hover:text-white transition">Karir</a></li>
                         <li><a href="#" class="hover:text-white transition">Kebijakan Privasi</a></li>
@@ -352,7 +352,7 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Lainnya</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Jual di UMKM Market</a></li>
+                        <li><a href="#" class="hover:text-white transition">Jual di MyBelanjaMu</a></li>
                         <li><a href="#" class="hover:text-white transition">Flash Sale</a></li>
                         <li><a href="#" class="hover:text-white transition">Promosi</a></li>
                         <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
@@ -362,7 +362,7 @@
             
             <!-- Copyright -->
             <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 UMKM Market. All Rights Reserved. Made with ❤️ for Indonesian UMKM</p>
+                <p>&copy; 2024 MyBelanjaMu. All Rights Reserved. Made with ❤️ for Indonesian UMKM</p>
             </div>
         </div>
     </footer>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pembeli - UMKM Market</title>
+    <title>Dashboard Pembeli - MyBelanjaMu</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -30,7 +30,7 @@
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">UMKM Market</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
                 </a>
                 
                 <!-- Search Bar -->
@@ -308,14 +308,14 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
-                        <span>🛒</span> UMKM Market
+                        <span>🛒</span> MyBelanjaMu
                     </h3>
                     <p class="text-gray-400 text-sm">Platform e-commerce terpercaya untuk produk UMKM Indonesia</p>
                 </div>
                 <div>
                     <h4 class="font-semibold mb-4">Tentang Kami</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Tentang UMKM Market</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tentang MyBelanjaMu</a></li>
                         <li><a href="#" class="hover:text-white transition">Karir</a></li>
                         <li><a href="#" class="hover:text-white transition">Blog</a></li>
                     </ul>
@@ -338,7 +338,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 pt-8 text-center text-gray-400 text-sm">
-                <p>© 2025 UMKM Market. Platform e-commerce untuk UMKM Indonesia.</p>
+                <p>© 2025 MyBelanjaMu. Platform e-commerce untuk UMKM Indonesia.</p>
             </div>
         </div>
     </footer>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - UMKM Marketplace</title>
+    <title>Reset Password - MyBelanjaMu</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-600 to-purple-800 min-h-screen flex items-center justify-center p-5">
@@ -155,7 +155,7 @@
 
         <!-- Footer -->
         <div class="text-center mt-6 text-white text-sm">
-            <p>&copy; {{ date('Y') }} UMKM Marketplace. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} MyBelanjaMu. All rights reserved.</p>
         </div>
     </div>
 </body>

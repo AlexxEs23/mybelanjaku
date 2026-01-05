@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password - UMKM Marketplace</title>
+    <title>Reset Password - MyBelanjaMu</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -120,7 +120,7 @@
         <div class="email-body">
             <h2>Halo, {{ $name }}!</h2>
             
-            <p>Kami menerima permintaan untuk mereset password akun Anda di <strong>UMKM Marketplace</strong>.</p>
+            <p>Kami menerima permintaan untuk mereset password akun Anda di <strong>MyBelanjaMu</strong>.</p>
             
             <p>Untuk melanjutkan proses reset password, silakan klik tombol di bawah ini:</p>
 
@@ -148,13 +148,13 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p><strong>UMKM Marketplace</strong></p>
+            <p><strong>MyBelanjaMu</strong></p>
             <p>Platform Jual-Beli UMKM Indonesia</p>
             <p style="margin-top: 15px;">
                 Email ini dikirim secara otomatis. Mohon untuk tidak membalas email ini.
             </p>
             <p>
-                &copy; {{ date('Y') }} UMKM Marketplace. All rights reserved.
+                &copy; {{ date('Y') }} MyBelanjaMu. All rights reserved.
             </p>
         </div>
     </div>

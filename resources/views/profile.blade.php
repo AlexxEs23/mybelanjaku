@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Profil Saya - UMKM Marketplace')
-@section('meta_description', 'Kelola informasi profil dan pengaturan akun Anda di UMKM Marketplace')
+@section('title', 'Profil Saya - MyBelanjaMu')
+@section('meta_description', 'Kelola informasi profil dan pengaturan akun Anda di MyBelanjaMu')
 
 @section('content')
 <div class="max-w-5xl mx-auto">

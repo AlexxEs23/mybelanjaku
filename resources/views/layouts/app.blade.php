@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
-    <title>@yield('title', 'UMKM Marketplace')</title>
+    <title>@yield('title', 'MyBelanjaMu')</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     @stack('styles')
@@ -33,7 +33,7 @@
                 <!-- Logo -->
                 <a href="{{ url('/') }}" class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">UMKM Market</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
                 </a>
                 
                 <!-- Search Bar -->
@@ -123,7 +123,7 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; 2025 UMKM Marketplace. All rights reserved.</p>
+            <p>&copy; 2025 MyBelanjaMu. All rights reserved.</p>
         </div>
     </footer>
 

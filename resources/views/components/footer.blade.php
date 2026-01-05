@@ -7,7 +7,7 @@
             <div>
                 <h2 class="text-white text-lg font-bold mb-4 flex items-center gap-2">
                     <span class="text-2xl" aria-hidden="true">🛒</span>
-                    <span>UMKM Marketplace</span>
+                    <span>MyBelanjaMu</span>
                 </h2>
                 <p class="text-sm leading-relaxed mb-4">
                     Platform jual beli online yang menghubungkan UMKM Indonesia dengan pembeli di seluruh nusantara. Dukung ekonomi lokal dengan berbelanja produk berkualitas.
@@ -131,7 +131,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
                 <div class="text-center md:text-left">
-                    <p>&copy; {{ date('Y') }} UMKM Marketplace. All rights reserved.</p>
+                    <p>&copy; {{ date('Y') }} MyBelanjaMu. All rights reserved.</p>
                     <p class="text-xs text-gray-400 mt-1">
                         Platform e-commerce untuk mendukung UMKM Indonesia
                     </p>
