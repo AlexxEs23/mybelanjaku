@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Str;
+use App\Services\SupabaseService;
 
 class Produk extends Model
 {
@@ -149,5 +150,24 @@ class Produk extends Model
     public function getSlugAttribute(): string
     {
         return \Illuminate\Support\Str::slug($this->nama_produk);
+    }
+
+    /**
+     * Get full Supabase image URL
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (empty($this->gambar)) {
+            return null;
+        }
+
+        // If already a full URL, return as is
+        if (filter_var($this->gambar, FILTER_VALIDATE_URL)) {
+            return $this->gambar;
+        }
+
+        // Otherwise, generate Supabase public URL
+        $supabase = new SupabaseService();
+        return $supabase->getPublicUrl($this->gambar);
     }
 }

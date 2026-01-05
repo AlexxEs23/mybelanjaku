@@ -62,19 +62,7 @@
             <div class="flex justify-between items-center py-3 sm:py-4">
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <svg class="w-8 h-8 sm:w-10 sm:h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="32" fill="url(#gradient)"/>
-                        <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-                        <circle cx="26" cy="46" r="3" fill="white"/>
-                        <circle cx="38" cy="46" r="3" fill="white"/>
-                        <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="gradient" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#9333EA"/>
-                                <stop offset="1" stop-color="#6B21A8"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-10 sm:h-12 w-auto">
                     <h1 class="text-lg sm:text-2xl font-bold">
                         <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
                     </h1>
@@ -82,13 +70,16 @@
                 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-1 max-w-2xl mx-8">
-                    <div class="relative">
-                        <input type="text" placeholder="Cari produk, toko, atau kategori..." 
-                               class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
-                        <button class="absolute right-0 top-0 h-full px-6 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
-                            🔍
-                        </button>
-                    </div>
+                    <form action="{{ route('search') }}" method="GET" class="w-full">
+                        <div class="relative">
+                            <input type="text" name="q" placeholder="Cari produk, toko, atau kategori..." 
+                                   value="{{ request('q') }}"
+                                   class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
+                            <button type="submit" class="absolute right-0 top-0 h-full px-6 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                                🔍
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 
                 <!-- Right Menu -->
@@ -203,18 +194,18 @@
             
             <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10 gap-6">
                 <!-- Tombol Semua -->
-                <button onclick="filterCategory('all')" class="group category-btn" data-category="all">
-                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border-2 border-purple-600">
+                <a href="{{ route('home', ['sort' => request('sort', 'terbaru')]) }}" class="group category-btn" data-category="all">
+                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ !request('kategori') ? 'border-2 border-purple-600 shadow-2xl' : 'border border-gray-100' }}">
                         <div class="w-16 h-16 mx-auto bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl flex items-center justify-center mb-3 shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                             <span class="text-3xl transform group-hover:scale-110 transition-transform duration-300">🏠</span>
                         </div>
                         <p class="text-xs font-semibold text-gray-700 text-center leading-tight group-hover:text-purple-600 transition-colors">Semua</p>
                     </div>
-                </button>
+                </a>
                 
                 @foreach($categories as $index => $category)
-                <button onclick="filterCategory({{ $category->id }})" class="group category-btn" data-category="{{ $category->id }}">
-                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 border border-gray-100">
+                <a href="{{ route('home', ['kategori' => $category->id, 'sort' => request('sort', 'terbaru')]) }}" class="group category-btn" data-category="{{ $category->id }}">
+                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ request('kategori') == $category->id ? 'border-2 border-purple-600 shadow-2xl' : 'border border-gray-100' }}">
                         @php
                             $colors = ['from-purple-500 to-purple-600', 'from-orange-500 to-orange-600', 'from-pink-500 to-pink-600', 'from-blue-500 to-blue-600', 'from-green-500 to-green-600', 'from-yellow-500 to-yellow-600', 'from-indigo-500 to-indigo-600', 'from-red-500 to-red-600', 'from-teal-500 to-teal-600', 'from-cyan-500 to-cyan-600'];
                             $shadows = ['shadow-purple-200', 'shadow-orange-200', 'shadow-pink-200', 'shadow-blue-200', 'shadow-green-200', 'shadow-yellow-200', 'shadow-indigo-200', 'shadow-red-200', 'shadow-teal-200', 'shadow-cyan-200'];
@@ -229,7 +220,7 @@
                         </div>
                         <p class="text-xs font-semibold text-gray-700 text-center leading-tight group-hover:text-purple-600 transition-colors">{{ $category->nama_kategori }}</p>
                     </div>
-                </button>
+                </a>
                 @endforeach
             </div>
         </div>
@@ -241,10 +232,18 @@
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-3xl font-bold text-gray-800">Rekomendasi Untuk Anda</h2>
                 <div class="flex gap-2">
-                    <button class="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium">Semua</button>
-                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">Terlaris</button>
-                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">Terbaru</button>
-                    <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200">Termurah</button>
+                    <a href="{{ route('home', ['sort' => 'terbaru']) }}" 
+                       class="px-4 py-2 {{ request('sort', 'terbaru') == 'terbaru' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                        Terbaru
+                    </a>
+                    <a href="{{ route('home', ['sort' => 'terlaris']) }}" 
+                       class="px-4 py-2 {{ request('sort') == 'terlaris' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                        Terlaris
+                    </a>
+                    <a href="{{ route('home', ['sort' => 'termurah']) }}" 
+                       class="px-4 py-2 {{ request('sort') == 'termurah' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                        Termurah
+                    </a>
                 </div>
             </div>
             
@@ -256,7 +255,7 @@
                         <div class="relative">
                             <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center overflow-hidden">
                                 @if($product->gambar)
-                                    <img src="{{ asset('storage/' . $product->gambar) }}" 
+                                    <img src="{{ $product->image_url }}" 
                                          alt="{{ $product->nama_produk }} - {{ $product->kategori->nama_kategori ?? 'Produk' }} | Belanja di MyBelanjaMu"
                                          title="{{ $product->nama_produk }}"
                                          loading="lazy"
@@ -338,19 +337,7 @@
                 <!-- Brand -->
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
-                        <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="32" cy="32" r="32" fill="url(#gradient-footer)"/>
-                            <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-                            <circle cx="26" cy="46" r="3" fill="white"/>
-                            <circle cx="38" cy="46" r="3" fill="white"/>
-                            <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                            <defs>
-                                <linearGradient id="gradient-footer" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#9333EA"/>
-                                    <stop offset="1" stop-color="#6B21A8"/>
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                        <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-12 w-auto">
                         <h3 class="text-2xl font-bold">
                             <span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">My</span><span class="text-white">Belanja</span><span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Mu</span>
                         </h3>
@@ -416,37 +403,6 @@
     </footer>
 
     <script>
-        function filterCategory(categoryId) {
-            // Update active button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                if (btn.dataset.category == categoryId) {
-                    btn.querySelector('div').classList.add('border-2', 'border-purple-600', 'shadow-2xl');
-                    btn.querySelector('div').classList.remove('border-gray-100');
-                } else {
-                    btn.querySelector('div').classList.remove('border-2', 'border-purple-600', 'shadow-2xl');
-                    btn.querySelector('div').classList.add('border-gray-100');
-                }
-            });
-            
-            // Filter products
-            const products = document.querySelectorAll('.product-card');
-            let visibleCount = 0;
-            
-            products.forEach(product => {
-                const productCategory = product.dataset.category;
-                
-                if (categoryId === 'all' || productCategory == categoryId) {
-                    product.style.display = 'block';
-                    visibleCount++;
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-            
-            // Show message if no products
-            console.log('Filtered:', visibleCount, 'products for category:', categoryId);
-        }
-
         // Modal functions for quantity input
         function showQuantityModal(button) {
             const form = button.closest('form');

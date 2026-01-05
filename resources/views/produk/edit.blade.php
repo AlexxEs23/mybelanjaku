@@ -116,7 +116,7 @@
                     
                     @if($produk->gambar)
                         <div class="mb-3">
-                            <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-32 h-32 object-cover rounded-lg">
+                            <img src="{{ $produk->image_url }}" alt="{{ $produk->nama_produk }}" class="w-32 h-32 object-cover rounded-lg">
                             <p class="text-sm text-gray-500 mt-1">Gambar saat ini</p>
                         </div>
                     @endif

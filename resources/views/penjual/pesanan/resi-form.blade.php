@@ -33,7 +33,7 @@
         <div class="flex flex-col md:flex-row gap-6">
             @if($pesanan->produk->gambar)
                 <div class="w-full md:w-32 h-32 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
-                    <img src="{{ asset('storage/' . $pesanan->produk->gambar) }}" alt="{{ $pesanan->produk->nama_produk }}" class="w-full h-full object-cover">
+                    <img src="{{ $pesanan->produk->image_url }}" alt="{{ $pesanan->produk->nama_produk }}" class="w-full h-full object-cover">
                 </div>
             @endif
 

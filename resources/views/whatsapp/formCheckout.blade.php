@@ -129,7 +129,7 @@
                 <div class="flex gap-4">
                     <div class="w-24 h-24 rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center flex-shrink-0">
                         @if($produk->gambar)
-                            <img src="{{ asset('storage/' . $produk->gambar) }}" 
+                            <img src="{{ $produk->image_url }}" 
                                  alt="{{ $produk->nama_produk }}"
                                  class="w-full h-full object-cover">
                         @else

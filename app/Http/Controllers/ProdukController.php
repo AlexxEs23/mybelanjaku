@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Services\SupabaseService;
 
 class ProdukController extends Controller
 {
@@ -62,7 +63,7 @@ class ProdukController extends Controller
         }
         
         $validated = $request->validate([
-            'kategori_id' => 'required|exists:kategori,id',
+            'kategori_id' => 'required|exists:kategoris,id',
             'nama_produk' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric|min:0',
@@ -91,7 +92,14 @@ class ProdukController extends Controller
 
         // Upload gambar jika ada
         if ($request->hasFile('gambar')) {
-            $validated['gambar'] = $request->file('gambar')->store('produk', 'public');
+            $supabase = new SupabaseService();
+            $uploadResult = $supabase->uploadFile($request->file('gambar'), 'produk');
+            
+            if ($uploadResult['success']) {
+                $validated['gambar'] = $uploadResult['path'];
+            } else {
+                return back()->withErrors(['gambar' => $uploadResult['message']])->withInput();
+            }
         }
 
         // Tambahkan user_id dari user yang login
@@ -156,7 +164,7 @@ class ProdukController extends Controller
         }
         
         $validated = $request->validate([
-            'kategori_id' => 'required|exists:kategori,id',
+            'kategori_id' => 'required|exists:kategoris,id',
             'nama_produk' => 'required|string|max:255',
             'deskripsi' => 'required|string',
             'harga' => 'required|numeric|min:0',
@@ -185,11 +193,21 @@ class ProdukController extends Controller
 
         // Upload gambar baru jika ada
         if ($request->hasFile('gambar')) {
+            $supabase = new SupabaseService();
+            
             // Hapus gambar lama jika ada
             if ($produk->gambar) {
-                Storage::disk('public')->delete($produk->gambar);
+                $supabase->deleteFile($produk->gambar);
             }
-            $validated['gambar'] = $request->file('gambar')->store('produk', 'public');
+            
+            // Upload gambar baru
+            $uploadResult = $supabase->uploadFile($request->file('gambar'), 'produk');
+            
+            if ($uploadResult['success']) {
+                $validated['gambar'] = $uploadResult['path'];
+            } else {
+                return back()->withErrors(['gambar' => $uploadResult['message']])->withInput();
+            }
         }
 
         $validated['status'] = $request->has('status') ? 1 : 0;
@@ -221,7 +239,8 @@ class ProdukController extends Controller
         
         // Hapus gambar jika ada
         if ($produk->gambar) {
-            Storage::disk('public')->delete($produk->gambar);
+            $supabase = new SupabaseService();
+            $supabase->deleteFile($produk->gambar);
         }
         
         $produk->delete();

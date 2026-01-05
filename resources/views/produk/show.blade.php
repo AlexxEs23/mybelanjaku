@@ -34,7 +34,7 @@
                 <!-- Gambar Produk -->
                 <div>
                     @if($produk->gambar)
-                        <img src="{{ asset('storage/' . $produk->gambar) }}" alt="{{ $produk->nama_produk }}" class="w-full h-96 object-cover rounded-xl shadow-md">
+                        <img src="{{ $produk->image_url }}" alt="{{ $produk->nama_produk }}" class="w-full h-96 object-cover rounded-xl shadow-md">
                     @else
                         <div class="w-full h-96 bg-gray-200 rounded-xl flex items-center justify-center text-8xl">
                             📦

@@ -67,7 +67,7 @@
                         <!-- Product Image -->
                         @if($item->produk->gambar)
                             <div class="w-full md:w-32 h-32 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
-                                <img src="{{ asset('storage/' . $item->produk->gambar) }}" alt="{{ $item->produk->nama_produk }}" class="w-full h-full object-cover">
+                                <img src="{{ $item->produk->image_url }}" alt="{{ $item->produk->nama_produk }}" class="w-full h-full object-cover">
                             </div>
                         @endif
 

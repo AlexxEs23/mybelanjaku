@@ -78,7 +78,7 @@
                             <tr class="hover:bg-gray-50 transition">
                                 <td class="px-4 py-4">
                                     @if($item->gambar)
-                                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_produk }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
+                                        <img src="{{ $item->image_url }}" alt="{{ $item->nama_produk }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
                                     @else
                                         <div class="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-2xl">📦</div>
                                     @endif
@@ -150,7 +150,7 @@
             @foreach($produk as $item)
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-2 border-gray-200 hover:border-purple-400 transition-all duration-200">
                     @if($item->gambar)
-                        <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_produk }}" class="w-full h-48 object-cover">
+                        <img src="{{ $item->image_url }}" alt="{{ $item->nama_produk }}" class="w-full h-48 object-cover">
                     @else
                         <div class="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-6xl">📦</div>
                     @endif

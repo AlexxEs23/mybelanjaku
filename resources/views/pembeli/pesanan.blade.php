@@ -29,19 +29,7 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <svg class="w-10 h-10" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="32" fill="url(#gradient-pesanan)"/>
-                        <path d="M20 22h24l-3 18H23l-3-18z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
-                        <circle cx="26" cy="46" r="3" fill="white"/>
-                        <circle cx="38" cy="46" r="3" fill="white"/>
-                        <path d="M20 22l-2-6h-4" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="gradient-pesanan" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#9333EA"/>
-                                <stop offset="1" stop-color="#6B21A8"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-10 w-auto">
                     <h1 class="text-2xl font-bold">
                         <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
                     </h1>
@@ -181,7 +169,7 @@
                         <div class="flex gap-4">
                             <div class="w-24 h-24 rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center flex-shrink-0">
                                 @if($order->produk->gambar)
-                                    <img src="{{ asset('storage/' . $order->produk->gambar) }}" 
+                                    <img src="{{ $order->produk->image_url }}" 
                                          alt="{{ $order->produk->nama_produk }}"
                                          class="w-full h-full object-cover">
                                 @else

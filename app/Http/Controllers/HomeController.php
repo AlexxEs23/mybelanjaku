@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Ambil produk untuk flash sale (produk terbaru)
         $flashSaleProducts = Produk::with(['kategori', 'user'])
@@ -17,16 +17,90 @@ class HomeController extends Controller
             ->take(8)
             ->get();
         
-        // Ambil semua produk untuk rekomendasi
-        $recommendedProducts = Produk::with(['kategori', 'user'])
-            ->where('status', true)
-            ->latest()
-            ->get();
+        // Query builder untuk rekomendasi dengan filter dan sorting
+        $query = Produk::with(['kategori', 'user'])
+            ->where('status', true);
+        
+        // Filter by category
+        if ($request->has('kategori') && $request->kategori != 'all') {
+            $query->where('kategori_id', $request->kategori);
+        }
+        
+        // Sorting
+        $sort = $request->get('sort', 'terbaru');
+        switch ($sort) {
+            case 'terlaris':
+                // Sort by total ratings/reviews (most popular)
+                $query->withCount('ratings')
+                      ->orderBy('ratings_count', 'desc');
+                break;
+            case 'terbaru':
+                $query->latest();
+                break;
+            case 'termurah':
+                $query->orderBy('harga', 'asc');
+                break;
+            case 'termahal':
+                $query->orderBy('harga', 'desc');
+                break;
+            default:
+                $query->latest();
+        }
+        
+        $recommendedProducts = $query->get();
         
         // Ambil semua kategori
         $categories = Kategori::all();
         
         return view('index', compact('flashSaleProducts', 'recommendedProducts', 'categories'));
+    }
+    
+    /**
+     * Handle search functionality
+     */
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        $sort = $request->get('sort', 'terbaru');
+        
+        if (empty($query)) {
+            return redirect()->route('home');
+        }
+        
+        // Build search query
+        $productsQuery = Produk::with(['kategori', 'user'])
+            ->where('status', true)
+            ->where(function($q) use ($query) {
+                $q->where('nama_produk', 'LIKE', "%{$query}%")
+                  ->orWhere('deskripsi', 'LIKE', "%{$query}%")
+                  ->orWhereHas('kategori', function($q) use ($query) {
+                      $q->where('nama_kategori', 'LIKE', "%{$query}%");
+                  });
+            });
+        
+        // Apply sorting
+        switch ($sort) {
+            case 'terlaris':
+                $productsQuery->withCount('ratings')
+                              ->orderBy('ratings_count', 'desc');
+                break;
+            case 'terbaru':
+                $productsQuery->latest();
+                break;
+            case 'termurah':
+                $productsQuery->orderBy('harga', 'asc');
+                break;
+            case 'termahal':
+                $productsQuery->orderBy('harga', 'desc');
+                break;
+            default:
+                $productsQuery->latest();
+        }
+        
+        $products = $productsQuery->paginate(20);
+        $categories = Kategori::all();
+        
+        return view('search.results', compact('products', 'query', 'categories'));
     }
 
     /**
