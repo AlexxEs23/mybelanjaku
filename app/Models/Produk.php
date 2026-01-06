@@ -146,9 +146,16 @@ class Produk extends Model
 
     /**
      * Generate slug dari nama produk untuk URL SEO-friendly
+     * Gunakan nilai dari database jika sudah ada
      */
-    public function getSlugAttribute(): string
+    public function getSlugAttribute($value): string
     {
+        // Return slug dari database jika ada
+        if (!empty($value)) {
+            return $value;
+        }
+        
+        // Fallback: generate dari nama_produk
         return \Illuminate\Support\Str::slug($this->nama_produk);
     }
 
@@ -166,8 +173,18 @@ class Produk extends Model
             return $this->gambar;
         }
 
-        // Otherwise, generate Supabase public URL
-        $supabase = new SupabaseService();
-        return $supabase->getPublicUrl($this->gambar);
+        // Check if it's a local path
+        if (file_exists(public_path('storage/' . $this->gambar))) {
+            return asset('storage/' . $this->gambar);
+        }
+
+        // Otherwise, try to generate Supabase public URL
+        try {
+            $supabase = new SupabaseService();
+            return $supabase->getPublicUrl($this->gambar);
+        } catch (\Exception $e) {
+            // If Supabase fails, return asset path as fallback
+            return asset('storage/' . $this->gambar);
+        }
     }
 }

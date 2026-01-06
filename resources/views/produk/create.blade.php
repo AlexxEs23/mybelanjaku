@@ -112,9 +112,16 @@
                     <label for="gambar" class="block text-sm font-medium text-gray-700 mb-2">
                         Gambar Produk
                     </label>
-                    <input type="file" name="gambar" id="gambar" accept="image/*"
+                    <input type="file" name="gambar" id="gambar" accept="image/*" onchange="previewImage(event)"
                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 @error('gambar') border-red-500 @enderror">
                     <p class="mt-1 text-xs text-gray-500">Format: JPG, PNG, GIF. Maksimal 2MB</p>
+                    
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="mt-3 hidden">
+                        <p class="text-sm text-gray-600 mb-2">Preview:</p>
+                        <img id="preview" src="" alt="Preview" class="max-w-xs rounded-lg border">
+                    </div>
+                    
                     @error('gambar')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -155,5 +162,25 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const preview = document.getElementById('preview');
+            const previewContainer = document.getElementById('imagePreview');
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
+                console.log('File selected:', file.name, 'Size:', file.size);
+            } else {
+                previewContainer.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>

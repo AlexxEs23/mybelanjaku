@@ -259,6 +259,7 @@
                                          alt="{{ $product->nama_produk }} - {{ $product->kategori->nama_kategori ?? 'Produk' }} | Belanja di MyBelanjaMu"
                                          title="{{ $product->nama_produk }}"
                                          loading="lazy"
+                                         onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-7xl\'>📦</div><small class=\'text-xs text-red-500\'>Gambar error</small>';"
                                          class="w-full h-full object-cover group-hover:scale-105 transition">
                                 @else
                                     <div class="text-7xl group-hover:scale-105 transition">📦</div>

@@ -105,6 +105,19 @@ class ProdukController extends Controller
         // Tambahkan user_id dari user yang login
         $validated['user_id'] = Auth::id();
         $validated['status'] = $request->has('status') ? 1 : 0;
+        
+        // Generate slug dari nama produk
+        $slug = \Illuminate\Support\Str::slug($validated['nama_produk']);
+        
+        // Ensure unique slug
+        $count = 1;
+        $originalSlug = $slug;
+        while (Produk::where('slug', $slug)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+        
+        $validated['slug'] = $slug;
 
         Produk::create($validated);
 

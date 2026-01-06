@@ -126,12 +126,18 @@ class SupabaseService
      * Get public URL untuk file
      * 
      * @param string $path
-     * @return string
+     * @return string|null
      */
     public function getPublicUrl($path)
     {
         if (empty($path)) {
             return null;
+        }
+
+        // Check if Supabase is configured
+        if (empty($this->url) || empty($this->storageBucket)) {
+            // Return local asset path as fallback
+            return asset('storage/' . $path);
         }
 
         return "{$this->url}/storage/v1/object/public/{$this->storageBucket}/{$path}";

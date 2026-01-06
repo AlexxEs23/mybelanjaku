@@ -16,6 +16,16 @@ return Application::configure(basePath: dirname(__DIR__))
             'approved.seller' => \App\Http\Middleware\ApprovedSeller::class,
             'role' => \App\Http\Middleware\CheckRole::class,
         ]);
+        
+        // Exclude file inputs from TrimStrings middleware
+        $middleware->trimStrings(except: [
+            'password',
+            'password_confirmation',
+            'gambar',
+            'foto',
+            'image',
+            'file',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
