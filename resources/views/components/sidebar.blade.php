@@ -1,8 +1,5 @@
-<!-- Overlay -->
-<div id="sidebar-overlay" class="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-30 hidden transition-opacity duration-300"></div>
-
 <!-- Sidebar -->
-<div id="sidebar" class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white h-screen fixed left-0 top-0 overflow-y-auto pb-6 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-2xl">
+<aside class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white fixed top-0 left-0 h-screen overflow-y-auto shadow-2xl z-30 lg:block hidden">
 
     <!-- Logo & Brand -->
     <div class="p-6 border-b border-purple-700">
@@ -111,20 +108,22 @@
             </a>
         @endif
 
-        {{-- ================= PEMBELI ================= --}}
-        @if(Auth::user()->role === 'pembeli')
+        {{-- ================= USER (PEMBELI) ================= --}}
+        @if(Auth::user()->role === 'user')
             <div class="pt-4 text-xs uppercase text-purple-300">
-                Pembeli Menu
+                User Menu
             </div>
 
             <a href="{{ url('/') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                🛒 Belanja
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 transition">
+                <span class="text-xl">🛒</span>
+                <span>Belanja</span>
             </a>
 
             <a href="{{ route('pembeli.pesanan.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                📦 Pesanan Saya
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 transition">
+                <span class="text-xl">📦</span>
+                <span>Pesanan Saya</span>
             </a>
         @endif
 
@@ -154,4 +153,4 @@
         </div>
 
     </nav>
-</div>
+</aside>

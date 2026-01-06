@@ -97,55 +97,23 @@
                             Daftar
                         </a>
                     @else
-                        <div class="relative" id="userDropdown">
-                            <button onclick="toggleDropdown()" class="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition">
+                        @if(Auth::user()->role === 'pembeli' || Auth::user()->role === 'user')
+                            <a href="{{ route('pembeli.dashboard') }}" class="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition">
                                 <span class="text-2xl">👤</span>
                                 <div class="text-left">
                                     <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
-                                    <p class="text-xs text-gray-600">{{ ucfirst(Auth::user()->role) }}</p>
+                                    <p class="text-xs text-gray-600">Dashboard</p>
                                 </div>
-                                <span class="text-gray-500">▼</span>
-                            </button>
-                            
-                            <!-- Dropdown Menu -->
-                            <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
-                                <div class="py-2">
-                                    @if(Auth::user()->role === 'admin' || Auth::user()->role === 'penjual')
-                                        <a href="{{ url('/dashboard') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition">
-                                            <span class="text-xl">📊</span>
-                                            <span class="text-gray-700">Dashboard</span>
-                                        </a>
-                                    @endif
-                                    
-                                    <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition">
-                                        <span class="text-xl">👤</span>
-                                        <span class="text-gray-700">Profil Saya</span>
-                                    </a>
-                                    
-                                    @if(Auth::user()->role === 'pembeli' || Auth::user()->role === 'user')
-                                        <a href="{{ route('pembeli.pesanan.index') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition">
-                                            <span class="text-xl">📦</span>
-                                            <span class="text-gray-700">Pesanan Saya</span>
-                                        </a>
-                                    @endif
-                                    
-                                    @if(Auth::user()->role === 'penjual' && Auth::user()->status_approval === 'approved')
-                                        <a href="{{ route('produk.index') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 transition">
-                                            <span class="text-xl">📦</span>
-                                            <span class="text-gray-700">Produk Saya</span>
-                                        </a>
-                                    @endif
-                                    <hr class="my-2">
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-50 text-red-600 transition">
-                                            <span class="text-xl">🚪</span>
-                                            <span>Keluar</span>
-                                        </button>
-                                    </form>
+                            </a>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition">
+                                <span class="text-2xl">👤</span>
+                                <div class="text-left">
+                                    <p class="text-sm font-semibold text-gray-800">{{ Auth::user()->name }}</p>
+                                    <p class="text-xs text-gray-600">Dashboard</p>
                                 </div>
-                            </div>
-                        </div>
+                            </a>
+                        @endif
                     @endguest
                 </div>
             </div>

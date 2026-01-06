@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="h-full">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 overflow-x-hidden">
+<body class="bg-gray-100 h-full overflow-hidden">
 
     <!-- Mobile Header dengan Menu Button -->
     <header class="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-20 px-4 py-3 flex items-center justify-between">
@@ -24,7 +24,7 @@
 
     @include('components.sidebar')
 
-    <main class="lg:ml-64 p-4 md:p-6 pt-20 lg:pt-6 min-h-screen overflow-x-hidden">
+    <main class="lg:ml-64 h-screen overflow-y-auto p-4 md:p-6 pt-20 lg:pt-6">
         @yield('content')
     </main>
 
