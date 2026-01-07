@@ -10,6 +10,10 @@
             <div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">👋 Halo, {{ Auth::user()->name ?? 'Pembeli' }}!</h1>
                 <p class="text-gray-600">Selamat datang di dashboard Anda. Kelola pesanan dan keranjang belanja Anda dengan mudah.</p>
+                <div class="flex items-center gap-2 mt-2">
+                    <span class="text-sm font-semibold text-purple-600">🕐</span>
+                    <span id="realtime-clock" class="text-sm font-semibold text-purple-600"></span>
+                </div>
             </div>
             <a href="{{ route('home') }}" class="px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition flex items-center gap-2">
                 <span>🏠</span>
@@ -65,109 +69,33 @@
             <!-- Main Content -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- Quick Actions -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <h2 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <span>⚡</span> Menu Cepat
-                    </h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Pesanan Saya -->
-                        <a href="{{ route('pembeli.pesanan.index') }}" class="group bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-lg transition border-2 border-transparent hover:border-blue-500">
-                            <div class="text-center">
-                                <div class="text-5xl mb-3 group-hover:scale-110 transition">📦</div>
-                                <h3 class="font-bold text-gray-800 mb-1">Pesanan Saya</h3>
-                                <p class="text-xs text-gray-600">Lihat status pesanan</p>
-                            </div>
-                        </a>
-
-                        <!-- Keranjang -->
-                        <a href="#keranjang" class="group bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 hover:shadow-lg transition border-2 border-transparent hover:border-purple-500">
-                            <div class="text-center">
-                                <div class="text-5xl mb-3 group-hover:scale-110 transition relative inline-block">
-                                    🛒
-                                </div>
-                                <h3 class="font-bold text-gray-800 mb-1">Keranjang Saya</h3>
-                                <p class="text-xs text-gray-600">Belanja lebih banyak</p>
-                            </div>
-                        </a>
-
-                        <!-- Profil -->
-                        <a href="{{ route('profile.show') }}" class="group bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-lg transition border-2 border-transparent hover:border-green-500">
-                            <div class="text-center">
-                                <div class="text-5xl mb-3 group-hover:scale-110 transition">👤</div>
-                                <h3 class="font-bold text-gray-800 mb-1">Profil Saya</h3>
-                                <p class="text-xs text-gray-600">Kelola akun</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Recent Orders -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                            <span>📦</span> Pesanan Terbaru
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Monthly Spending Chart -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <span>📊</span> Pengeluaran Bulanan
                         </h2>
-                        <a href="{{ route('pembeli.pesanan.index') }}" class="text-purple-600 hover:text-purple-700 font-semibold text-sm">
-                            Lihat Semua →
-                        </a>
+                        <div style="position: relative; height: 250px;">
+                            <canvas id="spendingChart"></canvas>
+                        </div>
                     </div>
 
-                    @if($recentOrders->count() > 0)
-                        <div class="space-y-4">
-                            @foreach($recentOrders as $order)
-                                <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition">
-                                    <div class="flex gap-4">
-                                        <div class="w-20 h-20 bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            @if($order->produk->gambar)
-                                                <img src="{{ $order->produk->image_url }}" 
-                                                     alt="{{ $order->produk->nama_produk }}"
-                                                     class="w-full h-full object-cover rounded-lg">
-                                            @else
-                                                <span class="text-3xl">📦</span>
-                                            @endif
-                                        </div>
-                                        <div class="flex-1">
-                                            <div class="flex items-start justify-between mb-2">
-                                                <div>
-                                                    <h3 class="font-bold text-gray-800">{{ $order->produk->nama_produk }}</h3>
-                                                    <p class="text-sm text-gray-600">{{ $order->jumlah }} unit</p>
-                                                </div>
-                                                @if($order->status == 'menunggu')
-                                                    <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-semibold">Menunggu</span>
-                                                @elseif($order->status == 'diproses')
-                                                    <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold">Diproses</span>
-                                                @elseif($order->status == 'dikirim')
-                                                    <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-semibold">Dikirim</span>
-                                                @elseif($order->status == 'selesai')
-                                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Selesai</span>
-                                                @else
-                                                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-xs font-semibold">Dibatalkan</span>
-                                                @endif
-                                            </div>
-                                            <div class="flex items-center justify-between">
-                                                <span class="font-bold text-purple-600">Rp {{ number_format($order->total, 0, ',', '.') }}</span>
-                                                <a href="{{ route('pembeli.pesanan.index') }}" class="px-4 py-1 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm">
-                                                    Lihat Detail
-                                                </a>
-                                            </div>
-                                            <p class="text-xs text-gray-500 mt-2">📅 {{ $order->created_at->format('d M Y') }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                    <!-- Order Status Chart -->
+                    <div class="bg-white rounded-xl shadow-md p-6">
+                        <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <span>📈</span> Status Pesanan
+                        </h2>
+                        <div style="position: relative; height: 250px;">
+                            <canvas id="statusChart"></canvas>
                         </div>
-                    @else
-                        <div class="text-center py-8">
-                            <div class="text-5xl mb-3">📦</div>
-                            <p class="text-gray-600">Belum ada pesanan</p>
-                            <a href="{{ route('home') }}" class="inline-block mt-4 px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-semibold">
-                                Mulai Belanja
-                            </a>
-                        </div>
-                    @endif
+                    </div>
                 </div>
+                
+                <!-- Quick Actions -->
+               
+
+               
 
                 <!-- Keranjang Preview -->
                 
@@ -214,4 +142,162 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Real-time Clock
+        function updateClock() {
+            const now = new Date();
+            const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            
+            const dayName = days[now.getDay()];
+            const day = now.getDate();
+            const month = months[now.getMonth()];
+            const year = now.getFullYear();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            const timeString = `${dayName}, ${day} ${month} ${year} - ${hours}:${minutes}:${seconds} WIB`;
+            
+            const clockElement = document.getElementById('realtime-clock');
+            if (clockElement) {
+                clockElement.textContent = timeString;
+            }
+        }
+        
+        // Update clock immediately and then every second
+        updateClock();
+        setInterval(updateClock, 1000);
+        
+        // Monthly Spending Line Chart
+        const spendingCtx = document.getElementById('spendingChart');
+        if (spendingCtx) {
+            new Chart(spendingCtx.getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: @json($monthLabels),
+                    datasets: [{
+                        label: 'Pengeluaran (Rp)',
+                        data: @json($monthlySpending),
+                        borderColor: 'rgb(147, 51, 234)',
+                        backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        pointBackgroundColor: 'rgb(147, 51, 234)',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Rp ' + context.parsed.y.toLocaleString('id-ID');
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rp ' + (value / 1000) + 'k';
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Order Status Doughnut Chart
+        const statusCtx = document.getElementById('statusChart');
+        if (statusCtx) {
+            new Chart(statusCtx.getContext('2d'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Menunggu', 'Diproses', 'Dikirim', 'Selesai', 'Dibatalkan'],
+                    datasets: [{
+                        data: [
+                            @json($statusData['menunggu']),
+                            @json($statusData['diproses']),
+                            @json($statusData['dikirim']),
+                            @json($statusData['selesai']),
+                            @json($statusData['dibatalkan'])
+                        ],
+                        backgroundColor: [
+                            'rgb(234, 179, 8)',  // yellow
+                            'rgb(59, 130, 246)',  // blue
+                            'rgb(147, 51, 234)',  // purple
+                            'rgb(34, 197, 94)',   // green
+                            'rgb(239, 68, 68)'    // red
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 10,
+                                font: {
+                                    size: 11
+                                },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    if (data.labels.length && data.datasets.length) {
+                                        return data.labels.map((label, i) => {
+                                            const value = data.datasets[0].data[i];
+                                            return {
+                                                text: `${label} (${value})`,
+                                                fillStyle: data.datasets[0].backgroundColor[i],
+                                                hidden: false,
+                                                index: i
+                                            };
+                                        });
+                                    }
+                                    return [];
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.label || '';
+                                    const value = context.parsed || 0;
+                                    const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                    const percentage = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                                    return `${label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
 @endsection
