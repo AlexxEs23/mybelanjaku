@@ -4,7 +4,7 @@
 @section('meta_description', 'Kelola informasi profil dan pengaturan akun Anda di MyBelanjaMu')
 
 @section('content')
-<div class="max-w-5xl mx-auto">
+<div class="max-w-full">
     {{-- Header Card --}}
     <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6 relative">
         <div class="relative p-6 md:p-8">

@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
+<div class="w-full">
     <!-- Header Card -->
     <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
         <div class="p-8">

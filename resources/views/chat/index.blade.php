@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="max-w-5xl mx-auto">
+<div class="max-w-full">
     <!-- Header Card -->
     <div class="bg-gradient-to-r from-purple-600 to-indigo-700 rounded-2xl shadow-xl p-8 mb-6 text-white relative overflow-hidden">
         <div class="absolute top-0 right-0 opacity-10">

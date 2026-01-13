@@ -32,7 +32,7 @@
     }
 </style>
 
-<div class="max-w-5xl mx-auto">
+<div class="max-w-full">
     <!-- Chat Header Card -->
     <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
         <div class="p-6">

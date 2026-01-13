@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<aside class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white fixed top-0 left-0 h-screen overflow-y-auto shadow-2xl z-30 lg:block hidden">
+<aside id="sidebar" class="w-64 bg-gradient-to-b from-purple-800 to-purple-900 text-white fixed top-0 left-0 h-screen overflow-y-auto shadow-2xl z-40 transition-transform duration-300 lg:translate-x-0 -translate-x-full" style="background: linear-gradient(to bottom, #6b21a8, #581c87); color: white;">
 
     <!-- Logo & Brand -->
     <div class="p-6 border-b border-purple-700">

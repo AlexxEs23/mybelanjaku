@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="max-w-7xl mx-auto">
+<div class="w-full">
     @if (session('success'))
         <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-xl shadow-sm">
             <div class="flex items-center gap-2">

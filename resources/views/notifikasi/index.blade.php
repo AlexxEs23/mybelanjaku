@@ -12,7 +12,7 @@
     }
 </style>
 
-<div class="max-w-5xl mx-auto">
+<div class="max-w-full">
     <!-- Header Card -->
     <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl shadow-xl p-6 mb-6 text-white">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
