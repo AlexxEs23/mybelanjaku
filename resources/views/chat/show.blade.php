@@ -179,13 +179,23 @@
     const chatId = {{ $chat->id }};
     const currentUserId = {{ Auth::id() }};
     
-    // Subscribe ke private channel chat
-    window.Echo.private(`chat.${chatId}`)
-        .listen('.message.sent', (e) => {
-            console.log('🔥 New message received:', e);
-            
-            // Jangan tampilkan pesan dari diri sendiri (sudah ada di UI)
-            if (e.pengirim_id === currentUserId) return;
+    // Tunggu sampai Echo ready
+    function initializeChat() {
+        if (!window.Echo) {
+            console.warn('⏳ Waiting for Echo to initialize...');
+            setTimeout(initializeChat, 100);
+            return;
+        }
+        
+        console.log('✅ Echo ready, subscribing to chat:', chatId);
+        
+        // Subscribe ke private channel chat
+        window.Echo.private(`chat.${chatId}`)
+            .listen('.message.sent', (e) => {
+                console.log('🔥 New message received:', e);
+                
+                // Jangan tampilkan pesan dari diri sendiri (sudah ada di UI)
+                if (e.pengirim_id === currentUserId) return;
             
             // Buat elemen message bubble
             const isSent = e.pengirim_id === currentUserId;
@@ -208,10 +218,12 @@
             
             // Append ke container
             const chatMessages = document.getElementById('chatMessages');
-            chatMessages.insertAdjacentHTML('beforeend', messageHTML);
-            
-            // Auto scroll ke bawah
-            scrollToBottom();
+            if (chatMessages) {
+                chatMessages.insertAdjacentHTML('beforeend', messageHTML);
+                
+                // Auto scroll ke bawah
+                scrollToBottom();
+            }
             
             // Play notification sound (optional)
             if (typeof Audio !== 'undefined') {
@@ -221,5 +233,13 @@
                 audio.play().catch(() => {}); // Ignore autoplay errors
             }
         });
+    }
+    
+    // Mulai inisialisasi chat setelah DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeChat);
+    } else {
+        initializeChat();
+    }
 </script>
 @endsection
