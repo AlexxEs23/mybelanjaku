@@ -252,7 +252,7 @@
 </div>
 
 <!-- Menu Grid -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mb-6">
             <!-- Kelola Produk -->
             <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-purple-500 hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
                 <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -277,12 +277,12 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{{ url('/produk') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-purple-600 hover:bg-purple-50 transition-all duration-200 transform hover:scale-105">
+                    <a href="{{ route('kategori.index') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-purple-600 hover:bg-purple-50 transition-all duration-200 transform hover:scale-105">
                         <div class="flex items-center gap-3">
-                            <span class="text-2xl">📊</span>
+                            <span class="text-2xl">🏷️</span>
                             <div>
-                                <h4 class="font-semibold text-gray-800">Stok Produk</h4>
-                                <p class="text-sm text-gray-600">Kelola stok dan ketersediaan produk</p>
+                                <h4 class="font-semibold text-gray-800">Kelola Kategori</h4>
+                                <p class="text-sm text-gray-600">Tambah dan edit kategori produk</p>
                             </div>
                         </div>
                     </a>
@@ -304,15 +304,6 @@
                             </div>
                         </div>
                     </a>
-                    <a href="{{ url('/produk') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-green-600 hover:bg-green-50 transition-all duration-200 transform hover:scale-105">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">📱</span>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Nomor WhatsApp</h4>
-                                <p class="text-sm text-gray-600">Atur nomor WA untuk setiap produk</p>
-                            </div>
-                        </div>
-                    </a>
                     <a href="{{ route('home') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-green-600 hover:bg-green-50 transition-all duration-200 transform hover:scale-105">
                         <div class="flex items-center gap-3">
                             <span class="text-2xl">🛒</span>
@@ -328,42 +319,6 @@
                             <div>
                                 <h4 class="font-semibold text-gray-800">Profil Saya</h4>
                                 <p class="text-sm text-gray-600">Edit informasi akun Anda</p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Laporan & Keuangan -->
-            <div class="bg-white rounded-2xl shadow-xl p-6 border-t-4 border-blue-500 hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
-                <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-                    <span class="text-2xl">📊</span> Laporan & Analisis
-                </h3>
-                <div class="space-y-3">
-                    <a href="{{ url('/produk') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all duration-200 transform hover:scale-105">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">💰</span>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Stok & Penjualan</h4>
-                                <p class="text-sm text-gray-600">Monitor stok dan penjualan produk</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="{{ url('/produk') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all duration-200 transform hover:scale-105">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">📈</span>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Produk Populer</h4>
-                                <p class="text-sm text-gray-600">Lihat produk yang paling diminati</p>
-                            </div>
-                        </div>
-                    </a>
-                    <a href="{{ route('home') }}" class="block p-4 border-2 border-gray-200 rounded-xl hover:border-blue-600 hover:bg-blue-50 transition-all duration-200 transform hover:scale-105">
-                        <div class="flex items-center gap-3">
-                            <span class="text-2xl">🏪</span>
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Tampilan Toko</h4>
-                                <p class="text-sm text-gray-600">Cek tampilan produk Anda</p>
                             </div>
                         </div>
                     </a>

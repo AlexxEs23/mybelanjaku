@@ -198,7 +198,7 @@
 
         {{-- Menu Grid --}}
         <section class="mb-8" aria-label="Menu Navigasi Admin">
-            <div class="grid md:grid-cols-3 gap-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {{-- Kelola User --}}
                 <article class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
                     <div class="text-5xl mb-4">👥</div>
@@ -234,43 +234,10 @@
                     <div class="text-5xl mb-4">🏷️</div>
                     <h3 class="text-xl font-bold text-gray-800 mb-2">Kelola Kategori</h3>
                     <p class="text-gray-600 mb-4 text-sm">Tambah dan edit kategori produk</p>
-                    <a href="#" class="inline-block px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition text-sm font-semibold">
+                    <a href="{{ route('kategori.index') }}" class="inline-block px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition text-sm font-semibold">
                         Lihat Kategori
-                    </a>
-                </article>
-
-                {{-- Laporan --}}
-                <article class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-                    <div class="text-5xl mb-4">📊</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Laporan & Statistik</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Lihat laporan penjualan dan statistik</p>
-                    <a href="#" class="inline-block px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition text-sm font-semibold">
-                        Lihat Laporan
-                    </a>
-                </article>
-
-                {{-- Pengaturan --}}
-                <article class="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition">
-                    <div class="text-5xl mb-4">⚙️</div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Pengaturan Sistem</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Konfigurasi dan setting platform</p>
-                    <a href="#" class="inline-block px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition text-sm font-semibold">
-                        Pengaturan
                     </a>
                 </article>
             </div>
         </section>
-
-{{-- Recent Activity --}}
-<section class="bg-white rounded-xl shadow-lg p-8" aria-label="Aktivitas Terbaru">
-    <div class="flex items-center gap-3 mb-6">
-        <span class="text-3xl">📊</span>
-        <h2 class="text-2xl font-bold text-gray-800">Aktivitas Terbaru</h2>
-    </div>
-    <div class="text-center py-12">
-        <div class="text-6xl mb-4">📈</div>
-        <p class="text-gray-500 text-lg">Belum ada aktivitas terbaru</p>
-        <p class="text-gray-400 text-sm mt-2">Log aktivitas akan muncul di sini</p>
-    </div>
-</section>
 @endsection

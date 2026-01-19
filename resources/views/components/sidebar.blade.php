@@ -68,6 +68,11 @@
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
                 📦 Produk
             </a>
+
+            <a href="{{ route('kategori.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                🏷️ Kelola Kategori
+            </a>
         @endif
 
         {{-- ================= PENJUAL ================= --}}
@@ -90,6 +95,11 @@
             <a href="{{ route('produk.create') }}"
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
                 ➕ Tambah Produk
+            </a>
+
+            <a href="{{ route('kategori.index') }}"
+               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
+                🏷️ Kelola Kategori
             </a>
 
             <a href="{{ route('penjual.pesanan.index') }}"

@@ -22,48 +22,65 @@
         </div>
     </div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <!-- Total Pesanan -->
-            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="text-4xl">📦</div>
-                    <div class="bg-white bg-opacity-20 rounded-full px-3 py-1 text-xs font-semibold">Total</div>
-                </div>
-                <h3 class="text-3xl font-bold mb-1">{{ $totalOrders }}</h3>
-                <p class="text-blue-100 text-sm">Total Pesanan</p>
-            </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
 
-            <!-- Pesanan Aktif -->
-            <div class="bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="text-4xl">🚚</div>
-                    <div class="bg-white bg-opacity-20 rounded-full px-3 py-1 text-xs font-semibold">Proses</div>
-                </div>
-                <h3 class="text-3xl font-bold mb-1">{{ $activeOrders }}</h3>
-                <p class="text-yellow-100 text-sm">Sedang Diproses</p>
-            </div>
-
-            <!-- Pesanan Selesai -->
-            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="text-4xl">✅</div>
-                    <div class="bg-white bg-opacity-20 rounded-full px-3 py-1 text-xs font-semibold">Selesai</div>
-                </div>
-                <h3 class="text-3xl font-bold mb-1">{{ $completedOrders }}</h3>
-                <p class="text-purple-100 text-sm">Pesanan Selesai</p>
-            </div>
-
-            <!-- Total Belanja -->
-            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="text-4xl">💰</div>
-                    <div class="bg-white bg-opacity-20 rounded-full px-3 py-1 text-xs font-semibold">Total</div>
-                </div>
-                <h3 class="text-2xl font-bold mb-1">Rp {{ number_format($totalSpent / 1000, 1) }}jt</h3>
-                <p class="text-green-100 text-sm">Total Belanja</p>
-            </div>
+    <!-- Total Pesanan -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-700
+                rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-4xl">📦</div>
+            <span class="bg-purple-800 rounded-full px-3 py-1 text-xs font-semibold">
+                Total
+            </span>
         </div>
+        <h3 class="text-3xl font-bold mb-1">{{ $totalOrders }}</h3>
+        <p class="text-purple-100 text-sm">Total Pesanan</p>
+    </div>
+
+    <!-- Pesanan Diproses -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-700
+                rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-4xl">🚚</div>
+            <span class="bg-purple-800 rounded-full px-3 py-1 text-xs font-semibold">
+                Proses
+            </span>
+        </div>
+        <h3 class="text-3xl font-bold mb-1">{{ $activeOrders }}</h3>
+        <p class="text-purple-100 text-sm">Sedang Diproses</p>
+    </div>
+
+    <!-- Pesanan Selesai -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-700
+                rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-4xl">✅</div>
+            <span class="bg-purple-800 rounded-full px-3 py-1 text-xs font-semibold">
+                Selesai
+            </span>
+        </div>
+        <h3 class="text-3xl font-bold mb-1">{{ $completedOrders }}</h3>
+        <p class="text-purple-100 text-sm">Pesanan Selesai</p>
+    </div>
+
+    <!-- Total Belanja -->
+    <div class="bg-gradient-to-br from-purple-500 to-purple-700
+                rounded-xl shadow-lg p-6 text-white">
+        <div class="flex items-center justify-between mb-4">
+            <div class="text-4xl">💰</div>
+            <span class="bg-purple-800 rounded-full px-3 py-1 text-xs font-semibold">
+                Total
+            </span>
+        </div>
+        <h3 class="text-2xl font-bold mb-1">
+            Rp {{ number_format($totalSpent / 1000, 1) }}jt
+        </h3>
+        <p class="text-purple-100 text-sm">Total Belanja</p>
+    </div>
+
+</div>
+
+
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Main Content -->
@@ -72,7 +89,7 @@
                 <!-- Charts Section -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Monthly Spending Chart -->
-                    <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-md p-6">
                         <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                             <span>📊</span> Pengeluaran Bulanan
                         </h2>
@@ -82,7 +99,7 @@
                     </div>
 
                     <!-- Order Status Chart -->
-                    <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl shadow-md p-6">
                         <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                             <span>📈</span> Status Pesanan
                         </h2>
@@ -93,12 +110,21 @@
                 </div>
                 
                 <!-- Quick Actions -->
-               
-
-               
-
-                <!-- Keranjang Preview -->
-                
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-md p-6">
+                    <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span>⚡</span> Aksi Cepat
+                    </h2>
+                    <div class="grid grid-cols-2 gap-3">
+                        <a href="{{ route('home') }}" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition">
+                            <span class="text-2xl mb-2">🛒</span>
+                            <span class="text-sm font-semibold text-gray-700">Belanja</span>
+                        </a>
+                        <a href="{{ route('pembeli.pesanan.index') }}" class="flex flex-col items-center justify-center p-4 border-2 border-gray-200 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition">
+                            <span class="text-2xl mb-2">📦</span>
+                            <span class="text-sm font-semibold text-gray-700">Pesanan</span>
+                        </a>
+                    </div>
+                </div>
 
             </div>
 
@@ -106,34 +132,31 @@
             <div class="lg:col-span-1 space-y-6">
                 
                 <!-- Profile Card -->
-                
-
-                <!-- Promo Banner -->
-               
-                <!-- Activity -->
-                
-                    
-                    
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-white rounded-full mx-auto mb-3 flex items-center justify-center text-4xl">
+                            👤
+                        </div>
+                        <h3 class="font-bold text-lg mb-1">{{ Auth::user()->name }}</h3>
+                        <p class="text-sm text-purple-100 mb-4">{{ Auth::user()->email }}</p>
+                        <a href="{{ route('profile.show') }}" class="inline-block px-4 py-2 bg-white text-purple-600 rounded-lg text-sm font-semibold hover:bg-purple-50 transition">
+                            Edit Profil
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Help Center -->
-                <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl shadow-md p-6">
                     <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                         <span>❓</span> Bantuan
                     </h2>
                     
                     <div class="space-y-3">
-                        <a href="#" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
-                            <span>📞</span> Hubungi Customer Service
+                        <a href="{{ route('home') }}" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
+                            <span>🛒</span> Belanja Produk
                         </a>
-                        <a href="#" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
-                            <span>💬</span> Chat dengan Penjual
-                        </a>
-                        <a href="#" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
-                            <span>📄</span> Panduan Berbelanja
-                        </a>
-                        <a href="#" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
-                            <span>❔</span> FAQ
+                        <a href="{{ route('pembeli.pesanan.index') }}" class="flex items-center gap-3 text-sm text-gray-700 hover:text-purple-600 transition">
+                            <span>📦</span> Lihat Pesanan Saya
                         </a>
                     </div>
                 </div>

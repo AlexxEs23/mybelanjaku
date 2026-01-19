@@ -169,6 +169,9 @@ Route::middleware('auth')->group(function () {
         Route::put('/produk/{id}', [App\Http\Controllers\ProdukController::class, 'update'])->name('produk.update');
         Route::delete('/produk/{id}', [App\Http\Controllers\ProdukController::class, 'destroy'])->name('produk.destroy');
         
+        // CRUD Kategori - untuk admin dan penjual
+        Route::resource('kategori', App\Http\Controllers\KategoriController::class)->except(['show']);
+        
         // Pesanan Management for Penjual
         Route::get('/penjual/pesanan', [App\Http\Controllers\PesananController::class, 'penjualIndex'])->name('penjual.pesanan.index');
         Route::get('/penjual/pesanan/{id}/resi', [App\Http\Controllers\PesananController::class, 'showResiForm'])->name('penjual.pesanan.resi-form');
