@@ -6,7 +6,7 @@
         <div class="flex items-center gap-3">
             <span class="text-4xl">🛒</span>
             <div>
-                <h1 class="text-xl font-bold">MyBelanjaMu</h1>
+                <h1 class="text-xl font-bold">CheckoutAja</h1>
                 <p class="text-xs text-purple-300">
                     {{ ucfirst(Auth::user()->role) }} Panel
                 </p>
@@ -49,11 +49,6 @@
                 <span id="notif-badge-admin" class="hidden absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"></span>
             </a>
 
-            <a href="{{ route('chat.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                💬 Chat
-            </a>
-
             <a href="{{ route('admin.pesanan.index') }}"
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
                 🛍️ Pesanan
@@ -85,11 +80,6 @@
                class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700 relative">
                 <span>🔔 Notifikasi</span>
                 <span id="notif-badge-penjual" class="hidden absolute top-2 right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"></span>
-            </a>
-
-            <a href="{{ route('chat.index') }}"
-               class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-purple-700">
-                💬 Chat
             </a>
 
             <a href="{{ route('produk.index') }}"

@@ -1,12 +1,12 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Profil Saya - MyBelanjaMu')
-@section('meta_description', 'Kelola informasi profil dan pengaturan akun Anda di MyBelanjaMu')
+@section('title', 'Profil Saya - CheckoutAja')
+@section('meta_description', 'Kelola informasi profil dan pengaturan akun Anda di CheckoutAja')
 
 @section('content')
 <div class="max-w-full">
     {{-- Header Card --}}
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6 relative">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl p-6 mb-6 text-white">
         <div class="relative p-6 md:p-8">
             <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
                 <div class="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-5xl md:text-6xl shadow-lg border-4 border-white/30">
@@ -205,7 +205,7 @@
                             {{-- Buttons --}}
                             <div class="flex flex-col sm:flex-row gap-3 pt-6">
                                 <button type="submit" 
-                                    class="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                                    class="flex-1 px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl transition-all duration-200 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                                     <span>💾</span>
                                     <span>Simpan Perubahan</span>
                                 </button>
@@ -224,7 +224,7 @@
         {{-- Sidebar --}}
         <div class="lg:col-span-1 space-y-6">
             {{-- Info Box --}}
-            <aside class="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 p-5 rounded-2xl shadow-lg" role="complementary">
+            <aside class="bg-blue-50 border-2 border-blue-200 p-5 rounded-2xl shadow-lg" role="complementary">
                 <div class="flex items-start gap-3">
                     <span class="text-3xl" aria-hidden="true">ℹ️</span>
                     <div class="text-sm text-blue-800">
@@ -258,7 +258,7 @@
             </aside>
 
             {{-- Security Tips --}}
-            <aside class="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-200 p-5 rounded-2xl shadow-lg">
+            <aside class="bg-yellow-50 border-2 border-yellow-200 p-5 rounded-2xl shadow-lg">
                 <div class="flex items-start gap-3">
                     <span class="text-3xl" aria-hidden="true">🛡️</span>
                     <div class="text-sm text-yellow-800">
@@ -283,7 +283,7 @@
 
             {{-- Daftar Sebagai Penjual --}}
             @if($user->role === 'user')
-                <aside class="bg-gradient-to-br from-purple-50 to-indigo-50 border-2 border-purple-300 p-5 rounded-2xl shadow-lg" role="complementary">
+                <aside class="bg-purple-50 border-2 border-purple-300 p-5 rounded-2xl shadow-lg" role="complementary">
                     <div class="flex flex-col items-center text-center">
                         <div class="text-6xl mb-3" aria-hidden="true">🏪</div>
                         <h2 class="text-lg font-bold text-purple-800 mb-2">Jadi Penjual?</h2>

@@ -133,22 +133,11 @@
 
 <div class="w-full">
     <!-- Hero Header -->
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6 relative">
-        <!-- Decorative elements -->
-        <div class="absolute inset-0 opacity-10 overflow-hidden">
-            <svg class="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2" width="400" height="400">
-                <circle cx="200" cy="200" r="150" fill="white" opacity="0.1"/>
-            </svg>
-            <svg class="absolute bottom-0 left-0 transform -translate-x-1/2 translate-y-1/2" width="300" height="300">
-                <circle cx="150" cy="150" r="100" fill="white" opacity="0.1"/>
-            </svg>
-        </div>
-        
-        <div class="relative p-6 md:p-10">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl mb-6 p-6 md:p-10 text-white">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6">
                 <div class="flex-1">
                     <div class="flex items-center gap-3 mb-3 md:mb-4">
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white text-2xl md:text-3xl shadow-lg">
+                        <div class="w-12 h-12 md:w-16 md:h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl md:text-3xl shadow-lg">
                             🏪
                         </div>
                         <div>
@@ -168,7 +157,7 @@
                         <span>➕</span>
                         <span>Tambah Produk</span>
                     </a>
-                    <a href="{{ url('/produk') }}" class="inline-flex items-center justify-center gap-2 px-4 md:px-6 py-2 md:py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 transition-all duration-200 font-bold text-sm md:text-base">
+                    <a href="{{ url('/produk') }}" class="inline-flex items-center justify-center gap-2 px-4 md:px-6 py-2 md:py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-800 transition-all duration-200 font-bold text-sm md:text-base">
                         <span>📦</span>
                         <span>Lihat Produk</span>
                     </a>
@@ -211,7 +200,7 @@
                     <div class="flex-1">
                         <h3 class="text-xl font-bold text-yellow-800 mb-2">Akun Menunggu Persetujuan Admin</h3>
                         <p class="text-yellow-700 mb-3">
-                            Terima kasih telah mendaftar sebagai penjual di MyBelanjaMu! Akun Anda saat ini sedang dalam proses verifikasi oleh tim admin kami.
+                            Terima kasih telah mendaftar sebagai penjual di CheckoutAja! Akun Anda saat ini sedang dalam proses verifikasi oleh tim admin kami.
                         </p>
                         <div class="bg-yellow-100 border border-yellow-300 rounded-xl p-4">
                             <p class="text-sm text-yellow-800 font-semibold mb-2">⚠️ Fitur yang Terbatas:</p>
@@ -243,19 +232,19 @@
 
 <!-- Stats Cards Section -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6">
-    <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
+    <div class="bg-purple-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
         <div class="text-4xl md:text-5xl mb-3">📦</div>
         <h3 class="text-2xl md:text-3xl font-bold mb-1">{{ \App\Models\Produk::where('user_id', Auth::id())->count() }}</h3>
         <p class="text-sm opacity-90">Total Produk</p>
     </div>
     
-    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
+    <div class="bg-purple-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
         <div class="text-4xl md:text-5xl mb-3">💰</div>
         <h3 class="text-2xl md:text-3xl font-bold mb-1">Rp 0</h3>
         <p class="text-sm opacity-90">Total Penjualan</p>
     </div>
     
-    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
+    <div class="bg-purple-600 rounded-2xl p-6 text-white shadow-xl hover:shadow-2xl transition-all duration-200 transform hover:-translate-y-1">
         <div class="text-4xl md:text-5xl mb-3">⭐</div>
         <h3 class="text-2xl md:text-3xl font-bold mb-1">5.0</h3>
         <p class="text-sm opacity-90">Rating Toko</p>
@@ -384,7 +373,7 @@
     </div>
 
 <!-- Tips untuk Penjual -->
-<div class="bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 rounded-2xl shadow-xl p-4 md:p-6 border-2 border-purple-200 mb-6">
+<div class="bg-purple-50 rounded-2xl shadow-xl p-4 md:p-6 border-2 border-purple-200 mb-6">
     <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
         <span>💡</span> Tips Sukses Berjualan
     </h3>

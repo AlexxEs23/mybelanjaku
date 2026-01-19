@@ -9,7 +9,7 @@
 <body class="bg-gray-50 min-h-screen">
     
     <!-- Top Bar -->
-    <div class="bg-gradient-to-r from-purple-600 to-purple-800 text-white text-sm py-2">
+    <div class="bg-purple-700 text-white text-sm py-2">
         <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center gap-4">
                 <span>📱 Download Aplikasi</span>
@@ -29,7 +29,7 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">CheckoutAja</h1>
                 </div>
                 
                 <div class="flex items-center gap-4">
@@ -127,7 +127,7 @@
                 </h2>
                 
                 <div class="flex gap-4">
-                    <div class="w-24 h-24 rounded-lg overflow-hidden bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center flex-shrink-0">
+                    <div class="w-24 h-24 rounded-lg overflow-hidden bg-purple-100 flex items-center justify-center flex-shrink-0">
                         @if($produk->gambar)
                             <img src="{{ $produk->image_url }}" 
                                  alt="{{ $produk->nama_produk }}"
@@ -234,7 +234,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl shadow-lg p-8 border-2 border-green-200">
+                <div class="bg-green-50 rounded-xl shadow-lg p-8 border-2 border-green-200">
                     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                         <div class="flex-1">
                             <p class="text-sm text-gray-600 mb-1 font-medium">Total Pembayaran</p>
@@ -247,10 +247,7 @@
                             </p>
                         </div>
                         
-                        <button type="submit" class="group relative overflow-hidden bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95">
-                            <!-- Shimmer Effect -->
-                            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                            
+                        <button type="submit" class="group relative overflow-hidden bg-green-600 hover:bg-green-700 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 active:scale-95">
                             <!-- WhatsApp Icon with Animation -->
                             <div class="flex items-center gap-3 relative z-10">
                                 <svg class="w-7 h-7 animate-bounce" fill="currentColor" viewBox="0 0 24 24">

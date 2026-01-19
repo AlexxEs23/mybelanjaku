@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     
     {{-- SEO Meta Tags --}}
-    <title>@yield('title', 'MyBelanjaMu - Login atau Daftar')</title>
-    <meta name="description" content="@yield('meta_description', 'Masuk atau daftar di MyBelanjaMu untuk mulai berbelanja produk lokal Indonesia atau menjual produk UMKM Anda.')">
+    <title>@yield('title', 'CheckoutAja - Login atau Daftar')</title>
+    <meta name="description" content="@yield('meta_description', 'Masuk atau daftar di CheckoutAja untuk mulai berbelanja produk lokal Indonesia atau menjual produk UMKM Anda.')">
     <meta name="robots" content="noindex, nofollow">
     
     {{-- Canonical URL --}}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - MyBelanjaMu</title>
+    <title>Login - CheckoutAja.com</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-600 to-purple-800 min-h-screen flex items-center justify-center p-3 sm:p-5 overflow-x-hidden">
@@ -12,7 +12,7 @@
         <div class="flex-1 bg-gradient-to-br from-purple-600 to-purple-800 p-6 sm:p-8 lg:p-12 text-white flex flex-col justify-center">
             <div class="text-2xl sm:text-3xl font-bold mb-4 sm:mb-5 flex items-center gap-2">
                 <span class="text-3xl sm:text-4xl">🛒</span>
-                MyBelanjaMu
+                CheckoutAja.com
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4">Selamat Datang Kembali!</h2>
             <p class="text-sm sm:text-base opacity-90 leading-relaxed break-words">

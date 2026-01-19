@@ -21,9 +21,8 @@
     @endif
 
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6 relative">
-        <div class="relative p-6 md:p-8">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl mb-6 p-6 md:p-8 text-white">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h2 class="text-2xl md:text-3xl font-bold text-white mb-1">📦 Daftar Produk</h2>
                     @if(Auth::user()->role === 'admin')
@@ -48,7 +47,7 @@
             <div class="text-6xl md:text-8xl mb-4">📦</div>
             <p class="text-lg md:text-xl text-gray-600 mb-4 font-semibold">Belum ada produk</p>
             @if(Auth::user()->role === 'penjual')
-                <a href="{{ route('produk.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl">
+                <a href="{{ route('produk.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl">
                     <span>➕</span>
                     <span>Tambah Produk Pertama</span>
                 </a>
@@ -60,7 +59,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="bg-gradient-to-r from-gray-50 to-gray-100 border-b-2 border-gray-200">
+                        <tr class="bg-gray-100 border-b-2 border-gray-200">
                             <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Gambar</th>
                             <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Nama Produk</th>
                             <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Kategori</th>
@@ -80,7 +79,7 @@
                                     @if($item->gambar)
                                         <img src="{{ $item->image_url }}" alt="{{ $item->nama_produk }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
                                     @else
-                                        <div class="w-16 h-16 bg-gradient-to-br from-gray-200 to-gray-300 rounded-lg flex items-center justify-center text-2xl">📦</div>
+                                        <div class="w-16 h-16 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">📦</div>
                                     @endif
                                 </td>
                                 <td class="px-4 py-4">
@@ -152,7 +151,7 @@
                     @if($item->gambar)
                         <img src="{{ $item->image_url }}" alt="{{ $item->nama_produk }}" class="w-full h-48 object-cover">
                     @else
-                        <div class="w-full h-48 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center text-6xl">📦</div>
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-6xl">📦</div>
                     @endif
                     
                     <div class="p-4">

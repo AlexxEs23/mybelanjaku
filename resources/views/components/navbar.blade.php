@@ -4,9 +4,9 @@
         <div class="flex justify-between items-center py-4">
             {{-- Logo --}}
             <div class="flex items-center gap-2">
-                <a href="{{ route('home') }}" class="flex items-center gap-2 hover:opacity-80 transition" aria-label="MyBelanjaMu Home">
-                    <span class="text-3xl" aria-hidden="true">🛒</span>
-                    <span class="text-xl sm:text-2xl font-bold text-purple-700">MyBelanjaMu</span>
+                <a href="{{ route('home') }}" class="flex items-center gap-2 hover:opacity-80 transition" aria-label="CheckoutAja.com Home">
+                    <span class="text-3xl" aria-hidden="true">🛍️</span>
+                    <span class="text-xl sm:text-2xl font-bold text-purple-700">CheckoutAja.com</span>
                 </a>
             </div>
             

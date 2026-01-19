@@ -22,22 +22,16 @@
     @endif
 
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-xl p-8 mb-6 text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 opacity-10">
-            <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
-            </svg>
-        </div>
-        <div class="relative z-10">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="bg-purple-700 rounded-2xl shadow-xl p-8 mb-6 text-white">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div class="flex items-center gap-3 mb-2">
                         <span class="text-4xl">👥</span>
                         <h2 class="text-3xl font-bold">Manajemen User</h2>
                     </div>
-                    <p class="text-blue-100">Kelola semua pengguna sistem dengan mudah</p>
+                    <p class="text-purple-100">Kelola semua pengguna sistem dengan mudah</p>
                 </div>
-                <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 rounded-xl hover:bg-blue-50 transition font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <a href="{{ route('admin.users.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-purple-700 rounded-xl hover:bg-purple-50 transition font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                     <span>➕</span>
                     <span>Tambah User Baru</span>
                 </a>
@@ -47,37 +41,37 @@
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="bg-purple-600 rounded-xl shadow-lg p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-purple-100 text-sm mb-1">Total User</p>
+                    <p class="text-white text-sm mb-1">Total User</p>
                     <p class="text-3xl font-bold">{{ $users->total() }}</p>
                 </div>
                 <div class="text-5xl opacity-80">👥</div>
             </div>
         </div>
-        <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="bg-purple-600 rounded-xl shadow-lg p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-red-100 text-sm mb-1">Admin</p>
+                    <p class="text-white text-sm mb-1">Admin</p>
                     <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'admin')->count() }}</p>
                 </div>
                 <div class="text-5xl opacity-80">👑</div>
             </div>
         </div>
-        <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="bg-purple-600 rounded-xl shadow-lg p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-blue-100 text-sm mb-1">Penjual</p>
+                    <p class="text-white text-sm mb-1">Penjual</p>
                     <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'penjual')->count() }}</p>
                 </div>
                 <div class="text-5xl opacity-80">🏪</div>
             </div>
         </div>
-        <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-6 text-white">
+        <div class="bg-purple-600 rounded-xl shadow-lg p-6 text-white">
             <div class="flex items-center justify-between">
                 <div>
-                    <p class="text-green-100 text-sm mb-1">Pembeli</p>
+                    <p class="text-white text-sm mb-1">Pembeli</p>
                     <p class="text-3xl font-bold">{{ \App\Models\User::where('role', 'pembeli')->count() }}</p>
                 </div>
                 <div class="text-5xl opacity-80">🛒</div>

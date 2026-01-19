@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="bg-gray-100 h-full">
+<body class="bg-gray-50 h-full">
 
     <!-- Mobile Header dengan Menu Button -->
     <header class="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-40 px-4 py-3 flex items-center justify-between">
@@ -25,7 +25,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
         </button>
-        <h1 class="text-lg font-bold text-purple-800">MyBelanjaMu</h1>
+        <h1 class="text-lg font-bold text-purple-800">CheckoutAja</h1>
         <div class="w-10"></div> <!-- Spacer for center alignment -->
     </header>
 
@@ -34,7 +34,7 @@
 
     @include('components.sidebar')
 
-    <main class="lg:ml-64 w-full lg:w-auto min-h-screen bg-gray-100 pt-20 lg:pt-6 px-4 md:px-6 pb-6 overflow-x-hidden">
+    <main class="lg:ml-64 w-full lg:w-auto min-h-screen bg-gray-50 pt-20 lg:pt-6 px-4 md:px-6 pb-6 overflow-x-hidden">
         @yield('content')
     </main>
 

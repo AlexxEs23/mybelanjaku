@@ -3,7 +3,7 @@
 @section('content')
 <div class="w-full">
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl mb-6 p-6 text-white">
         <div class="p-8">
             <div class="flex items-center gap-4">
                 <a href="{{ route('penjual.pesanan.index') }}" class="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-white hover:bg-white/30 transition">

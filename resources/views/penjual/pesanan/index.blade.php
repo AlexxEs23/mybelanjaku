@@ -3,11 +3,10 @@
 @section('content')
 <div class="w-full">
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
-        <div class="p-8">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl mb-6 p-8 text-white">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white text-4xl shadow-lg">
+                    <div class="w-16 h-16 bg-purple-600 rounded-2xl flex items-center justify-center text-white text-4xl shadow-lg">
                         🛍️
                     </div>
                     <div>
@@ -15,7 +14,7 @@
                         <p class="text-purple-200">Kelola pesanan produk Anda via WhatsApp</p>
                     </div>
                 </div>
-                <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl text-white font-semibold">
+                <div class="bg-purple-600 px-4 py-2 rounded-xl text-white font-semibold">
                     {{ $pesanan->total() }} Total Pesanan
                 </div>
             </div>
@@ -39,23 +38,23 @@
                         <div class="flex items-center gap-3">
                             <span class="text-sm font-semibold text-gray-500">Pesanan #{{ $item->id }}</span>
                             @if($item->status === 'pending')
-                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-white shadow-md">
+                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-yellow-500 text-white shadow-md">
                                     ⏳ Pending
                                 </span>
                             @elseif($item->status === 'diproses' || $item->status === 'di proses')
-                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-md">
+                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-blue-500 text-white shadow-md">
                                     🔄 Di Proses
                                 </span>
                             @elseif($item->status === 'di kirim')
-                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-purple-400 to-purple-500 text-white shadow-md">
+                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-purple-500 text-white shadow-md">
                                     📦 Di Kirim
                                 </span>
                             @elseif($item->status === 'di terima')
-                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-green-400 to-green-500 text-white shadow-md">
+                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-green-500 text-white shadow-md">
                                     ✅ Di Terima
                                 </span>
                             @elseif($item->status === 'dibatalkan')
-                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-gradient-to-r from-red-400 to-red-500 text-white shadow-md">
+                                <span class="px-3 py-1 text-xs font-bold rounded-full bg-red-500 text-white shadow-md">
                                     ❌ Dibatalkan
                                 </span>
                             @endif

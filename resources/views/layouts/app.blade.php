@@ -5,25 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
    
     {{-- SEO Meta Tags --}}
-    <title>@yield('title', 'MyBelanjaMu - Belanja Produk UMKM Lokal Indonesia Terpercaya')</title>
-    <meta name="description" content="@yield('meta_description', 'Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik. Dukung UMKM Indonesia!')">
-    <meta name="keywords" content="@yield('meta_keywords', 'belanja online, UMKM, produk lokal, marketplace Indonesia, belanja UMKM, MyBelanjaMu')">
-    <meta name="author" content="MyBelanjaMu">
+    <title>@yield('title', 'CheckoutAja - Belanja Produk UMKM Lokal Indonesia Terpercaya')</title>
+    <meta name="description" content="@yield('meta_description', 'Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik.')">
+    <meta name="keywords" content="@yield('meta_keywords', 'belanja online, UMKM, produk lokal, marketplace Indonesia, belanja UMKM, CheckoutAja')">
+    <meta name="author" content="CheckoutAja">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url()->current() }}">
     
     {{-- Open Graph / Facebook --}}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('title', 'MyBelanjaMu - Belanja Produk UMKM Lokal')">
+    <meta property="og:title" content="@yield('title', 'CheckoutAja.com - Belanja Produk UMKM Lokal')">
     <meta property="og:description" content="@yield('meta_description', 'Platform marketplace terpercaya untuk produk UMKM Indonesia')">
     <meta property="og:image" content="@yield('og_image', asset('images/og-default.png'))">
-    <meta property="og:site_name" content="MyBelanjaMu">
+    <meta property="og:site_name" content="CheckoutAja.com">
     
     {{-- Twitter Card --}}
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ url()->current() }}">
-    <meta name="twitter:title" content="@yield('title', 'MyBelanjaMu')">
+    <meta name="twitter:title" content="@yield('title', 'CheckoutAja.com')">
     <meta name="twitter:description" content="@yield('meta_description', 'Belanja produk UMKM lokal Indonesia')">
     <meta name="twitter:image" content="@yield('og_image', asset('images/og-default.png'))">
     
@@ -55,7 +55,7 @@
                 <!-- Logo -->
                 <a href="{{ url('/') }}" class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">MyBelanjaMu</h1>
+                    <h1 class="text-2xl font-bold text-purple-700">CheckoutAja</h1>
                 </a>
                 
                 <!-- Search Bar -->
@@ -145,7 +145,7 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p>&copy; 2025 MyBelanjaMu. All rights reserved.</p>
+            <p>&copy; 2025 <span class="text-purple-400 font-bold">CheckoutAja</span>. All rights reserved.</p>
         </div>
     </footer>
 

@@ -1,4 +1,4 @@
-# 📐 Layout Dashboard Guide - MyBelanjaMu
+# 📐 Layout Dashboard Guide - CheckoutAja.com
 
 ## Struktur Layout Yang Benar
 

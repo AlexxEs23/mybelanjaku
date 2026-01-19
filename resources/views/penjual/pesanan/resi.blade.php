@@ -3,7 +3,7 @@
 @section('content')
 <div class="w-full">
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-indigo-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
+    <div class="bg-purple-700 rounded-2xl shadow-2xl mb-6 p-6 text-white">
         <div class="p-8">
             <div class="flex items-center gap-4">
                 <div class="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-white text-4xl shadow-lg">
@@ -28,7 +28,7 @@
                 <p class="font-bold text-gray-800 text-lg">{{ $pesanan->produk->nama_produk }}</p>
                 <p class="text-sm text-gray-600 mt-1">Jumlah: {{ $pesanan->jumlah }} unit</p>
             </div>
-            <div class="bg-gradient-to-r from-purple-50 to-indigo-50 rounded-xl p-4 border-2 border-purple-200">
+            <div class="bg-purple-50 rounded-xl p-4 border-2 border-purple-200">
                 <p class="text-sm text-gray-600 mb-1 font-medium">💰 Total:</p>
                 <p class="text-3xl font-bold text-purple-600">Rp {{ number_format($pesanan->total, 0, ',', '.') }}</p>
             </div>
@@ -79,7 +79,7 @@
                 </p>
             </div>
 
-            <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border-l-4 border-purple-600 rounded-xl p-5 mb-8">
+            <div class="bg-purple-50 border-l-4 border-purple-600 rounded-xl p-5 mb-8">
                 <div class="flex items-start gap-3">
                     <span class="text-2xl">ℹ️</span>
                     <div class="text-sm text-gray-700">
@@ -111,7 +111,7 @@
                     <span>←</span>
                     <span>Batal</span>
                 </a>
-                <button type="submit" class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl font-bold hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                <button type="submit" class="flex-1 px-6 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
                     <span>📦</span>
                     <span>Kirim Pesanan</span>
                 </button>

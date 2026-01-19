@@ -14,7 +14,7 @@
 
 <div class="max-w-full">
     <!-- Header Card -->
-    <div class="bg-gradient-to-r from-purple-600 to-purple-800 rounded-2xl shadow-xl p-6 mb-6 text-white">
+    <div class="bg-purple-700 rounded-2xl shadow-xl p-6 mb-6 text-white">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
                 <div class="flex items-center gap-3 mb-2">

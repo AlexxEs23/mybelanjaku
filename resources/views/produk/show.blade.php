@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Produk - MyBelanjaMu</title>
+    <title>Detail Produk - CheckoutAja</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -14,7 +14,7 @@
                 <div class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
                     <div>
-                        <h1 class="text-xl font-bold text-white">MyBelanjaMu</h1>
+                        <h1 class="text-xl font-bold text-white">CheckoutAja</h1>
                         <p class="text-xs text-purple-200">Detail Produk</p>
                     </div>
                 </div>

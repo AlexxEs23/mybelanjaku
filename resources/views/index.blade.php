@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     {{-- SEO Meta Tags --}}
-    <title>MyBelanjaMu - Belanja Online Produk UMKM Lokal Indonesia Terpercaya</title>
-    <meta name="description" content="Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik. Dukung pengusaha lokal Indonesia dengan berbelanja di MyBelanjaMu.">
-    <meta name="keywords" content="belanja online Indonesia, UMKM, produk lokal, marketplace UMKM, belanja produk Indonesia, MyBelanjaMu, toko online terpercaya">
-    <meta name="author" content="MyBelanjaMu">
+    <title>CheckoutAja - Belanja Online Produk UMKM Lokal Indonesia Terpercaya</title>
+    <meta name="description" content="Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik. Dukung pengusaha lokal Indonesia dengan berbelanja di CheckoutAja.">
+    <meta name="keywords" content="belanja online Indonesia, UMKM, produk lokal, marketplace UMKM, belanja produk Indonesia, CheckoutAja, toko online terpercaya">
+    <meta name="author" content="CheckoutAja.com">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ route('home') }}">
     
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ route('home') }}">
-    <meta property="og:title" content="MyBelanjaMu - Belanja Produk UMKM Lokal Indonesia">
+    <meta property="og:title" content="CheckoutAja - Belanja Produk UMKM Lokal Indonesia">
     <meta property="og:description" content="Platform marketplace terpercaya untuk produk UMKM Indonesia. Belanja online produk lokal berkualitas dengan harga terbaik.">
     <meta property="og:image" content="{{ asset('images/og-home.png') }}">
-    <meta property="og:site_name" content="MyBelanjaMu">
+    <meta property="og:site_name" content="CheckoutAja.com">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -39,32 +39,20 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen overflow-x-hidden">
+<body class="bg-white min-h-screen overflow-x-hidden">
     
     <!-- Top Bar -->
-    <div class="bg-gradient-to-r from-purple-600 to-purple-800 text-white text-xs sm:text-sm py-2">
-        <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center gap-2 sm:gap-4">
-                <span class="hidden sm:inline">📱 Download Aplikasi</span>
-                <span class="hidden sm:inline">|</span>
-                <span class="text-xs sm:text-sm">Ikuti Kami: � Instagram | 📷 Facebook</span>
-            </div>
-            <div class="flex items-center gap-4">
-                <span>🔔 Notifikasi</span>
-                <span>❓ Bantuan</span>
-            </div>
-        </div>
-    </div>
+   
 
     <!-- Main Navbar -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-3 sm:py-4">
                 <!-- Logo -->
-                <div class="flex items-center gap-2">
-                    <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-10 sm:h-12 w-auto">
-                    <h1 class="text-lg sm:text-2xl font-bold">
-                        <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
+                <div class="flex items-center gap-1">
+                    <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p-removebg-preview.png') }}" alt="CheckoutAja.com Logo" class="h-16 sm:h-20 w-auto">
+                    <h1 class="text-xl sm:text-3xl font-black">
+                        <span class="text-purple-700">Checkout</span><span class="text-purple-600">Aja</span><span class="text-purple-500">.com</span>
                     </h1>
                 </div>
                 
@@ -74,8 +62,8 @@
                         <div class="relative">
                             <input type="text" name="q" placeholder="Cari produk, toko, atau kategori..." 
                                    value="{{ request('q') }}"
-                                   class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
-                            <button type="submit" class="absolute right-0 top-0 h-full px-6 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                                   class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-800 shadow-md">
+                            <button type="submit" class="absolute right-0 top-0 h-full px-6 bg-purple-700 text-yellow-400 rounded-r-lg hover:bg-purple-900 transition font-bold shadow-md">
                                 🔍
                             </button>
                         </div>
@@ -85,15 +73,15 @@
                 <!-- Right Menu -->
                 <div class="flex items-center gap-4">
                     <button class="relative">
-                        <span class="text-2xl">🛒</span>
-                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                        
+                       
                     </button>
                     
                     @guest
-                        <a href="{{ url('/login') }}" class="px-4 py-2 text-purple-600 border-2 border-purple-600 rounded-lg hover:bg-purple-50 transition font-medium">
+                        <a href="{{ url('/login') }}" class="px-4 py-2 text-black hover:text-purple-700 font-bold transition">
                             Masuk
                         </a>
-                        <a href="{{ url('/register') }}" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-lg hover:shadow-lg transition font-medium">
+                        <a href="{{ url('/register') }}" class="px-4 py-2 bg-purple-700 text-yellow-400 rounded-lg hover:bg-purple-900 hover:text-white transition font-bold shadow-md">
                             Daftar
                         </a>
                     @else
@@ -132,61 +120,57 @@
     </nav>
 
     <!-- Banner Carousel -->
-    <section class="bg-gray-100 py-6">
+    <section class="bg-white py-6">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 rounded-2xl overflow-hidden shadow-xl">
+            <div class="bg-purple-700 border-4 border-yellow-400 rounded-2xl overflow-hidden shadow-2xl">
                 <div class="flex items-center justify-between p-12">
-                    <div class="text-white max-w-xl">
-                        <h2 class="text-4xl font-bold mb-4">Flash Sale Hari Ini!</h2>
-                        <p class="text-xl mb-6">Diskon hingga 70% untuk produk pilihan</p>
-                        <button class="px-8 py-3 bg-yellow-400 text-purple-900 rounded-lg font-bold text-lg hover:bg-yellow-300 transition">
-                            Belanja Sekarang
+                    <div class="max-w-xl">
+                        <h2 class="text-5xl font-black mb-4 text-yellow-400">Produk Unggulan UMKM Indonesia</h2>
+                        <p class="text-2xl mb-6 font-bold text-white">Temukan berbagai produk berkualitas dari pengrajin dan pengusaha lokal terpercaya</p>
+                        <button class="px-8 py-3 bg-yellow-400 text-black rounded-lg font-bold text-lg hover:bg-white transition shadow-lg">
+                            Jelajahi Produk
                         </button>
                     </div>
-                    <div class="text-8xl">🎉</div>
+                    <div class="text-8xl">🛍️</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Category Shortcuts -->
-    <section class="bg-white py-12 relative overflow-hidden">
-        <!-- Decorative Background -->
-        <div class="absolute inset-0 bg-gradient-to-br from-purple-50 via-white to-blue-50 opacity-60"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
+    <section class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Belanja Berdasarkan Kategori</h2>
-                <p class="text-gray-600">Temukan produk UMKM terbaik sesuai kebutuhan Anda</p>
+                <h2 class="text-4xl font-black text-black mb-2">Belanja Berdasarkan Kategori</h2>
+                <p class="text-yellow-600 text-lg font-bold">Temukan produk UMKM terbaik sesuai kebutuhan Anda</p>
             </div>
             
             <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-10 gap-6">
                 <!-- Tombol Semua -->
                 <a href="{{ route('home', ['sort' => request('sort', 'terbaru')]) }}" class="group category-btn" data-category="all">
-                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ !request('kategori') ? 'border-2 border-purple-600 shadow-2xl' : 'border border-gray-100' }}">
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl flex items-center justify-center mb-3 shadow-lg shadow-gray-200 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ !request('kategori') ? 'border-4 border-yellow-400 bg-purple-50 shadow-2xl' : 'border-2 border-gray-300' }}">
+                        <div class="w-16 h-16 mx-auto bg-purple-700 rounded-2xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                             <span class="text-3xl transform group-hover:scale-110 transition-transform duration-300">🏠</span>
                         </div>
-                        <p class="text-xs font-semibold text-gray-700 text-center leading-tight group-hover:text-purple-600 transition-colors">Semua</p>
+                        <p class="text-xs font-bold text-black text-center leading-tight group-hover:text-yellow-600 transition-colors">Semua</p>
                     </div>
                 </a>
                 
                 @foreach($categories as $index => $category)
                 <a href="{{ route('home', ['kategori' => $category->id, 'sort' => request('sort', 'terbaru')]) }}" class="group category-btn" data-category="{{ $category->id }}">
-                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ request('kategori') == $category->id ? 'border-2 border-purple-600 shadow-2xl' : 'border border-gray-100' }}">
+                    <div class="bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 {{ request('kategori') == $category->id ? 'border-4 border-yellow-400 bg-purple-50 shadow-2xl' : 'border-2 border-gray-300' }}">
                         @php
-                            $colors = ['from-purple-500 to-purple-600', 'from-orange-500 to-orange-600', 'from-pink-500 to-pink-600', 'from-blue-500 to-blue-600', 'from-green-500 to-green-600', 'from-yellow-500 to-yellow-600', 'from-indigo-500 to-indigo-600', 'from-red-500 to-red-600', 'from-teal-500 to-teal-600', 'from-cyan-500 to-cyan-600'];
-                            $shadows = ['shadow-purple-200', 'shadow-orange-200', 'shadow-pink-200', 'shadow-blue-200', 'shadow-green-200', 'shadow-yellow-200', 'shadow-indigo-200', 'shadow-red-200', 'shadow-teal-200', 'shadow-cyan-200'];
+                            $colors = ['bg-purple-700', 'bg-purple-600', 'bg-purple-800', 'bg-purple-500', 'bg-purple-700', 'bg-purple-600', 'bg-purple-800', 'bg-purple-900', 'bg-purple-700', 'bg-purple-600'];
+                            
                             $colorBg = $colors[$index % count($colors)];
-                            $colorShadow = $shadows[$index % count($shadows)];
                             
                             $icons = ['Fashion' => '👕', 'Makanan' => '🍽️', 'Kerajinan' => '🎨', 'Kecantikan' => '💄', 'Buku' => '📚', 'Elektronik' => '⚡', 'Rumah Tangga' => '🏠', 'Olahraga' => '⚽', 'Hobi' => '🎮', 'Otomotif' => '🚗'];
                             $icon = $icons[$category->nama_kategori] ?? '📦';
                         @endphp
-                        <div class="w-16 h-16 mx-auto bg-gradient-to-br {{ $colorBg }} rounded-2xl flex items-center justify-center mb-3 shadow-lg {{ $colorShadow }} group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto {{ $colorBg }} rounded-2xl flex items-center justify-center mb-3 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                             <span class="text-3xl transform group-hover:scale-110 transition-transform duration-300">{{ $icon }}</span>
                         </div>
-                        <p class="text-xs font-semibold text-gray-700 text-center leading-tight group-hover:text-purple-600 transition-colors">{{ $category->nama_kategori }}</p>
+                        <p class="text-xs font-bold text-black text-center leading-tight group-hover:text-yellow-600 transition-colors">{{ $category->nama_kategori }}</p>
                     </div>
                 </a>
                 @endforeach
@@ -198,18 +182,18 @@
     <section class="bg-white py-8">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-3xl font-bold text-gray-800">Rekomendasi Untuk Anda</h2>
+                <h2 class="text-4xl font-black text-black">Rekomendasi Untuk Anda</h2>
                 <div class="flex gap-2">
                     <a href="{{ route('home', ['sort' => 'terbaru']) }}" 
-                       class="px-4 py-2 {{ request('sort', 'terbaru') == 'terbaru' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                       class="px-4 py-2 {{ request('sort', 'terbaru') == 'terbaru' ? 'bg-purple-700 text-yellow-400' : 'bg-purple-500 text-white hover:bg-purple-700' }} rounded-lg text-sm font-bold transition shadow-md">
                         Terbaru
                     </a>
                     <a href="{{ route('home', ['sort' => 'terlaris']) }}" 
-                       class="px-4 py-2 {{ request('sort') == 'terlaris' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                       class="px-4 py-2 {{ request('sort') == 'terlaris' ? 'bg-purple-700 text-yellow-400' : 'bg-purple-500 text-white hover:bg-purple-700' }} rounded-lg text-sm font-bold transition shadow-md">
                         Terlaris
                     </a>
                     <a href="{{ route('home', ['sort' => 'termurah']) }}" 
-                       class="px-4 py-2 {{ request('sort') == 'termurah' ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200' }} rounded-lg text-sm font-medium transition">
+                       class="px-4 py-2 {{ request('sort') == 'termurah' ? 'bg-purple-700 text-yellow-400' : 'bg-purple-500 text-white hover:bg-purple-700' }} rounded-lg text-sm font-bold transition shadow-md">
                         Termurah
                     </a>
                 </div>
@@ -221,10 +205,10 @@
                 <div class="product-card bg-white border border-gray-200 rounded-xl hover:shadow-xl transition overflow-hidden group" data-category="{{ $product->kategori_id }}">
                     <a href="{{ route('produk.detail', $product->slug ?? $product->id) }}" class="block">
                         <div class="relative">
-                            <div class="aspect-square bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center overflow-hidden">
+                            <div class="aspect-square bg-purple-100 flex items-center justify-center overflow-hidden border-2 border-gray-200">
                                 @if($product->gambar)
                                     <img src="{{ $product->image_url }}" 
-                                         alt="{{ $product->nama_produk }} - {{ $product->kategori->nama_kategori ?? 'Produk' }} | Belanja di MyBelanjaMu"
+                                         alt="{{ $product->nama_produk }} - {{ $product->kategori->nama_kategori ?? 'Produk' }} | Belanja di CheckoutAja"
                                          title="{{ $product->nama_produk }}"
                                          loading="lazy"
                                          onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-7xl\'>📦</div><small class=\'text-xs text-red-500\'>Gambar error</small>';"
@@ -257,7 +241,7 @@
                     <div class="px-3 pb-3">
                         @if($product->stok > 0 && $product->status)
                             <a href="{{ route('whatsapp.checkout.show', $product->id) }}" 
-                               class="group relative overflow-hidden block w-full px-4 py-3 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-center text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95">
+                               class="group relative overflow-hidden block w-full px-4 py-3 bg-purple-700 hover:bg-purple-900 text-yellow-400 hover:text-white text-center text-sm font-bold rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95">
                                 <!-- Shimmer Effect -->
                                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                                 
@@ -292,7 +276,7 @@
 
             <!-- Load More Button -->
             <div class="text-center mt-8">
-                <button class="px-8 py-3 border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition">
+                <button class="px-8 py-3 border-4 border-yellow-400 bg-purple-700 text-yellow-400 rounded-lg font-black hover:bg-purple-900 hover:text-white transition shadow-lg">
                     Muat Lebih Banyak Produk
                 </button>
             </div>
@@ -305,10 +289,10 @@
             <div class="grid md:grid-cols-5 gap-8 mb-8">
                 <!-- Brand -->
                 <div class="md:col-span-2">
-                    <div class="flex items-center gap-2 mb-4">
-                        <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-12 w-auto">
-                        <h3 class="text-2xl font-bold">
-                            <span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">My</span><span class="text-white">Belanja</span><span class="bg-gradient-to-r from-purple-400 to-purple-600 bg-clip-text text-transparent">Mu</span>
+                    <div class="flex items-center gap-1 mb-4">
+                        <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p-removebg-preview.png') }}" alt="CheckoutAja.com Logo" class="h-16 w-auto">
+                        <h3 class="text-3xl font-black">
+                            <span class="text-purple-400">Checkout</span><span class="text-purple-300">Aja</span><span class="text-purple-200">.com</span>
                         </h3>
                     </div>
                     <p class="text-gray-400 mb-4">
@@ -320,7 +304,7 @@
                                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
                             </svg>
                         </a>
-                        <a href="https://www.instagram.com/mybelanjamu/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-500 rounded-full flex items-center justify-center hover:scale-110 transition" title="Instagram">
+                        <a href="https://www.instagram.com/checkoutaja/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center hover:scale-110 hover:bg-yellow-400 transition" title="Instagram">
                             <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
                             </svg>
@@ -332,7 +316,7 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Tentang Kami</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Tentang MyBelanjaMu</a></li>
+                        <li><a href="#" class="hover:text-white transition">Tentang CheckoutAja</a></li>
                         <li><a href="#" class="hover:text-white transition">Blog</a></li>
                         <li><a href="#" class="hover:text-white transition">Karir</a></li>
                         <li><a href="#" class="hover:text-white transition">Kebijakan Privasi</a></li>
@@ -356,7 +340,7 @@
                 <div>
                     <h4 class="font-bold text-lg mb-4">Lainnya</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">Jual di MyBelanjaMu</a></li>
+                        <li><a href="#" class="hover:text-white transition">Jual di CheckoutAja</a></li>
                         <li><a href="#" class="hover:text-white transition">Flash Sale</a></li>
                         <li><a href="#" class="hover:text-white transition">Promosi</a></li>
                         <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
@@ -366,7 +350,7 @@
             
             <!-- Copyright -->
             <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
-                <p>&copy; 2024 MyBelanjaMu. All Rights Reserved. Made with ❤️ for Indonesian UMKM</p>
+                <p>&copy; 2024 <span class="text-purple-400 font-bold">CheckoutAja</span>. All Rights Reserved. Made with ❤️ for Indonesian UMKM</p>
             </div>
         </div>
     </footer>

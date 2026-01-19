@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $produk->nama_produk . ' - MyBelanjaMu')
-@section('meta_description', Str::limit(strip_tags($produk->deskripsi), 155) . ' | Harga: Rp ' . number_format($produk->harga, 0, ',', '.') . ' | Belanja di MyBelanjaMu')
-@section('meta_keywords', $produk->nama_produk . ', ' . $produk->kategori->nama_kategori . ', produk UMKM, belanja online, MyBelanjaMu')
+@section('title', $produk->nama_produk . ' - CheckoutAja')
+@section('meta_description', Str::limit(strip_tags($produk->deskripsi), 155) . ' | Harga: Rp ' . number_format($produk->harga, 0, ',', '.') . ' | Belanja di CheckoutAja')
+@section('meta_keywords', $produk->nama_produk . ', ' . $produk->kategori->nama_kategori . ', produk UMKM, belanja online, CheckoutAja')
 @section('og_image', $produk->image_url ?? asset('images/og-default.png'))
 
 @section('content')

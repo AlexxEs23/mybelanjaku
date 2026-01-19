@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Dashboard Pembeli - MyBelanjaMu')
+@section('title', 'Dashboard Pembeli - CheckoutAja')
 
 @section('content')
 <div class="max-w-7xl mx-auto">

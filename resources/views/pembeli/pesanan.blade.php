@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesanan Saya - MyBelanjaMu</title>
+    <title>Pesanan Saya - CheckoutAja</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -29,7 +29,7 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('img/images-removebg-preview (1).png') }}" alt="MyBelanjaMu Logo" class="h-10 w-auto">
+                    <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}" alt="CheckoutAja Logo" class="h-10 w-auto">
                     <h1 class="text-2xl font-bold">
                         <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
                     </h1>
@@ -287,7 +287,7 @@
     <footer class="bg-gray-800 text-white py-12 mt-12">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center">
-                <p class="text-gray-400">© 2025 MyBelanjaMu. Platform e-commerce untuk UMKM Indonesia.</p>
+                <p class="text-gray-400">© 2025 <span class="text-purple-400 font-bold">CheckoutAja</span>. Platform e-commerce untuk UMKM Indonesia.</p>
             </div>
         </div>
     </footer>
