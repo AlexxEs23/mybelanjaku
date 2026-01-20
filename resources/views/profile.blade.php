@@ -303,7 +303,7 @@
                         </ul>
                         <form method="POST" action="{{ route('profile.apply-seller') }}" onsubmit="return confirm('Yakin ingin mendaftar sebagai penjual?')" class="w-full">
                             @csrf
-                            <button type="submit" class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2">
+                            <button type="submit" class="w-full px-4 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-purple rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2">
                                 <span>🏪</span>
                                 <span>Daftar Sekarang</span>
                             </button>

@@ -134,7 +134,7 @@
                 <!-- Profile Card -->
                 <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-6 text-white">
                     <div class="text-center">
-                        <div class="w-20 h-20 bg-white rounded-full mx-auto mb-3 flex items-center justify-center text-4xl">
+                        <div class="w-20 h-20 bg-purple-700 rounded-full mx-auto mb-3 flex items-center justify-center text-4xl">
                             👤
                         </div>
                         <h3 class="font-bold text-lg mb-1">{{ Auth::user()->name }}</h3>
