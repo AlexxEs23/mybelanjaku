@@ -34,6 +34,8 @@ class User extends Authenticatable
         'role',
         'status',
         'status_approval',
+        'fcm_token',
+        'google_id',
     ];
 
     /**

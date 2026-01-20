@@ -76,7 +76,7 @@
         @endif
 
         {{-- ================= PENJUAL ================= --}}
-        @if(Auth::user()->role === 'penjual')
+        @if(Auth::user()->role === 'penjual' && Auth::user()->status_approval === 'approved')
             <div class="pt-4 text-xs uppercase text-purple-300">
                 Penjual Menu
             </div>
@@ -109,7 +109,7 @@
         @endif
 
         {{-- ================= USER (PEMBELI) ================= --}}
-        @if(Auth::user()->role === 'user')
+        @if(Auth::user()->role === 'user' || (Auth::user()->role === 'penjual' && Auth::user()->status_approval !== 'approved'))
             <div class="pt-4 text-xs uppercase text-purple-300">
                 User Menu
             </div>

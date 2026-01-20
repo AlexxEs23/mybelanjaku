@@ -69,11 +69,11 @@ class WhatsAppCheckoutController extends Controller
             $total = $produk->harga * $request->jumlah;
 
             // Get user name for notifications and messages
-            $userName = Auth::check() ? Auth::user()->name : 'Customer';
+            $userName = Auth::user()->name;
 
             // Save order to database
             $pesanan = Pesanan::create([
-                'user_id' => Auth::check() ? Auth::id() : null,
+                'user_id' => Auth::id(),
                 'produk_id' => $produk->id,
                 'jumlah' => $request->jumlah,
                 'harga_satuan' => $produk->harga,

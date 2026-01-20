@@ -18,6 +18,73 @@
 
 <body class="bg-gray-50 h-full">
 
+    <!-- Alert Notifications -->
+    @if(session('success'))
+    <div id="alert-success" class="fixed top-4 right-4 z-50 max-w-md bg-green-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in">
+        <span class="text-2xl">✅</span>
+        <div class="flex-1">
+            <p class="font-semibold">Berhasil!</p>
+            <p class="text-sm">{{ session('success') }}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+    @endif
+
+    @if(session('error'))
+    <div id="alert-error" class="fixed top-4 right-4 z-50 max-w-md bg-red-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in">
+        <span class="text-2xl">❌</span>
+        <div class="flex-1">
+            <p class="font-semibold">Gagal!</p>
+            <p class="text-sm">{{ session('error') }}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+    @endif
+
+    @if(session('warning'))
+    <div id="alert-warning" class="fixed top-4 right-4 z-50 max-w-md bg-yellow-500 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3 animate-slide-in">
+        <span class="text-2xl">⚠️</span>
+        <div class="flex-1">
+            <p class="font-semibold">Peringatan!</p>
+            <p class="text-sm">{{ session('warning') }}</p>
+        </div>
+        <button onclick="this.parentElement.remove()" class="text-white hover:text-gray-200">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div id="alert-errors" class="fixed top-4 right-4 z-50 max-w-md bg-red-500 text-white px-6 py-4 rounded-lg shadow-2xl animate-slide-in">
+        <div class="flex items-start gap-3">
+            <span class="text-2xl">❌</span>
+            <div class="flex-1">
+                <p class="font-semibold mb-2">Terjadi Kesalahan:</p>
+                <ul class="text-sm list-disc list-inside space-y-1">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" class="text-white hover:text-gray-200">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+    @endif
+
     <!-- Mobile Header dengan Menu Button -->
     <header class="lg:hidden fixed top-0 left-0 right-0 bg-white shadow-md z-40 px-4 py-3 flex items-center justify-between">
         <button id="mobile-menu-btn" class="text-purple-800 p-2 hover:bg-purple-50 rounded-lg transition">
@@ -118,7 +185,36 @@
         });
     </script>
 
+    <style>
+        @keyframes slide-in {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .animate-slide-in {
+            animation: slide-in 0.3s ease-out;
+        }
+    </style>
+
     <script>
+        // Auto dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('[id^="alert-"]');
+            alerts.forEach(alert => {
+                setTimeout(() => {
+                    alert.style.opacity = '0';
+                    alert.style.transform = 'translateX(100%)';
+                    alert.style.transition = 'all 0.3s ease-out';
+                    setTimeout(() => alert.remove(), 300);
+                }, 5000);
+            });
+        });
+        
         // Sidebar Toggle untuk Mobile
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar');

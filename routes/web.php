@@ -76,11 +76,18 @@ if (env('APP_DEBUG')) {
         
         return response()->json($results, 200, [], JSON_PRETTY_PRINT);
     });
+    
+    // 🔥 Firebase Debug Tool
+    Route::get('/test-firebase', function () {
+        return view('test-firebase-debug');
+    });
 }
 
-// WhatsApp Checkout - can be accessed by guest or auth users
-Route::get('/whatsapp-checkout/{id}', [App\Http\Controllers\WhatsAppCheckoutController::class, 'show'])->name('whatsapp.checkout.show');
-Route::post('/whatsapp-checkout', [App\Http\Controllers\WhatsAppCheckoutController::class, 'checkout'])->name('whatsapp.checkout');
+// WhatsApp Checkout - user must login first
+Route::middleware('auth')->group(function () {
+    Route::get('/whatsapp-checkout/{id}', [App\Http\Controllers\WhatsAppCheckoutController::class, 'show'])->name('whatsapp.checkout.show');
+    Route::post('/whatsapp-checkout', [App\Http\Controllers\WhatsAppCheckoutController::class, 'checkout'])->name('whatsapp.checkout');
+});
 
 // Auth Routes
 Route::middleware('guest')->group(function () {
@@ -108,7 +115,7 @@ Route::middleware('auth')->group(function () {
         
         if ($user->role === 'admin') {
             return view('admin.dashboard');
-        } elseif ($user->role === 'penjual') {
+        } elseif ($user->role === 'penjual' && $user->status_approval === 'approved') {
             return view('penjual.dashboard');
         } else {
             return redirect()->route('pembeli.dashboard');

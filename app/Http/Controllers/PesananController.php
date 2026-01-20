@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
+use App\Models\Notifikasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -101,6 +102,19 @@ class PesananController extends Controller
         $pesanan->resi = $request->resi;
         $pesanan->save();
 
+        // Kirim notifikasi ke pembeli jika ada user_id
+        if ($pesanan->user_id) {
+            Notifikasi::create([
+                'user_id' => $pesanan->user_id,
+                'judul' => 'Pesanan Dikirim',
+                'pesan' => 'Pesanan #' . $pesanan->id . ' telah dikirim dengan nomor resi: ' . $request->resi,
+                'tipe' => 'pesanan',
+                'referensi_id' => $pesanan->id,
+                'link' => route('pembeli.pesanan.index'),
+                'dibaca' => false
+            ]);
+        }
+
         return redirect()->route('penjual.pesanan.index')
             ->with('success', 'Pesanan berhasil dikirim dengan nomor resi: ' . $request->resi);
     }
@@ -110,7 +124,7 @@ class PesananController extends Controller
      */
     public function updateStatusByPembeli($id)
     {
-        $pesanan = Pesanan::findOrFail($id);
+        $pesanan = Pesanan::with('produk.user')->findOrFail($id);
         
         // Check if this order belongs to the user
         if ($pesanan->user_id !== Auth::id()) {
@@ -119,6 +133,18 @@ class PesananController extends Controller
 
         $pesanan->status = 'selesai';
         $pesanan->save();
+
+        // Kirim notifikasi ke penjual
+        $penjual = $pesanan->produk->user;
+        Notifikasi::create([
+            'user_id' => $penjual->id,
+            'judul' => 'Pesanan Selesai',
+            'pesan' => 'Pesanan #' . $pesanan->id . ' telah dikonfirmasi diterima oleh pembeli',
+            'tipe' => 'pesanan',
+            'referensi_id' => $pesanan->id,
+            'link' => route('penjual.pesanan.index'),
+            'dibaca' => false
+        ]);
 
         return redirect()->back()->with('success', 'Terima kasih! Pesanan berhasil dikonfirmasi sebagai diterima.');
     }

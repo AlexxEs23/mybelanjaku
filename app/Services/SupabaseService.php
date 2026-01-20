@@ -38,16 +38,22 @@ class SupabaseService
             $fileContent = file_get_contents($file->getRealPath());
             $contentType = $file->getMimeType();
 
-            // Upload ke Supabase Storage - use asMultipart() for proper file upload
+            // Upload ke Supabase Storage - correct method with body and Content-Type
             /** @var Response $response */
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $this->key,
-            ])->asMultipart()
-              ->attach('file', $fileContent, $filename)
+                'Content-Type' => $contentType,
+                'x-upsert' => 'false', // Don't overwrite existing files
+            ])->withBody($fileContent, $contentType)
               ->post("{$this->url}/storage/v1/object/{$this->storageBucket}/{$path}");
 
             if ($response->successful()) {
                 $publicUrl = "{$this->url}/storage/v1/object/public/{$this->storageBucket}/{$path}";
+                
+                Log::info('Supabase upload successful', [
+                    'path' => $path,
+                    'url' => $publicUrl
+                ]);
                 
                 return [
                     'success' => true,
@@ -59,7 +65,8 @@ class SupabaseService
 
             Log::error('Supabase upload failed', [
                 'status' => $response->status(),
-                'body' => $response->body()
+                'body' => $response->body(),
+                'path' => $path
             ]);
 
             return [

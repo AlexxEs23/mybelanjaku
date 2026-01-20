@@ -52,9 +52,10 @@ class SellerApprovalController extends Controller
         }
         
         $user->update([
+            'role' => 'user',
             'status_approval' => 'rejected'
         ]);
         
-        return back()->with('success', 'Penjual ' . $user->name . ' ditolak.');
+        return back()->with('success', 'Penjual ' . $user->name . ' ditolak dan diubah menjadi user biasa.');
     }
 }
