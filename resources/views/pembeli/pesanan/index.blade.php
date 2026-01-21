@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
+
+@section('title', 'Pesanan Saya - CheckoutAja')
 
 @section('content')
-<div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Pesanan Saya</h1>
-            <p class="mt-2 text-sm text-gray-600">Daftar pesanan yang telah Anda buat</p>
-        </div>
+<div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">📦 Pesanan Saya</h1>
+        <p class="mt-2 text-sm text-gray-600">Daftar pesanan yang telah Anda buat</p>
+    </div>
 
         <!-- Alert Messages -->
         @if(session('success'))
@@ -21,10 +22,7 @@
                 {{ session('error') }}
             </div>
         @endif
-             <a href="{{ route('home') }}" class="px-6 py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-lg font-semibold hover:bg-purple-50 transition flex items-center gap-2">
-                    <span>🏠</span>
-                    <span>Kembali ke Beranda</span>
-                </a>
+
         <!-- Orders List -->
         @if($pesanan->count() > 0)
             <div class="space-y-4">

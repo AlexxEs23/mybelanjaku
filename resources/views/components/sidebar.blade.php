@@ -4,7 +4,7 @@
     <!-- Logo & Brand -->
     <div class="p-6 border-b border-purple-700">
         <div class="flex items-center gap-3">
-            <span class="text-4xl">🛒</span>
+            <img src="{{ asset('img/sidelogo.png') }}" alt="CheckoutAja Logo" class="h-12 w-auto">
             <div>
                 <h1 class="text-xl font-bold">CheckoutAja</h1>
                 <p class="text-xs text-purple-300">

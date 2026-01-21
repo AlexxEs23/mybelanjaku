@@ -33,8 +33,8 @@
                 Total
             </span>
         </div>
-        <h3 class="text-3xl font-bold mb-1">{{ $totalOrders }}</h3>
-        <p class="text-purple-100 text-sm">Total Pesanan</p>
+        <h3 class="text-black text-3xl font-bold mb-1">{{ $totalOrders }}</h3>
+        <p class="text-black font-bold text-sm">Total Pesanan</p>
     </div>
 
     <!-- Pesanan Diproses -->
@@ -46,8 +46,8 @@
                 Proses
             </span>
         </div>
-        <h3 class="text-3xl font-bold mb-1">{{ $activeOrders }}</h3>
-        <p class="text-purple-100 text-sm">Sedang Diproses</p>
+        <h3 class="text-black text-3xl font-bold mb-1">{{ $activeOrders }}</h3>
+        <p class="text-black font-bold text-sm">Sedang Diproses</p>
     </div>
 
     <!-- Pesanan Selesai -->
@@ -59,8 +59,8 @@
                 Selesai
             </span>
         </div>
-        <h3 class="text-3xl font-bold mb-1">{{ $completedOrders }}</h3>
-        <p class="text-purple-100 text-sm">Pesanan Selesai</p>
+        <h3 class="text-black text-3xl font-bold mb-1">{{ $completedOrders }}</h3>
+        <p class="text-black font-bold text-sm">Pesanan Selesai</p>
     </div>
 
     <!-- Total Belanja -->
@@ -72,10 +72,10 @@
                 Total
             </span>
         </div>
-        <h3 class="text-2xl font-bold mb-1">
+        <h3 class="text-black text-2xl font-bold mb-1">
             Rp {{ number_format($totalSpent / 1000, 1) }}jt
         </h3>
-        <p class="text-purple-100 text-sm">Total Belanja</p>
+        <p class="text-black font-bold text-sm">Total Belanja</p>
     </div>
 
 </div>
@@ -137,9 +137,9 @@
                         <div class="w-20 h-20 bg-purple-700 rounded-full mx-auto mb-3 flex items-center justify-center text-4xl">
                             👤
                         </div>
-                        <h3 class="font-bold text-lg mb-1">{{ Auth::user()->name }}</h3>
-                        <p class="text-sm text-purple-100 mb-4">{{ Auth::user()->email }}</p>
-                        <a href="{{ route('profile.show') }}" class="inline-block px-4 py-2 bg-white text-purple-600 rounded-lg text-sm font-semibold hover:bg-purple-50 transition">
+                        <h3 class="font-bold text-black text-lg mb-1">{{ Auth::user()->name }}</h3>
+                        <p class="text-sm text-black mb-4">{{ Auth::user()->email }}</p>
+                        <a href="{{ route('profile.show') }}" class="inline-block px-4 py-2 bg-purple-700 text-white rounded-lg text-sm font-semibold hover:bg-purple-800 transition">
                             Edit Profil
                         </a>
                     </div>
