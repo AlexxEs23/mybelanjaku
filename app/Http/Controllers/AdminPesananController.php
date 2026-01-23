@@ -6,6 +6,7 @@ use App\Models\Pesanan;
 use App\Models\Notifikasi;
 use App\Models\Chat;
 use App\Models\User;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,6 +62,17 @@ class AdminPesananController extends Controller
                 'dibaca' => false
             ]);
             
+            // Firebase push notification
+            if ($penjual->fcm_token) {
+                $firebaseService = app(FirebaseService::class);
+                $firebaseService->sendNotification(
+                    $penjual->fcm_token,
+                    '🛒 Produk Anda Dipesan',
+                    'Pesanan #' . $pesanan->id . ' untuk "' . $pesanan->produk->nama_produk . '" siap diproses',
+                    ['type' => 'pesanan', 'pesanan_id' => $pesanan->id]
+                );
+            }
+            
             // ✅ CEK/BUAT CHAT ADMIN ↔ PENJUAL
             $admin = Auth::user();
             
@@ -87,6 +99,17 @@ class AdminPesananController extends Controller
                     'link' => route('chat.show', $chat->id),
                     'dibaca' => false
                 ]);
+                
+                // Firebase push notification
+                if ($penjual->fcm_token) {
+                    $firebaseService = app(FirebaseService::class);
+                    $firebaseService->sendNotification(
+                        $penjual->fcm_token,
+                        '💬 Chat Baru Dibuat',
+                        'Admin membuat chat terkait pesanan #' . $pesanan->id,
+                        ['type' => 'chat', 'chat_id' => $chat->id]
+                    );
+                }
             }
             
             return redirect()->back()->with('success', 'Pesanan berhasil dikonfirmasi dan notifikasi terkirim ke penjual');
@@ -129,6 +152,18 @@ class AdminPesananController extends Controller
                     'link' => route('penjual.pesanan.index'),
                     'dibaca' => false
                 ]);
+                
+                // Firebase push notification
+                $pembeli = User::find($pesanan->user_id);
+                if ($pembeli && $pembeli->fcm_token) {
+                    $firebaseService = app(FirebaseService::class);
+                    $firebaseService->sendNotification(
+                        $pembeli->fcm_token,
+                        '❌ Pesanan Dibatalkan',
+                        'Pesanan #' . $pesanan->id . ' telah dibatalkan oleh admin',
+                        ['type' => 'pesanan', 'pesanan_id' => $pesanan->id]
+                    );
+                }
             }
             
             return redirect()->back()->with('success', 'Pesanan berhasil dibatalkan');

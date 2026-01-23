@@ -3,25 +3,27 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\ProfileUmkm;
+use App\Models\Notifikasi;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 
 class SellerApprovalController extends Controller
 {
     public function index()
     {
-        $pendingSellers = User::where('role', 'penjual')
-            ->where('status_approval', 'pending')
+        $pendingSellers = ProfileUmkm::with(['user', 'kategori'])
+            ->where('status_verifikasi', 'pending')
             ->latest()
             ->get();
             
-        $approvedSellers = User::where('role', 'penjual')
-            ->where('status_approval', 'approved')
+        $approvedSellers = ProfileUmkm::with(['user', 'kategori'])
+            ->where('status_verifikasi', 'verified')
             ->latest()
             ->get();
             
-        $rejectedSellers = User::where('role', 'penjual')
-            ->where('status_approval', 'rejected')
+        $rejectedSellers = ProfileUmkm::with(['user', 'kategori'])
+            ->where('status_verifikasi', 'rejected')
             ->latest()
             ->get();
         
@@ -30,32 +32,80 @@ class SellerApprovalController extends Controller
     
     public function approve($id)
     {
-        $user = User::findOrFail($id);
+        $profileUmkm = ProfileUmkm::with('user')->findOrFail($id);
         
-        if ($user->role !== 'penjual') {
-            return back()->with('error', 'User bukan penjual!');
-        }
-        
-        $user->update([
-            'status_approval' => 'approved'
+        $profileUmkm->update([
+            'status_verifikasi' => 'verified'
         ]);
         
-        return back()->with('success', 'Penjual ' . $user->name . ' berhasil disetujui!');
+        // Update role user jadi penjual jika masih user biasa
+        if ($profileUmkm->user->role === 'user') {
+            $profileUmkm->user->update([
+                'role' => 'penjual',
+                'status_approval' => 'approved'
+            ]);
+        }
+        
+        // Kirim notifikasi ke penjual
+        $firebaseService = app(FirebaseService::class);
+        
+        // Notifikasi database
+        Notifikasi::create([
+            'user_id' => $profileUmkm->user_id,
+            'judul' => '✅ UMKM Anda Disetujui!',
+            'pesan' => 'Selamat! UMKM "' . $profileUmkm->nama_umkm . '" telah diverifikasi. Anda sekarang dapat mulai berjualan dan upload produk.',
+            'tipe' => 'penjual',
+            'referensi_id' => $profileUmkm->id,
+            'link' => route('dashboard'),
+            'dibaca' => false
+        ]);
+        
+        // Push notification via Firebase
+        if ($profileUmkm->user->fcm_token) {
+            $firebaseService->sendNotification(
+                $profileUmkm->user->fcm_token,
+                '✅ UMKM Anda Disetujui!',
+                'UMKM "' . $profileUmkm->nama_umkm . '" telah diverifikasi. Mulai berjualan sekarang!',
+                ['type' => 'penjual_approved', 'profile_id' => $profileUmkm->id]
+            );
+        }
+        
+        return back()->with('success', 'UMKM ' . $profileUmkm->nama_umkm . ' berhasil diverifikasi!');
     }
     
     public function reject($id)
     {
-        $user = User::findOrFail($id);
+        $profileUmkm = ProfileUmkm::with('user')->findOrFail($id);
         
-        if ($user->role !== 'penjual') {
-            return back()->with('error', 'User bukan penjual!');
-        }
-        
-        $user->update([
-            'role' => 'user',
-            'status_approval' => 'rejected'
+        $profileUmkm->update([
+            'status_verifikasi' => 'rejected'
         ]);
         
-        return back()->with('success', 'Penjual ' . $user->name . ' ditolak dan diubah menjadi user biasa.');
+        // Kirim notifikasi ke penjual
+        $firebaseService = app(FirebaseService::class);
+        
+        // Notifikasi database
+        Notifikasi::create([
+            'user_id' => $profileUmkm->user_id,
+            'judul' => '❌ Pendaftaran UMKM Ditolak',
+            'pesan' => 'Maaf, pendaftaran UMKM "' . $profileUmkm->nama_umkm . '" tidak dapat diverifikasi. Silakan hubungi admin untuk informasi lebih lanjut.',
+            'tipe' => 'penjual',
+            'referensi_id' => $profileUmkm->id,
+            'link' => route('profile-umkm.index'),
+            'dibaca' => false
+        ]);
+        
+        // Push notification via Firebase
+        if ($profileUmkm->user->fcm_token) {
+            $firebaseService->sendNotification(
+                $profileUmkm->user->fcm_token,
+                '❌ Pendaftaran UMKM Ditolak',
+                'Pendaftaran UMKM "' . $profileUmkm->nama_umkm . '" tidak dapat diverifikasi.',
+                ['type' => 'penjual_rejected', 'profile_id' => $profileUmkm->id]
+            );
+        }
+        
+        return back()->with('success', 'UMKM ' . $profileUmkm->nama_umkm . ' ditolak.');
     }
 }
+

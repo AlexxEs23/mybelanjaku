@@ -7,6 +7,7 @@ use App\Models\PesanChat;
 use App\Models\Notifikasi;
 use App\Events\MessageSent;
 use App\Events\NotificationSent;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -146,6 +147,17 @@ class ChatController extends Controller
                 
                 // 🔥 BROADCAST NOTIFICATION REAL-TIME
                 broadcast(new NotificationSent($notification))->toOthers();
+                
+                // Firebase push notification
+                if ($penerima->fcm_token) {
+                    $firebaseService = app(FirebaseService::class);
+                    $firebaseService->sendNotification(
+                        $penerima->fcm_token,
+                        '💬 Pesan Baru dari ' . $senderRole,
+                        $user->name . ': ' . \Illuminate\Support\Str::limit($request->pesan, 50),
+                        ['type' => 'chat', 'chat_id' => $chat->id]
+                    );
+                }
             }
             
             return redirect()->back()->with('success', 'Pesan berhasil dikirim');
@@ -190,7 +202,7 @@ class ChatController extends Controller
             ]);
             
             // Kirim notifikasi ke penjual
-            Notifikasi::create([
+            $notifikasi = Notifikasi::create([
                 'user_id' => $request->penjual_id,
                 'judul' => 'Chat Baru',
                 'pesan' => 'Admin membuat chat dengan Anda',
@@ -198,6 +210,18 @@ class ChatController extends Controller
                 'referensi_id' => $chat->id,
                 'is_read' => false
             ]);
+            
+            // Firebase push notification
+            $penjual = \App\Models\User::find($request->penjual_id);
+            if ($penjual && $penjual->fcm_token) {
+                $firebaseService = app(FirebaseService::class);
+                $firebaseService->sendNotification(
+                    $penjual->fcm_token,
+                    '💬 Chat Baru',
+                    'Admin membuat chat dengan Anda',
+                    ['type' => 'chat', 'chat_id' => $chat->id]
+                );
+            }
             
             return redirect()->route('chat.show', $chat->id)
                 ->with('success', 'Chat berhasil dibuat');

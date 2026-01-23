@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
@@ -91,37 +92,73 @@ class AuthController extends Controller
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(Request $request)
     {
         try {
+            Log::info('=== Google Callback Started ===');
+            
             $googleUser = Socialite::driver('google')->user();
             
-            // Cari user berdasarkan email
-            $user = User::where('email', $googleUser->email)->first();
+            Log::info('Google User Data', [
+                'email' => $googleUser->email,
+                'name' => $googleUser->name,
+                'id' => $googleUser->id
+            ]);
+            
+            // Cari user berdasarkan email atau google_id
+            $user = User::where('email', $googleUser->email)
+                ->orWhere('google_id', $googleUser->id)
+                ->first();
             
             if ($user) {
-                // User sudah ada, langsung login
-                Auth::login($user);
+                // User sudah ada
+                if (!$user->google_id) {
+                    $user->update(['google_id' => $googleUser->id]);
+                }
+                Log::info('Existing user found', ['user_id' => $user->id]);
             } else {
                 // User belum ada, buat akun baru
+                // Generate unique no_hp untuk Google user
+                $uniquePhone = 'google_' . $googleUser->id;
+                
                 $user = User::create([
                     'name' => $googleUser->name,
                     'email' => $googleUser->email,
-                    'password' => Hash::make(Str::random(24)), // Random password karena login via Google
-                    'no_hp' => '-', // Default karena Google tidak memberikan no HP
-                    'alamat' => '-', // Default
-                    'role' => 'user', // Default role untuk Google login
+                    'password' => Hash::make(Str::random(24)),
+                    'no_hp' => $uniquePhone, // Unique per Google user
+                    'alamat' => 'Belum diisi',
+                    'role' => 'user',
                     'status' => 'aktif',
-                    'status_approval' => 'approved', // Auto approved untuk user biasa
+                    'status_approval' => 'approved',
+                    'google_id' => $googleUser->id,
                 ]);
-                
-                Auth::login($user);
+                Log::info('New user created', ['user_id' => $user->id]);
             }
             
-            return redirect('/dashboard')->with('success', 'Login dengan Google berhasil!');
+            // Login dengan remember me
+            Auth::login($user, true);
+            
+            // Regenerate session
+            $request->session()->regenerate();
+            
+            Log::info('Auth check after login', [
+                'authenticated' => Auth::check(),
+                'user_id' => Auth::id()
+            ]);
+            
+            // Redirect berdasarkan role
+            if ($user->role === 'user') {
+                return redirect()->route('pembeli.dashboard')->with('success', 'Login dengan Google berhasil!');
+            } else {
+                return redirect()->route('dashboard')->with('success', 'Login dengan Google berhasil!');
+            }
             
         } catch (\Exception $e) {
-            return redirect('/login')->with('error', 'Gagal login dengan Google. Silakan coba lagi.');
+            Log::error('Google Login Failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return redirect('/login')->withErrors(['error' => 'Gagal login dengan Google: ' . $e->getMessage()]);
         }
     }
 

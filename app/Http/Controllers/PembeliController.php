@@ -19,64 +19,44 @@ class PembeliController extends Controller
         $recentOrders = Pesanan::with(['produk.user', 'produk.kategori'])
             ->where('user_id', Auth::id())
             ->orderBy('created_at', 'desc')
-            ->take(3)
+            ->take(5)
             ->get();
         
         // Get order statistics
         $totalOrders = Pesanan::where('user_id', Auth::id())->count();
-        $activeOrders = Pesanan::where('user_id', Auth::id())
-            ->whereIn('status', ['menunggu', 'diproses', 'dikirim'])
+        
+        // Status pesanan (pending, diproses, dikirim, selesai, dibatalkan sesuai migration)
+        $pendingOrders = Pesanan::where('user_id', Auth::id())
+            ->where('status', 'pending')
             ->count();
+            
+        $diprosesOrders = Pesanan::where('user_id', Auth::id())
+            ->where('status', 'diproses')
+            ->count();
+            
+        $dikirimOrders = Pesanan::where('user_id', Auth::id())
+            ->where('status', 'dikirim')
+            ->count();
+            
         $completedOrders = Pesanan::where('user_id', Auth::id())
             ->where('status', 'selesai')
             ->count();
+        
+        // Total pengeluaran - SEMUA pesanan (termasuk yang sedang diproses)
+        // Ini yang akan update real-time sesuai dengan setiap pembelian baru
         $totalSpent = Pesanan::where('user_id', Auth::id())
-            ->where('status', 'selesai')
+            ->whereNotIn('status', ['dibatalkan']) // Exclude hanya yang dibatalkan
             ->sum('total');
-        
-        // Get monthly spending data for chart (last 6 months)
-        $monthlySpending = [];
-        $monthlyOrders = [];
-        $monthLabels = [];
-        
-        for ($i = 5; $i >= 0; $i--) {
-            $date = now()->subMonths($i);
-            $monthLabels[] = $date->format('M Y');
-            
-            $spending = Pesanan::where('user_id', Auth::id())
-                ->whereYear('created_at', $date->year)
-                ->whereMonth('created_at', $date->month)
-                ->where('status', 'selesai')
-                ->sum('total');
-            $monthlySpending[] = $spending;
-            
-            $orders = Pesanan::where('user_id', Auth::id())
-                ->whereYear('created_at', $date->year)
-                ->whereMonth('created_at', $date->month)
-                ->count();
-            $monthlyOrders[] = $orders;
-        }
-        
-        // Get order status distribution
-        $statusData = [
-            'menunggu' => Pesanan::where('user_id', Auth::id())->where('status', 'menunggu')->count(),
-            'diproses' => Pesanan::where('user_id', Auth::id())->where('status', 'diproses')->count(),
-            'dikirim' => Pesanan::where('user_id', Auth::id())->where('status', 'dikirim')->count(),
-            'selesai' => Pesanan::where('user_id', Auth::id())->where('status', 'selesai')->count(),
-            'dibatalkan' => Pesanan::where('user_id', Auth::id())->where('status', 'dibatalkan')->count(),
-        ];
         
         return view('pembeli.dashboard', compact(
             'user', 
             'recentOrders', 
             'totalOrders', 
-            'activeOrders', 
+            'pendingOrders',
+            'diprosesOrders',
+            'dikirimOrders',
             'completedOrders', 
-            'totalSpent',
-            'monthlySpending',
-            'monthlyOrders',
-            'monthLabels',
-            'statusData'
+            'totalSpent'
         ));
     }
     

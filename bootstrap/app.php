@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'approved.seller' => \App\Http\Middleware\ApprovedSeller::class,
             'role' => \App\Http\Middleware\CheckRole::class,
+            'seller.verified' => \App\Http\Middleware\CheckSellerVerified::class,
         ]);
         
         // Exclude file inputs from TrimStrings middleware

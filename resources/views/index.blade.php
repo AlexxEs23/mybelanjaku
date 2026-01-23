@@ -227,9 +227,9 @@
             </div>
             
             <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
-                CheckoutAja Bukan<br/>
+                Buat Produkmu Lebih Dekat Dengan Pembelimu<br/>
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-yellow-200">
-                    Marketplace Biasa
+                    Checkoutaja.com
                 </span>
             </h1>
             

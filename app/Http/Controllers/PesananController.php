@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pesanan;
 use App\Models\Notifikasi;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,6 +105,9 @@ class PesananController extends Controller
 
         // Kirim notifikasi ke pembeli jika ada user_id
         if ($pesanan->user_id) {
+            $firebaseService = app(FirebaseService::class);
+            
+            // Notifikasi database
             Notifikasi::create([
                 'user_id' => $pesanan->user_id,
                 'judul' => 'Pesanan Dikirim',
@@ -113,6 +117,16 @@ class PesananController extends Controller
                 'link' => route('pembeli.pesanan.index'),
                 'dibaca' => false
             ]);
+            
+            // Firebase push notification
+            if ($pesanan->user && $pesanan->user->fcm_token) {
+                $firebaseService->sendNotification(
+                    $pesanan->user->fcm_token,
+                    '📦 Pesanan Dikirim',
+                    'Pesanan Anda telah dikirim dengan resi: ' . $request->resi,
+                    ['type' => 'pesanan', 'pesanan_id' => $pesanan->id]
+                );
+            }
         }
 
         return redirect()->route('penjual.pesanan.index')
@@ -136,6 +150,9 @@ class PesananController extends Controller
 
         // Kirim notifikasi ke penjual
         $penjual = $pesanan->produk->user;
+        $firebaseService = app(FirebaseService::class);
+        
+        // Notifikasi database
         Notifikasi::create([
             'user_id' => $penjual->id,
             'judul' => 'Pesanan Selesai',
@@ -145,6 +162,16 @@ class PesananController extends Controller
             'link' => route('penjual.pesanan.index'),
             'dibaca' => false
         ]);
+        
+        // Firebase push notification
+        if ($penjual->fcm_token) {
+            $firebaseService->sendNotification(
+                $penjual->fcm_token,
+                '✅ Pesanan Selesai',
+                'Pesanan #' . $pesanan->id . ' dikonfirmasi diterima pembeli',
+                ['type' => 'pesanan', 'pesanan_id' => $pesanan->id]
+            );
+        }
 
         return redirect()->back()->with('success', 'Terima kasih! Pesanan berhasil dikonfirmasi sebagai diterima.');
     }

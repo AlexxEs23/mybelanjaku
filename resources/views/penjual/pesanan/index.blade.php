@@ -99,7 +99,7 @@
                                 <div class="mt-4 pt-4 border-t border-gray-200 flex gap-3">
                                     <a href="{{ route('penjual.pesanan.resi-form', $item->id) }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                                         <span>📦</span>
-                                        <span>Input Resi & Kirim</span>
+                                        <span class="text-black">Input Resi & Kirim</span>
                                     </a>
                                 </div>
                             @elseif($item->status === 'pending')
@@ -142,7 +142,7 @@
             <h3 class="text-2xl font-bold text-gray-700 mb-3">Belum Ada Pesanan</h3>
             <p class="text-gray-500 mb-2 text-lg">Pesanan dari pembeli akan muncul di sini</p>
             <p class="text-gray-400 text-sm mb-6">Pesanan akan muncul setelah pembeli melakukan checkout via WhatsApp</p>
-            <a href="{{ url('/produk') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl">
+            <a href="{{ url('/produk') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-black rounded-xl hover:from-purple-700 hover:to-indigo-700 transition-all duration-200 font-bold shadow-lg hover:shadow-xl">
                 <span>📦</span>
                 <span>Lihat Produk Saya</span>
             </a>

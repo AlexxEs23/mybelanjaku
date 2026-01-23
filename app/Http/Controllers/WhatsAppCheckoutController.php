@@ -6,6 +6,7 @@ use App\Models\Produk;
 use App\Models\Pesanan;
 use App\Models\Notifikasi;
 use App\Models\User;
+use App\Services\FirebaseService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -87,7 +88,10 @@ class WhatsAppCheckoutController extends Controller
 
             // ✅ NOTIFIKASI KE ADMIN - Pesanan Baru
             $admins = User::where('role', 'admin')->get();
+            $firebaseService = app(FirebaseService::class);
+            
             foreach ($admins as $admin) {
+                // Notifikasi database
                 Notifikasi::create([
                     'user_id' => $admin->id,
                     'judul' => 'Pesanan Baru #' . $pesanan->id,
@@ -97,6 +101,16 @@ class WhatsAppCheckoutController extends Controller
                     'link' => route('admin.pesanan.index'),
                     'dibaca' => false
                 ]);
+                
+                // Firebase push notification
+                if ($admin->fcm_token) {
+                    $firebaseService->sendNotification(
+                        $admin->fcm_token,
+                        '🛒 Pesanan Baru #' . $pesanan->id,
+                        $userName . ' memesan ' . $produk->nama_produk,
+                        ['type' => 'pesanan', 'pesanan_id' => $pesanan->id]
+                    );
+                }
             }
 
             // Build WhatsApp message

@@ -173,8 +173,17 @@
             }
         }
 
-        // ATTACH EVENT LISTENER KE BUTTON
-        document.addEventListener('DOMContentLoaded', function() {
+        // ATTACH EVENT LISTENER KE BUTTON - Export ke global window
+        window.enableNotificationsHandler = enableNotifications;
+        
+        // Tunggu DOM ready baru attach
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', attachListener);
+        } else {
+            attachListener();
+        }
+        
+        function attachListener() {
             const btn = document.getElementById('enable-notif-btn');
             if (btn) {
                 btn.addEventListener('click', enableNotifications);
@@ -182,7 +191,73 @@
             } else {
                 console.error('❌ Button tidak ditemukan!');
             }
-        });
+            
+            // AUTO-PROMPT: Cek apakah user belum aktifkan notif
+            checkAndPromptNotification();
+        }
+        
+        // Fungsi untuk otomatis menampilkan prompt notifikasi
+        async function checkAndPromptNotification() {
+            try {
+                // Cek apakah user sudah pernah klik (localStorage)
+                const hasPrompted = localStorage.getItem('notification-prompted');
+                
+                // Cek permission saat ini
+                const permission = Notification.permission;
+                
+                // Jika belum pernah prompt DAN permission masih default
+                if (!hasPrompted && permission === 'default') {
+                    // Tunggu 2 detik setelah halaman load (agar tidak mengganggu)
+                    setTimeout(() => {
+                        showNotificationModal();
+                    }, 2000);
+                }
+            } catch (e) {
+                console.log('Browser tidak support notification:', e);
+            }
+        }
+        
+        // Tampilkan modal yang menarik untuk aktifkan notifikasi
+        function showNotificationModal() {
+            const modal = document.createElement('div');
+            modal.id = 'notification-modal';
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl transform transition-all">
+                    <div class="text-center">
+                        <div class="text-6xl mb-4">🔔</div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">Aktifkan Notifikasi</h3>
+                        <p class="text-gray-600 mb-6">
+                            Dapatkan notifikasi real-time untuk pesanan, chat, dan update penting lainnya!
+                        </p>
+                        <div class="flex gap-3">
+                            <button onclick="dismissNotificationModal()" class="flex-1 px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition font-medium">
+                                Nanti Saja
+                            </button>
+                            <button onclick="activateFromModal()" class="flex-1 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                                Aktifkan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            
+            // Simpan bahwa sudah pernah ditampilkan
+            localStorage.setItem('notification-prompted', 'true');
+        }
+        
+        // Fungsi global untuk dismiss modal
+        window.dismissNotificationModal = function() {
+            const modal = document.getElementById('notification-modal');
+            if (modal) modal.remove();
+        };
+        
+        // Fungsi global untuk aktifkan dari modal
+        window.activateFromModal = async function() {
+            dismissNotificationModal();
+            await enableNotifications();
+        };
     </script>
 
     <style>

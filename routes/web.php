@@ -127,6 +127,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [App\Http\Controllers\ProfilController::class, 'update'])->name('profile.update');
     Route::post('/profile/apply-seller', [App\Http\Controllers\ProfilController::class, 'applySeller'])->name('profile.apply-seller');
     
+    // Pendaftaran Penjual UMKM
+    Route::get('/profile-umkm', [App\Http\Controllers\ProfileUmkmController::class, 'index'])->name('profile-umkm.index');
+    Route::post('/profile-umkm', [App\Http\Controllers\ProfileUmkmController::class, 'store'])->name('profile-umkm.store');
+    
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
     // Save FCM Token for Push Notifications
@@ -166,8 +170,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [App\Http\Controllers\ChatController::class, 'create'])->name('create');
     });
     
-    // CRUD Produk - hanya untuk admin dan penjual yang sudah approved
-    Route::middleware('approved.seller')->group(function () {
+    // CRUD Produk - hanya untuk admin dan penjual yang sudah approved dan verified
+    Route::middleware(['approved.seller', 'seller.verified'])->group(function () {
         Route::get('/produk', [App\Http\Controllers\ProdukController::class, 'index'])->name('produk.index');
         Route::get('/produk/create', [App\Http\Controllers\ProdukController::class, 'create'])->name('produk.create');
         Route::post('/produk', [App\Http\Controllers\ProdukController::class, 'store'])->name('produk.store');

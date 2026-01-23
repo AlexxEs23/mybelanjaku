@@ -328,28 +328,6 @@
     </div>
 
 <!-- Tips untuk Penjual -->
-<div class="bg-purple-50 rounded-2xl shadow-xl p-4 md:p-6 border-2 border-purple-200 mb-6">
-    <h3 class="text-lg md:text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-        <span>💡</span> Tips Sukses Berjualan
-    </h3>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 border-t-4 border-yellow-400">
-            <div class="text-3xl md:text-4xl mb-3">📸</div>
-            <h4 class="font-semibold text-gray-800 mb-2">Foto Produk Menarik</h4>
-            <p class="text-sm text-gray-600">Gunakan foto berkualitas tinggi dan jelas untuk menarik pembeli</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 border-t-4 border-blue-400">
-            <div class="text-3xl md:text-4xl mb-3">💬</div>
-            <h4 class="font-semibold text-gray-800 mb-2">Deskripsi Lengkap</h4>
-            <p class="text-sm text-gray-600">Jelaskan detail produk dengan lengkap dan jujur</p>
-        </div>
-        <div class="bg-white rounded-xl p-4 md:p-5 shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-1 border-t-4 border-green-400">
-            <div class="text-3xl md:text-4xl mb-3">⚡</div>
-            <h4 class="font-semibold text-gray-800 mb-2">Respon Cepat</h4>
-            <p class="text-sm text-gray-600">Balas pesan WhatsApp dari pembeli dengan cepat</p>
-        </div>
-    </div>
-</div>
 
 <!-- Recent Activity -->
 <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
