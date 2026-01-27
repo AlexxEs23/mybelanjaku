@@ -29,14 +29,17 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}" alt="CheckoutAja Logo" class="h-10 w-auto">
-                    <h1 class="text-2xl font-bold">
+                    <img src="{{ asset('img/logo.png') }}" 
+                         alt="CheckoutAja Logo" 
+                         class="h-10 w-auto"
+                         onerror="this.onerror=null; this.src='{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}';">
+                    <h1 class="text-xl sm:text-2xl font-bold hidden sm:block">
                         <span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">My</span><span class="text-purple-700">Belanja</span><span class="bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent">Mu</span>
                     </h1>
                 </a>
                 
-                <!-- Search Bar -->
-                <div class="flex-1 max-w-2xl mx-8">
+                <!-- Search Bar - Desktop -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
                     <div class="relative">
                         <input type="text" placeholder="Cari produk, toko, atau kategori..." 
                                class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
@@ -46,8 +49,8 @@
                     </div>
                 </div>
                 
-                <!-- Right Menu -->
-                <div class="flex items-center gap-4">
+                <!-- Right Menu - Desktop -->
+                <div class="hidden sm:flex items-center gap-4">
                     @auth
                         <div class="relative group">
                             <button class="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition">
@@ -81,6 +84,47 @@
                                 </div>
                             </div>
                         </div>
+                    @endauth
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn-pesanan" class="sm:hidden p-2 text-gray-700 hover:text-purple-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="block md:hidden py-3 border-t border-gray-100">
+                <div class="relative">
+                    <input type="text" placeholder="Cari produk..." 
+                           class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
+                    <button class="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                        🔍
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu-pesanan" class="hidden sm:hidden pb-4 border-t border-gray-200 mt-2">
+                <div class="flex flex-col gap-2 pt-4">
+                    @auth
+                        <a href="{{ route('pembeli.dashboard') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                            <span class="text-xl">📊</span>
+                            <span class="text-gray-700">Dashboard</span>
+                        </a>
+                        <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                            <span class="text-xl">👤</span>
+                            <span class="text-gray-700">Profil Saya</span>
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}" class="px-4">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-3 py-2 hover:bg-red-50 text-red-600 rounded transition">
+                                <span class="text-xl">🚪</span>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
                     @endauth
                 </div>
             </div>
@@ -293,6 +337,18 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn-pesanan');
+            const mobileMenu = document.getElementById('mobile-menu-pesanan');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+
         // Filter functionality
         const filterButtons = document.querySelectorAll('[data-filter]');
         const orderCards = document.querySelectorAll('.order-card');

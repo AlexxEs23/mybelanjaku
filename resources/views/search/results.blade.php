@@ -29,13 +29,16 @@
             <div class="flex justify-between items-center py-3 sm:py-4">
                 <!-- Logo -->
                 <a href="{{ route('home') }}" class="flex items-center gap-2">
-                    <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p-removebg-preview.png') }}" alt="CheckoutAja.com Logo" class="h-10 sm:h-12 w-auto">
-                    <h1 class="text-lg sm:text-2xl font-bold">
+                    <img src="{{ asset('img/logo.png') }}" 
+                         alt="CheckoutAja.com Logo" 
+                         class="h-10 sm:h-12 w-auto"
+                         onerror="this.onerror=null; this.src='{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}';">
+                    <h1 class="text-lg sm:text-2xl font-bold hidden sm:block">
                         <span class="text-purple-700">CheckoutAja.com</span>
                     </h1>
                 </a>
                 
-                <!-- Search Bar -->
+                <!-- Search Bar - Desktop -->
                 <div class="hidden md:flex flex-1 max-w-2xl mx-8">
                     <form action="{{ route('search') }}" method="GET" class="w-full">
                         <div class="relative">
@@ -50,7 +53,7 @@
                 </div>
                 
                 <!-- Right Menu -->
-                <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-4">
                     @guest
                         <a href="{{ url('/login') }}" class="px-4 py-2 text-purple-600 border-2 border-purple-600 rounded-lg hover:bg-purple-50 transition font-medium">
                             Masuk
@@ -60,6 +63,45 @@
                         </a>
                     @else
                         <a href="{{ route('dashboard') }}" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition font-medium">
+                            Dashboard
+                        </a>
+                    @endguest
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="sm:hidden p-2 text-gray-700 hover:text-purple-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Search Bar -->
+            <div class="block md:hidden py-3 border-t border-gray-100">
+                <form action="{{ route('search') }}" method="GET" class="w-full">
+                    <div class="relative">
+                        <input type="text" name="q" placeholder="Cari produk..." 
+                               value="{{ $query }}"
+                               class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
+                        <button type="submit" class="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                            🔍
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden sm:hidden pb-4 border-t border-gray-200 mt-2">
+                <div class="flex flex-col gap-2 pt-4">
+                    @guest
+                        <a href="{{ url('/login') }}" class="px-4 py-2 text-purple-600 font-semibold hover:bg-purple-50 rounded transition">
+                            Masuk
+                        </a>
+                        <a href="{{ url('/register') }}" class="mx-4 py-2 bg-purple-600 text-white text-center font-semibold rounded-lg hover:bg-purple-700 transition">
+                            Daftar
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="px-4 py-2 text-gray-700 hover:bg-purple-50 rounded transition">
                             Dashboard
                         </a>
                     @endguest
@@ -217,7 +259,10 @@
                 <!-- About -->
                 <div>
                     <div class="flex items-center gap-2 mb-4">
-                        <img src="{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}" alt="CheckoutAja Logo" class="h-10 w-auto">
+                        <img src="{{ asset('img/logo.png') }}" 
+                             alt="CheckoutAja Logo" 
+                             class="h-10 w-auto"
+                             onerror="this.onerror=null; this.src='{{ asset('img/Gemini_Generated_Image_pt2ptxpt2ptxpt2p.png') }}';">
                         <h3 class="text-xl font-bold">
                             <span class="text-purple-200">My</span><span class="text-white">Belanja</span><span class="text-purple-200">Mu</span>
                         </h3>
@@ -264,6 +309,20 @@
             </div>
         </div>
     </footer>
+
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>

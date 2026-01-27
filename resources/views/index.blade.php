@@ -182,6 +182,22 @@
                     @endguest
                 </div>
             </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="block md:hidden py-3 border-t border-gray-100">
+                <form action="{{ route('search') }}" method="GET" class="w-full">
+                    <div class="relative">
+                        <input type="text" 
+                               name="q" 
+                               placeholder="Cari produk..." 
+                               value="{{ request('q') }}"
+                               class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-primary">
+                        <button type="submit" class="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                            🔍
+                        </button>
+                    </div>
+                </form>
+            </div>
             
             <!-- Category Menu -->
             <div class="border-t border-gray-100 py-3 sm:py-4 -mx-3 sm:mx-0 px-3 sm:px-0">

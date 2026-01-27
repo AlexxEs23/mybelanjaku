@@ -122,11 +122,11 @@
                 <!-- Logo -->
                 <a href="{{ url('/') }}" class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">CheckoutAja</h1>
+                    <h1 class="text-xl sm:text-2xl font-bold text-purple-700">CheckoutAja</h1>
                 </a>
                 
-                <!-- Search Bar -->
-                <div class="flex-1 max-w-2xl mx-8">
+                <!-- Search Bar - Desktop -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
                     <div class="relative">
                         <input type="text" placeholder="Cari produk, toko, atau kategori..." 
                                class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
@@ -136,8 +136,8 @@
                     </div>
                 </div>
                 
-                <!-- Right Menu -->
-                <div class="flex items-center gap-4">
+                <!-- Right Menu - Desktop -->
+                <div class="hidden sm:flex items-center gap-4">
                     <button class="relative">
                         <span class="text-2xl">🛒</span>
                         <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
@@ -202,6 +202,72 @@
                         </div>
                     @endguest
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn-app" class="sm:hidden p-2 text-gray-700 hover:text-purple-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Search Bar -->
+            <div class="block md:hidden py-3 border-t border-gray-100">
+                <div class="relative">
+                    <input type="text" placeholder="Cari produk..." 
+                           class="w-full px-4 py-2 pr-12 border-2 border-purple-600 rounded-lg focus:outline-none focus:border-purple-700">
+                    <button class="absolute right-0 top-0 h-full px-4 bg-purple-600 text-white rounded-r-lg hover:bg-purple-700 transition">
+                        🔍
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu-app" class="hidden sm:hidden pb-4 border-t border-gray-200 mt-2">
+                <div class="flex flex-col gap-2 pt-4">
+                    @guest
+                        <a href="{{ url('/login') }}" class="px-4 py-2 text-purple-600 font-semibold hover:bg-purple-50 rounded transition">
+                            Masuk
+                        </a>
+                        <a href="{{ url('/register') }}" class="mx-4 py-2 bg-gradient-to-r from-purple-600 to-purple-800 text-white text-center rounded-lg hover:shadow-lg transition">
+                            Daftar
+                        </a>
+                    @else
+                        @if(Auth::user()->role === 'admin' || Auth::user()->role === 'penjual')
+                            <a href="{{ url('/dashboard') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                                <span class="text-xl">📊</span>
+                                <span class="text-gray-700">Dashboard</span>
+                            </a>
+                        @endif
+                        
+                        <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                            <span class="text-xl">👤</span>
+                            <span class="text-gray-700">Profil Saya</span>
+                        </a>
+                        
+                        @if(Auth::user()->role === 'pembeli' || Auth::user()->role === 'user')
+                            <a href="{{ route('pembeli.pesanan.index') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                                <span class="text-xl">📦</span>
+                                <span class="text-gray-700">Pesanan Saya</span>
+                            </a>
+                        @endif
+                        
+                        @if(Auth::user()->role === 'penjual' && Auth::user()->status_approval === 'approved')
+                            <a href="{{ route('produk.index') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                                <span class="text-xl">📦</span>
+                                <span class="text-gray-700">Produk Saya</span>
+                            </a>
+                        @endif
+                        
+                        <form method="POST" action="{{ route('logout') }}" class="px-4">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-3 py-2 hover:bg-red-50 text-red-600 rounded transition">
+                                <span class="text-xl">🚪</span>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
+                    @endguest
+                </div>
             </div>
         </div>
     </nav>
@@ -233,8 +299,18 @@
         }
     </style>
     <script>
-        // Auto dismiss alerts after 5 seconds
+        // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn-app');
+            const mobileMenu = document.getElementById('mobile-menu-app');
+            
+            if (mobileMenuBtn && mobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+
+            // Auto dismiss alerts after 5 seconds
             const alerts = document.querySelectorAll('[id^="alert-"]');
             alerts.forEach(alert => {
                 setTimeout(() => {

@@ -29,10 +29,10 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center gap-2">
                     <span class="text-3xl">🛒</span>
-                    <h1 class="text-2xl font-bold text-purple-700">CheckoutAja</h1>
+                    <h1 class="text-xl sm:text-2xl font-bold text-purple-700">CheckoutAja</h1>
                 </div>
                 
-                <div class="flex items-center gap-4">
+                <div class="hidden sm:flex items-center gap-4">
                     @auth
                         <div class="relative group">
                             <button class="flex items-center gap-2 px-4 py-2 bg-purple-100 rounded-lg hover:bg-purple-200 transition">
@@ -67,6 +67,40 @@
                         </div>
                     @else
                         <a href="{{ route('login') }}" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition">
+                            Login
+                        </a>
+                    @endauth
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn-checkout" class="sm:hidden p-2 text-gray-700 hover:text-purple-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu-checkout" class="hidden sm:hidden pb-4 border-t border-gray-200 mt-2">
+                <div class="flex flex-col gap-2 pt-4">
+                    @auth
+                        <a href="{{ route('pembeli.dashboard') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                            <span class="text-xl">📊</span>
+                            <span class="text-gray-700">Dashboard</span>
+                        </a>
+                        <a href="{{ route('profile.show') }}" class="flex items-center gap-3 px-4 py-2 hover:bg-purple-50 rounded transition">
+                            <span class="text-xl">👤</span>
+                            <span class="text-gray-700">Profil Saya</span>
+                        </a>
+                        <form method="POST" action="{{ route('logout') }}" class="px-4">
+                            @csrf
+                            <button type="submit" class="w-full flex items-center gap-3 py-2 hover:bg-red-50 text-red-600 rounded transition">
+                                <span class="text-xl">🚪</span>
+                                <span>Keluar</span>
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="mx-4 py-2 bg-purple-600 text-white text-center rounded-lg hover:bg-purple-700 transition">
                             Login
                         </a>
                     @endauth
@@ -358,6 +392,16 @@ Apakah data sudah benar dan yakin melanjutkan?
 
         // Initialize total on page load
         updateTotal();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn-checkout');
+        const mobileMenu = document.getElementById('mobile-menu-checkout');
+        
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
     </script>
 </body>
 </html>
