@@ -143,6 +143,11 @@ Route::middleware('auth')->group(function () {
     
     // Admin Routes - User Management
     Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+        // Admin Dashboard
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard');
+        })->name('dashboard');
+        
         Route::resource('users', UserController::class);
         Route::get('/seller-approval', [App\Http\Controllers\Admin\SellerApprovalController::class, 'index'])->name('seller.approval');
         Route::post('/seller-approval/{id}/approve', [App\Http\Controllers\Admin\SellerApprovalController::class, 'approve'])->name('seller.approve');
@@ -160,6 +165,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/baca', [App\Http\Controllers\NotifikasiController::class, 'markAsRead'])->name('markAsRead');
         Route::post('/baca-semua', [App\Http\Controllers\NotifikasiController::class, 'markAllAsRead'])->name('markAllAsRead');
         Route::delete('/{id}', [App\Http\Controllers\NotifikasiController::class, 'delete'])->name('delete');
+        
+        // API endpoints untuk AJAX
+        Route::get('/api/unread', [App\Http\Controllers\NotifikasiController::class, 'getUnread'])->name('api.unread');
+        Route::get('/api/count', [App\Http\Controllers\NotifikasiController::class, 'getCount'])->name('api.count');
     });
     
     // Chat Routes - hanya untuk admin dan penjual
@@ -169,6 +178,11 @@ Route::middleware('auth')->group(function () {
         Route::post('/{id}/kirim', [App\Http\Controllers\ChatController::class, 'kirimPesan'])->name('kirim');
         Route::post('/create', [App\Http\Controllers\ChatController::class, 'create'])->name('create');
     });
+    
+    // Penjual Dashboard Route
+    Route::get('/penjual/dashboard', function () {
+        return view('penjual.dashboard');
+    })->name('penjual.dashboard')->middleware(['approved.seller', 'seller.verified']);
     
     // CRUD Produk - hanya untuk admin dan penjual yang sudah approved dan verified
     Route::middleware(['approved.seller', 'seller.verified'])->group(function () {

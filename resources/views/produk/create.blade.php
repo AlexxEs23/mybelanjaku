@@ -176,7 +176,6 @@
                     previewContainer.classList.remove('hidden');
                 }
                 reader.readAsDataURL(file);
-                console.log('File selected:', file.name, 'Size:', file.size);
             } else {
                 previewContainer.classList.add('hidden');
             }

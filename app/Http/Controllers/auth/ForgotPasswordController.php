@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -39,13 +40,33 @@ class ForgotPasswordController extends Controller
         // Cek apakah user login via Google
         $user = User::where('email', $request->email)->first();
         
-        // Jika user memiliki google_id (atau field lain yang mengidentifikasi login Google)
-        // Anda bisa menambahkan field 'google_id' di tabel users untuk identifikasi
-        // Untuk saat ini kita asumsikan user yang password-nya null adalah user Google
+        // Jika user memiliki google_id atau password kosong (login via Google)
         if (empty($user->password)) {
             return back()->withErrors([
                 'email' => 'Akun Anda menggunakan login Google. Silakan login menggunakan tombol "Login dengan Google".'
             ]);
+        }
+
+        // Cek konfigurasi email
+        $mailDefault = config('mail.default');
+        
+        // Jika email tidak dikonfigurasi atau menggunakan 'log'
+        if ($mailDefault === 'log') {
+            // Alternatif: Redirect ke WhatsApp admin
+            $adminWhatsApp = '6281234567890'; // Ganti dengan nomor WhatsApp admin
+            $message = urlencode(
+                "Halo Admin CheckoutAja,\n\n" .
+                "Saya ingin reset password untuk akun:\n" .
+                "Email: {$request->email}\n" .
+                "Nama: {$user->name}\n\n" .
+                "Mohon bantuannya. Terima kasih!"
+            );
+            $whatsappUrl = "https://wa.me/{$adminWhatsApp}?text={$message}";
+            
+            return back()->with('info', 
+                'Email belum dikonfigurasi. Silakan hubungi admin melalui WhatsApp untuk reset password Anda. ' .
+                '<a href="' . $whatsappUrl . '" target="_blank" class="font-bold underline text-blue-600">Hubungi Admin via WhatsApp</a>'
+            );
         }
 
         // Generate token
@@ -74,8 +95,13 @@ class ForgotPasswordController extends Controller
 
             return back()->with('success', 'Link reset password telah dikirim ke email Anda. Silakan cek inbox atau folder spam.');
         } catch (\Exception $e) {
+            // Log error untuk debugging
+            Log::error('Failed to send reset email: ' . $e->getMessage());
+            
+            // Tampilkan pesan error yang user-friendly
             return back()->withErrors([
-                'email' => 'Gagal mengirim email. Silakan coba lagi atau hubungi administrator.'
+                'email' => 'Gagal mengirim email. Email mungkin belum dikonfigurasi dengan benar. ' .
+                         'Silakan hubungi administrator atau gunakan metode login alternatif.'
             ])->withInput();
         }
     }

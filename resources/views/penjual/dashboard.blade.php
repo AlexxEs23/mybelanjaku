@@ -33,11 +33,8 @@
                 const permission = await Notification.requestPermission();
                 
                 if (permission === 'granted') {
-                    console.log('✅ Notifikasi diizinkan');
-                    
                     // Register Service Worker
                     const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-                    console.log('✅ Service Worker registered:', registration);
                     
                     // Ambil FCM Token
                     const token = await getToken(messaging, { 
@@ -46,8 +43,6 @@
                     });
                     
                     if (token) {
-                        console.log('🔥 FCM Token:', token);
-                        
                         // Kirim token ke Laravel backend
                         const response = await fetch('/save-fcm-token', {
                             method: 'POST',
@@ -58,7 +53,6 @@
                         });
                         
                         const data = await response.json();
-                        console.log('✅ Token disimpan:', data);
                         
                         // Update UI
                         if (button) button.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/></svg> Notifikasi Aktif';
@@ -74,15 +68,12 @@
                     }
                     
                 } else if (permission === 'denied') {
-                    console.log('❌ Notifikasi ditolak oleh user');
                     if (statusText) statusText.textContent = '❌ Notifikasi ditolak. Aktifkan di pengaturan browser.';
                     if (statusText) statusText.classList.add('text-red-600');
                 } else {
-                    console.log('⚠️ Notifikasi default (belum ditentukan)');
                 }
                 
             } catch (error) {
-                console.error('❌ Error saat enable notifikasi:', error);
                 if (statusText) statusText.textContent = '❌ Gagal mengaktifkan notifikasi: ' + error.message;
                 if (statusText) statusText.classList.add('text-red-600');
             }
@@ -90,8 +81,6 @@
 
         // 5. Terima notifikasi saat website/tab sedang aktif (foreground)
         onMessage(messaging, (payload) => {
-            console.log('📩 Notifikasi masuk (foreground):', payload);
-            
             // Tampilkan notifikasi browser
             const notificationTitle = payload.notification?.title || 'Notifikasi Baru';
             const notificationOptions = {

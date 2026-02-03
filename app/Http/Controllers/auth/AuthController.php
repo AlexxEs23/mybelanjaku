@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,17 +24,33 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required'
-        ]);
+    ]);
 
-        if (Auth::attempt($credentials, $request->filled('remember'))) {
-            $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success', 'Login berhasil! Selamat datang di UMKM Market.');
-        }
+    if (Auth::attempt($credentials, $request->filled('remember'))) {
+        $request->session()->regenerate();
 
-        return back()->withErrors([
-            'email' => 'Email atau password yang Anda masukkan salah.',
-        ])->withInput($request->only('email'));
+        $user = Auth::user(); // ambil user SETELAH login
+
+        return match ($user->role) {
+            'admin'   => redirect()->route('admin.dashboard')
+                          ->with('success', 'Login berhasil sebagai Admin'),
+            'penjual' => redirect()->route('penjual.dashboard')
+                          ->with('success', 'Login berhasil sebagai Penjual'),
+            'pembeli' => redirect()->route('home')
+                          ->with('success', 'Login berhasil! Selamat datang'),
+            'user'    => redirect()->route('home')
+                          ->with('success', 'Login berhasil! Selamat datang'),
+            default   => redirect()->route('home')
+                          ->with('success', 'Login berhasil! Selamat datang'),
+        };
     }
+
+    // login gagal
+    return back()->withErrors([
+        'email' => 'Email atau password yang Anda masukkan salah.',
+    ])->withInput($request->only('email'));
+    }
+
 
     public function register()
     {
@@ -74,7 +91,7 @@ class AuthController extends Controller
         Auth::login($user);
         $request->session()->regenerate();
 
-        return redirect('/dashboard')->with('success', 'Registrasi berhasil! Selamat datang di UMKM Market.');
+        return redirect()->route('home')->with('success', 'Registrasi berhasil! Selamat datang di CheckoutAja.');
     }
 
     public function logout(Request $request)
@@ -147,11 +164,18 @@ class AuthController extends Controller
             ]);
             
             // Redirect berdasarkan role
-            if ($user->role === 'user') {
-                return redirect()->route('pembeli.dashboard')->with('success', 'Login dengan Google berhasil!');
-            } else {
-                return redirect()->route('dashboard')->with('success', 'Login dengan Google berhasil!');
-            }
+            return match ($user->role) {
+                'admin'   => redirect()->route('admin.dashboard')
+                              ->with('success', 'Login dengan Google berhasil!'),
+                'penjual' => redirect()->route('penjual.dashboard')
+                              ->with('success', 'Login dengan Google berhasil!'),
+                'pembeli' => redirect()->route('home')
+                              ->with('success', 'Login dengan Google berhasil!'),
+                'user'    => redirect()->route('home')
+                              ->with('success', 'Login dengan Google berhasil!'),
+                default   => redirect()->route('home')
+                              ->with('success', 'Login dengan Google berhasil!'),
+            };
             
         } catch (\Exception $e) {
             Log::error('Google Login Failed', [

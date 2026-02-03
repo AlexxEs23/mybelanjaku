@@ -241,7 +241,7 @@
                 document.getElementById('total-spending').innerHTML = newSpending.innerHTML;
             }
         })
-        .catch(error => console.log('Auto-refresh error:', error));
+        .catch(error => {}); // Silent fail
     }, 30000); // Refresh setiap 30 detik
 </script>
 @endsection

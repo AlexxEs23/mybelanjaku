@@ -125,21 +125,14 @@
         // FUNGSI INTERNAL DI MODULE
         async function enableNotifications() {
             try {
-                console.log('🔔 Meminta izin notifikasi...');
-                
                 const permission = await Notification.requestPermission();
                 if (permission !== 'granted') {
                     alert('❌ Notifikasi ditolak');
                     return;
                 }
 
-                console.log('✅ Izin diberikan, registrasi service worker...');
                 const registration = await navigator.serviceWorker.register('/firebase-messaging-sw.js');
-                
-                console.log('⏳ Menunggu service worker siap...');
                 await navigator.serviceWorker.ready;
-
-                console.log('🔑 Mendapatkan FCM token...');
                 const token = await getToken(messaging, {
                     vapidKey: VAPID_KEY,
                     serviceWorkerRegistration: registration
@@ -148,8 +141,6 @@
                 if (!token) {
                     throw new Error('Token FCM kosong');
                 }
-
-                console.log('🔥 FCM Token:', token);
 
                 await fetch('/save-fcm-token', {
                     method: 'POST',
@@ -168,7 +159,6 @@
                 alert('✅ Notifikasi berhasil diaktifkan!');
 
             } catch (e) {
-                console.error('❌ Error:', e);
                 alert('❌ Gagal mengaktifkan notifikasi: ' + e.message);
             }
         }
@@ -187,9 +177,6 @@
             const btn = document.getElementById('enable-notif-btn');
             if (btn) {
                 btn.addEventListener('click', enableNotifications);
-                console.log('✅ Event listener terpasang ke button');
-            } else {
-                console.error('❌ Button tidak ditemukan!');
             }
             
             // AUTO-PROMPT: Cek apakah user belum aktifkan notif
@@ -213,7 +200,7 @@
                     }, 2000);
                 }
             } catch (e) {
-                console.log('Browser tidak support notification:', e);
+                // Silent fail for browsers that don't support notifications
             }
         }
         

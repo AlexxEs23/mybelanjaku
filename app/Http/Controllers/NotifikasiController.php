@@ -90,7 +90,7 @@ class NotifikasiController extends Controller
     public function getUnread()
     {
         $notifikasis = Notifikasi::where('user_id', Auth::id())
-            ->where('is_read', false)
+            ->where('dibaca', false)
             ->orderBy('created_at', 'desc')
             ->limit(10)
             ->get();
@@ -99,5 +99,17 @@ class NotifikasiController extends Controller
             'count' => $notifikasis->count(),
             'data' => $notifikasis
         ]);
+    }
+
+    /**
+     * ✅ GET NOTIFICATION COUNT (untuk badge counter real-time)
+     */
+    public function getCount()
+    {
+        $count = Notifikasi::where('user_id', Auth::id())
+            ->where('dibaca', false)
+            ->count();
+        
+        return response()->json(['count' => $count]);
     }
 }
